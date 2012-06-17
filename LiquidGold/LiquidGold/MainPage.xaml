@@ -28,12 +28,12 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox x:Name="VehicleList">
+            <ListBox x:Name="VehicleList" SelectionChanged="VehicleList_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <toolkit:WrapPanel Margin="5">
                             <Image Source="{Binding Image}" Width="50" Height="50"/>
-                            <TextBlock Text="{Binding Name}" Margin="5,5,0,5" Style="{StaticResource PhoneTextNormalStyle}"/>
+                            <TextBlock Text="{Binding Name}" Margin="5,5,0,5" Style="{StaticResource PhoneTextTitle2Style}"/>
                         </toolkit:WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

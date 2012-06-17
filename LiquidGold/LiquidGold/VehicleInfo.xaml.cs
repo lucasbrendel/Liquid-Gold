@@ -19,5 +19,16 @@ namespace LiquidGold
         {
             InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            string _name;
+            if (NavigationContext.QueryString.TryGetValue("Name", out _name))
+            {
+                VehicleName.Text = _name;
+            }
+        }
     }
 }

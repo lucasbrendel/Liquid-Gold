@@ -16,16 +16,25 @@ namespace LiquidGold
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        List<ViewModel.Vehicle> vehicles = new List<ViewModel.Vehicle>();
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-            List<ViewModel.Vehicle> vehicles = new List<ViewModel.Vehicle>();
+            
             vehicles.Add(new ViewModel.Vehicle() { Name = "Mazda", Image = "Icons/appbar.add.dark.png" });
             vehicles.Add(new ViewModel.Vehicle() { Name = "Toyota", Image = "Icons/appbar.cancel.dark.png" });
 
             VehicleList.ItemsSource = vehicles;
+        }
+
+        private void VehicleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (VehicleList.SelectedIndex != -1)
+            {
+                NavigationService.Navigate(new Uri("/VehicleInfo.xaml?Name=" + vehicles[VehicleList.SelectedIndex].Name, UriKind.Relative));
+            }
         }
     }
 }
