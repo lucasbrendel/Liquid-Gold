@@ -1,0 +1,154 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ExpressionBlendVersion>4.0.30816.0</ExpressionBlendVersion>
+		<ProjectGuid>{41aa3103-27bb-47f0-a09f-73ecb0709ab7}</ProjectGuid>
+		<SchemaVersion>2.0</SchemaVersion>
+		<ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>LiquidGoldSketchScreens</RootNamespace>
+		<AssemblyName>LiquidGoldSketch.Screens</AssemblyName>
+		<TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+		<SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+		<SilverlightApplication>false</SilverlightApplication>
+		<ValidateXaml>true</ValidateXaml>
+		<UsePlatformExtensions>false</UsePlatformExtensions>
+		<ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>..\Bin\Debug</OutputPath>
+		<DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+		<NoStdLib>true</NoStdLib>
+		<NoConfig>true</NoConfig>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>..\Bin\Release</OutputPath>
+		<DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+		<NoStdLib>true</NoStdLib>
+		<NoConfig>true</NoConfig>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="mscorlib" />
+		<Reference Include="System.Windows" />
+		<Reference Include="system" />
+		<Reference Include="System.Core" />
+		<Reference Include="System.Xml" />
+		<Reference Include="System.Net" />
+		<Reference Include="System.Windows.Browser" />
+	</ItemGroup>
+	<PropertyGroup>
+		<ExpressionBlendPrototypingEnabled>true</ExpressionBlendPrototypingEnabled>
+		<ExpressionBlendPrototypeHarness>false</ExpressionBlendPrototypeHarness>
+		<ExpressionBlendPrototypingNavigationScreenTemplateItemName>SketchFlowNavScreenWP</ExpressionBlendPrototypingNavigationScreenTemplateItemName>
+ 		<ExpressionBlendPrototypingComponentScreenTemplateItemName>SketchFlowCompScreenWP</ExpressionBlendPrototypingComponentScreenTemplateItemName>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="System.Windows.Controls" />
+		<Reference Include="System.Windows.Interactivity" />
+		<Reference Include="Microsoft.Expression.Interactions" />
+		<Reference Include="Microsoft.Expression.Prototyping.Interactivity" />
+		<Reference Include="Microsoft.Expression.Prototyping.Runtime" />
+		<Reference Include="Microsoft.Expression.Prototyping.SketchControls, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"/>
+		<Reference Include="WindowsPhone.Mockups">
+			<HintPath>..\ReferenceAssemblies\WindowsPhone.Mockups.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.Phone.Controls">
+			<HintPath>..\ReferenceAssemblies\Microsoft.Phone.Controls.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<Page Include="SketchStyles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="AppList.xaml">
+			<Generator>MSBuild:MarkupCompilePass1</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="Home.xaml">
+			<Generator>MSBuild:MarkupCompilePass1</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="Search.xaml">
+			<Generator>MSBuild:MarkupCompilePass1</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Include="Screen_1.xaml">
+			<Generator>MSBuild:MarkupCompilePass1</Generator>
+			<SubType>Designer</SubType>
+		</Page>
+		<Compile Include="AppList.xaml.cs">
+			<DependentUpon>AppList.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="Home.xaml.cs">
+			<DependentUpon>Home.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="Search.xaml.cs">
+			<DependentUpon>Search.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="Screen_1.xaml.cs">
+			<DependentUpon>Screen_1.xaml</DependentUpon>
+		</Compile>
+		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="..\Properties\Version.cs">
+			<Link>Properties\Version.cs</Link>
+		</Compile>
+		<Resource Include="Fonts\BuxtonSketch.ttf" />
+		<Resource Include="Fonts\SketchFlow Print.ttf" />
+		<Resource Include="Fonts\SegoeMarker.ttf" />
+		<Resource Include="Sketch.Flow" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="AppBarIcons\add.png" />
+		<Content Include="AppBarIcons\back.png" />
+		<Content Include="AppBarIcons\cancel.png" />
+		<Content Include="AppBarIcons\check.png" />
+		<Content Include="AppBarIcons\close.png" />
+		<Content Include="AppBarIcons\delete.png" />
+		<Content Include="AppBarIcons\download.png" />
+		<Content Include="AppBarIcons\edit.png" />
+		<Content Include="AppBarIcons\favs.png" />
+		<Content Include="AppBarIcons\camera.png" />
+		<Content Include="AppBarIcons\email.png" />
+		<Content Include="AppBarIcons\search.png" />
+		<Content Include="AppBarIcons\settings.png" />
+		<Content Include="AppBarIcons\video.png" />
+		<Content Include="AppBarIcons\folder.png" />
+		<Content Include="AppBarIcons\minus.png" />
+		<Content Include="AppBarIcons\new.png" />
+		<Content Include="AppBarIcons\next.png" />
+		<Content Include="AppBarIcons\questionmark.png" />
+		<Content Include="AppBarIcons\refresh.png" />
+		<Content Include="AppBarIcons\save.png" />
+		<Content Include="AppBarIcons\share.png" />
+		<Content Include="AppBarIcons\stop.png" />
+		<Content Include="AppBarIcons\sync.png" />
+		<Content Include="AppBarIcons\media.back.png" />
+		<Content Include="AppBarIcons\media.next.png" />
+		<Content Include="AppBarIcons\pause.png" />
+		<Content Include="AppBarIcons\play.png" />
+		<Content Include="AppBarIcons\upload.png" />
+		<Content Include="AppBarIcons\home.png" />
+	</ItemGroup>
+	<Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	 Other similar extension points exist, see Microsoft.Common.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

@@ -1,0 +1,160 @@
+﻿<mockups:WindowsPhoneChrome
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mockups="clr-namespace:Microsoft.Expression.Prototyping.WindowsPhone.Mockups;assembly=WindowsPhone.Mockups"
+    xmlns:pc="http://schemas.microsoft.com/prototyping/2010/controls"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:pi="http://schemas.microsoft.com/prototyping/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d"
+    x:Class="LiquidGoldSketchScreens.AppList"
+    x:Name="PhoneChrome">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="OrientationChanged">
+            <i:Interaction.Behaviors>
+                <ei:ConditionBehavior>
+                    <ei:ConditionalExpression>
+                        <ei:ComparisonCondition LeftOperand="{Binding PageOrientation, ElementName=PhoneChrome}"
+                                                RightOperand="Landscape" />
+                    </ei:ConditionalExpression>
+                </ei:ConditionBehavior>
+            </i:Interaction.Behaviors>
+            <mockups:GoToStateAction StateName="Landscape"
+                                     TargetObject="{Binding ElementName=LayoutRoot}"
+                                     TargetName="LayoutRoot" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="OrientationChanged">
+            <i:Interaction.Behaviors>
+                <ei:ConditionBehavior>
+                    <ei:ConditionalExpression>
+                        <ei:ComparisonCondition LeftOperand="{Binding PageOrientation, ElementName=PhoneChrome}"
+                                                RightOperand="Portrait" />
+                    </ei:ConditionalExpression>
+                </ei:ConditionBehavior>
+            </i:Interaction.Behaviors>
+            <mockups:GoToStateAction StateName="Portrait"
+                                     TargetObject="{Binding ElementName=LayoutRoot}"
+                                     TargetName="LayoutRoot" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <mockups:WindowsPhoneChrome.BackButton>
+        <Button Style="{StaticResource Chrome-Button}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <pi:NavigateBackAction />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/AppBarIcons/back.png" />
+        </Button>
+    </mockups:WindowsPhoneChrome.BackButton>
+
+    <mockups:WindowsPhoneChrome.HomeButton>
+        <Button Style="{StaticResource Chrome-Button}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <pi:NavigateToScreenAction TargetScreen="LiquidGoldSketchScreens.Home" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/AppBarIcons/home.png" />
+        </Button>
+    </mockups:WindowsPhoneChrome.HomeButton>
+
+    <mockups:WindowsPhoneChrome.SearchButton>
+        <Button Style="{StaticResource Chrome-Button}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <pi:NavigateToScreenAction TargetScreen="LiquidGoldSketchScreens.Search" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Image Source="/AppBarIcons/search.png" />
+        </Button>
+    </mockups:WindowsPhoneChrome.SearchButton>
+
+	<Grid x:Name="LayoutRoot" RenderTransformOrigin="0.5,0.5">
+		<Grid.RenderTransform>
+			<CompositeTransform/>
+		</Grid.RenderTransform>
+        <VisualStateManager.CustomVisualStateManager>
+            <ei:ExtendedVisualStateManager />
+        </VisualStateManager.CustomVisualStateManager>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates"
+                              ei:ExtendedVisualStateManager.UseFluidLayout="True">
+                <VisualState x:Name="Portrait" />
+                <VisualState x:Name="Landscape">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(WindowsPhoneChrome.PageOrientation)"
+                                                       Storyboard.TargetName="PhoneChrome">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <mockups:PageOrientation>Landscape</mockups:PageOrientation>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0"
+                                         To="-90"
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)"
+                                         Storyboard.TargetName="LayoutRoot"
+                                         d:IsOptimized="True" />
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                                       Storyboard.TargetName="LayoutRoot">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <System:Double>480</System:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)"
+                                                       Storyboard.TargetName="LayoutRoot">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <System:Double>800</System:Double>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
+                                                       Storyboard.TargetName="LayoutRoot">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0,-160,0,0" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <mockups:AppListMockup>
+            <mockups:AppListMockup.ApplicationTileContent>
+                <StackPanel Orientation="Horizontal">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <pi:NavigateToScreenAction TargetScreen="LiquidGoldSketchScreens.Screen_1" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <pc:SketchRectangleSL BorderBrush="{StaticResource Accent-Sketch}"
+                                          Background="{StaticResource Accent-Sketch}"
+                                          Height="62"
+                                          Style="{StaticResource Rectangle-Sketch}"
+                                          Width="62" />
+                    <TextBlock Margin="6,0"
+                               Style="{StaticResource PhoneTextLargeStyle-Sketch}"
+                               Text="My Application"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </mockups:AppListMockup.ApplicationTileContent>
+            <mockups:AppListMockup.HomeScreenButtonContent>
+                <Grid>
+                    <pc:SketchCircleSL Style="{StaticResource Circle-Sketch}" />
+                    <Image Source="/AppBarIcons/back.png">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <pi:NavigateToScreenAction TargetScreen="LiquidGoldSketchScreens.Home" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Image>
+                </Grid>
+            </mockups:AppListMockup.HomeScreenButtonContent>
+        </mockups:AppListMockup>
+    </Grid>
+</mockups:WindowsPhoneChrome>
