@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
+using System.Windows.Controls;
 
 namespace LiquidGold.ViewModel 
 {
@@ -43,16 +45,16 @@ namespace LiquidGold.ViewModel
         /// 
         /// </summary>
         [Column]
-        public string Image
+        public string VehImage
         {
             get { return _image; }
             set
             {
                 if (value != _image)
                 {
-                    NotifyPropertyChanging("Image");
+                    NotifyPropertyChanging("VehImage");
                     _image = value;
-                    NotifyPropertyChanged("Image");
+                    NotifyPropertyChanged("VehImage");
                 }
             }
         }

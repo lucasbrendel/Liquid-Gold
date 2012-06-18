@@ -24,7 +24,7 @@
             <DataTemplate x:Name="VehiclesPicker">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{Binding Image}" Width="50" Height="50"/>
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextTitle1Style}"/>
+                    <TextBlock Text="{Binding Name}"/>
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Name="VehicleFullModePicker">
@@ -44,17 +44,17 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <toolkit:ListPicker ItemTemplate="{StaticResource VehiclesPicker}" 
+                <toolkit:ListPicker Name="VehiclesList" ItemTemplate="{StaticResource VehiclesPicker}" 
                                     FullModeItemTemplate="{StaticResource VehicleFullModePicker}"
                                     FullModeHeader="Vehicles" CacheMode="BitmapCache"/>
                 <TextBlock Text="Odometer" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox />
+                <TextBox Name="Odo_txt"/>
                 <TextBlock Text="Quantity" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox/>
+                <TextBox Name="Quantity_txt"/>
                 <TextBlock Text="Cost per unit" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox/>
+                <TextBox Name="Cost_txt"/>
                 <TextBlock Text="Date of Fill" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <toolkit:DatePicker Width="Auto" HorizontalAlignment="Left"/>
+                <toolkit:DatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate"/>
             </StackPanel>
         </Grid>
     </Grid>
@@ -62,8 +62,8 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton x:Name="AddFill" IconUri="/Images/appbar_button1.png" Text="add fill" Click="AddFill_Click"/>
+            <shell:ApplicationBarIconButton x:Name="CancelFill" IconUri="/Images/appbar_button2.png" Text="cancel" Click="CancelFill_Click"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
