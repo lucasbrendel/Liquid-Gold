@@ -57,6 +57,22 @@ namespace LiquidGold
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            using (ViewModel.FillUpDataContext fillDB = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString))
+            {
+                if (fillDB.DatabaseExists() == false)
+                {
+                    fillDB.CreateDatabase();
+                }
+            }
+
+            using (ViewModel.VehicleDataContext vehicleDB = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString))
+            {
+                if (vehicleDB.DatabaseExists() == false)
+                {
+                    vehicleDB.CreateDatabase();
+                }
+            }
+
         }
 
         // Code to execute when the application is launching (eg, from Start)

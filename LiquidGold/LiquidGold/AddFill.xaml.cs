@@ -19,5 +19,17 @@ namespace LiquidGold
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            string index = String.Empty;
+            NavigationContext.QueryString.TryGetValue("selectedIndex", out index);
+
+            base.OnNavigatedTo(e);
+        }
     }
 }

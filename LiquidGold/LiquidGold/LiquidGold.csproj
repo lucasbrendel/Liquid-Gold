@@ -54,6 +54,7 @@
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Input.Touch" />
+    <Reference Include="system.data.linq" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -78,6 +79,7 @@
     <Compile Include="VehicleInfo.xaml.cs">
       <DependentUpon>VehicleInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\FillUp.cs" />
     <Compile Include="ViewModel\Vehicle.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +121,7 @@
     <Resource Include="Icons\appbar.feature.settings.dark.png" />
     <Resource Include="Icons\appbar.save.dark.png" />
     <Resource Include="Icons\appbar.edit.dark.png" />
+    <Resource Include="Images\CarEmpty.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

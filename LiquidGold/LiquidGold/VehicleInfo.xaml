@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage 
+﻿<phone:PhoneApplicationPage xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"  
     x:Class="LiquidGold.VehicleInfo"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -28,7 +28,17 @@
             <!--Fill History-->
             <controls:PivotItem Header="history">
                 <Grid>
-                    
+                    <ListBox Name="HistoryList">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <toolkit:WrapPanel>
+                                    <TextBlock Text="{Binding Odometer}"/>
+                                    <TextBlock Text="{Binding Cost}"/>
+                                    <TextBlock Text="{Binding Quantity}"/>
+                                </toolkit:WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </controls:PivotItem>
             
