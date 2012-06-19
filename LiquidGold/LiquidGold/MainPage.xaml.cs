@@ -67,7 +67,11 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void VehicleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            if (VehicleList.SelectedIndex != -1)
+            {
+                ViewModel.Vehicle vehicle = (ViewModel.Vehicle)VehicleList.SelectedItem;
+                NavigationService.Navigate(new Uri("/VehicleInfo.xaml?Name=" + vehicle.Name, UriKind.Relative));
+            }
         }
 
         /// <summary>

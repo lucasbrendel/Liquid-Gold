@@ -20,12 +20,12 @@ namespace LiquidGold.ViewModel
 
         private double _quantity;
 
-        private DateTime _date;
+        private string _date;
 
         /// <summary>
         /// 
         /// </summary>
-        [Column(CanBeNull=false)] 
+        [Column(CanBeNull=false, IsPrimaryKey=true)] 
         public string VehicleName
         {
             get { return _vehicleName; }
@@ -64,7 +64,7 @@ namespace LiquidGold.ViewModel
                 if (value != _cost)
                 {
                     NotifyPropertyChanging("Cost");
-                    _cost = value;
+                    _cost = Math.Round(value, 2);
                     NotifyPropertyChanged("Cost");
                 }
             }
@@ -85,8 +85,11 @@ namespace LiquidGold.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Column(CanBeNull = false)]
-        public DateTime Date
+        public string Date
         {
             get { return _date; }
             set
@@ -94,10 +97,19 @@ namespace LiquidGold.ViewModel
                 if (value != _date)
                 {
                     NotifyPropertyChanging("Date");
-                    _date = value;
+                    DateTime _dates = DateTime.Parse(value);
+                    _date = _dates.Date.ToShortDateString();
                     NotifyPropertyChanged("Date");
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double TotalCost
+        {
+            get { return Math.Round(_cost * _quantity, 2); }
         }
 
         [Column(IsVersion=true)]

@@ -41,7 +41,7 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="AddBtn" IconUri="/Icons/appbar.add.dark.png" Text="add" Click="AddBtn_Click"/>
+            <shell:ApplicationBarIconButton x:Name="AddBtn" IconUri="/Icons/appbar.save.dark.png" Text="save" Click="AddBtn_Click"/>
             <shell:ApplicationBarIconButton x:Name="CancelBtn" IconUri="/Icons/appbar.cancel.dark.png" Text="cancel" Click="CancelBtn_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

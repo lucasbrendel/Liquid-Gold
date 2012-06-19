@@ -16,6 +16,7 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
+        
         <!--Pivot Control-->
         <controls:Pivot Title="LIQUID GOLD">
             <!--Vehicle Info-->
@@ -28,24 +29,50 @@
             <!--Fill History-->
             <controls:PivotItem Header="history">
                 <Grid>
+                    <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Stretch">
+                        <TextBlock Text="Date" Margin="0,0,15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
+                        <TextBlock Text="Odometer" Margin="15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
+                        <TextBlock Text="Total Cost" Margin="15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
+                        <TextBlock Text="Quantity" Margin="15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                        
                     <ListBox Name="HistoryList">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <toolkit:WrapPanel>
-                                    <TextBlock Text="{Binding Odometer}"/>
-                                    <TextBlock Text="{Binding Cost}"/>
-                                    <TextBlock Text="{Binding Quantity}"/>
-                                </toolkit:WrapPanel>
+                               <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Date}" Margin="0,0,15,0" TextWrapping="NoWrap"/>
+                                        <TextBlock Text="{Binding Odometer}" Margin="15,0" TextWrapping="NoWrap"/>
+                                        <TextBlock Text="{Binding TotalCost}" Margin="15,0" TextWrapping="NoWrap"/>
+                                        <TextBlock Text="{Binding Quantity}" Margin="15,0" TextWrapping="NoWrap"/>
+                                    </StackPanel> 
+                                    <Line Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="2" HorizontalAlignment="Stretch"/>
+                               </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                    </StackPanel>
                 </Grid>
             </controls:PivotItem>
             
             <!--Fill Statistics-->
             <controls:PivotItem Header="stats">
                 <Grid>
-                    
+                    <StackPanel>
+                        <TextBlock Text="Check up to 3 items to see a graph of their respective history." TextWrapping="Wrap" Margin="0,0,0,10" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                        <ListBox Name="StatsList">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                        <CheckBox IsChecked="False"/>
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                        <TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextTitle2Style}" HorizontalAlignment="Right"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
                 </Grid>
             </controls:PivotItem>
             

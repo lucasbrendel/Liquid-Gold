@@ -59,7 +59,7 @@ namespace LiquidGold
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
+            fillUpDb.SubmitChanges();
         }
 
         /// <summary>
@@ -72,13 +72,14 @@ namespace LiquidGold
             if (Odo_txt.Text != String.Empty && Quantity_txt.Text != String.Empty && Cost_txt.Text != String.Empty)
             {
                 ViewModel.Vehicle _vehicle = (ViewModel.Vehicle)VehiclesList.SelectedItem;
+                DateTime date = (DateTime)FillDate.Value;
                 ViewModel.FillUp fill = new ViewModel.FillUp()
                 {
                     VehicleName = _vehicle.Name,
                     Odometer = Convert.ToInt32(Odo_txt.Text),
                     Quantity = Convert.ToDouble(Quantity_txt.Text),
                     Cost = Convert.ToDouble(Cost_txt.Text),
-                    Date = (DateTime)FillDate.Value
+                    Date = date.Date.ToString()
                 };
 
                 fillUpDb.FillUpItems.InsertOnSubmit(fill);

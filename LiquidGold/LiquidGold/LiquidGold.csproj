@@ -116,12 +116,28 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Icons\appbar.add.dark.png" />
-    <Resource Include="Icons\appbar.cancel.dark.png" />
-    <Resource Include="Icons\appbar.delete.dark.png" />
-    <Resource Include="Icons\appbar.feature.settings.dark.png" />
-    <Resource Include="Icons\appbar.save.dark.png" />
-    <Resource Include="Icons\appbar.edit.dark.png" />
+    <Content Include="Icons\appbar.cancel.dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\appbar.delete.dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\appbar.feature.settings.dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\appbar.save.dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\appbar.edit.dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\CarEmpty.jpg" />
+    <Content Include="Icons\car.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\fillup.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />
