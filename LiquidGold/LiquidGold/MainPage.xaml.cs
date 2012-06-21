@@ -108,7 +108,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void AddFill_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//AddFill.xaml?selectedIndex=0", UriKind.Relative));
+            NavigationService.Navigate(new Uri("//AddFill.xaml", UriKind.Relative));
         }
     }
 }

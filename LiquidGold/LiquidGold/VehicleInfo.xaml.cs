@@ -24,6 +24,14 @@ namespace LiquidGold
         /// </summary>
         private ViewModel.FillUpDataContext fillUpDB;
 
+        private ViewModel.VehicleDataContext vehicleDB;
+
+        private ViewModel.Vehicle CurrentVeh;
+
+        private bool _delete;
+
+        private int Index;
+
         private ObservableCollection<Stats> StatList = new ObservableCollection<Stats>();
 
         /// <summary>
@@ -54,7 +62,9 @@ namespace LiquidGold
         {
             InitializeComponent();
             fillUpDB = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
+            vehicleDB = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
             this.DataContext = this;
+            _delete = false;
         }
 
         /// <summary>
@@ -66,14 +76,39 @@ namespace LiquidGold
             string _name;
             if (NavigationContext.QueryString.TryGetValue("Name", out _name))
             {
-                VehicleName.Text = _name;
+                int i = 0;
                 var FillUpItemsInDB = from ViewModel.FillUp fills in fillUpDB.FillUpItems where fills.VehicleName == _name select fills;
                 FillUpItems = new ObservableCollection<ViewModel.FillUp>(FillUpItemsInDB);
+                foreach (ViewModel.FillUp fill in FillUpItems)
+                {
+                    if (fill.VehicleName == _name)
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                Index = i;
+                VehicleName.Text = _name;
                 LoadStats();
                 HistoryList.ItemsSource = FillUpItems;
             }
 
             base.OnNavigatedTo(e);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            if (_delete)
+            {
+                fillUpDB.SubmitChanges();
+                vehicleDB.SubmitChanges();
+            }
         }
 
         private void LoadStats()
@@ -132,6 +167,7 @@ namespace LiquidGold
             return _value;
         }
 
+        #region INotifyPropertyChanged
         /// <summary>
         /// 
         /// </summary>
@@ -146,6 +182,32 @@ namespace LiquidGold
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+        private void settings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addFillBtn_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + VehicleName.Text.ToString(), UriKind.Relative));
+        }
+
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            MessageBoxResult results = MessageBox.Show("Are you sure you want to delete " + VehicleName.Text.ToUpper() + "?", "Delete", MessageBoxButton.OKCancel);
+
+            if (results == MessageBoxResult.OK)
+            {
+                fillUpDB.FillUpItems.DeleteAllOnSubmit(FillUpItems);
+                
+                var VehiclesInDB = from ViewModel.Vehicle veh in vehicleDB.VehicleItems select veh;
+                ObservableCollection<ViewModel.Vehicle> vehicles = new ObservableCollection<ViewModel.Vehicle>(VehiclesInDB);
+                vehicleDB.VehicleItems.DeleteOnSubmit(vehicles[Index]);
+                _delete = true;
+                NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
             }
         }
     }

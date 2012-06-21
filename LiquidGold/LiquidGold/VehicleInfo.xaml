@@ -65,7 +65,6 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                        <CheckBox IsChecked="False"/>
                                         <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextTitle2Style}"/>
                                         <TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextTitle2Style}" HorizontalAlignment="Right"/>
                                     </StackPanel>
@@ -88,11 +87,10 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton x:Name="addFillBtn" IconUri="/Icons/fillup.png" Text="add fill" Click="addFillBtn_Click"/>
+            <shell:ApplicationBarIconButton x:Name="deleteBtn" IconUri="/Icons/appbar.delete.dark.png" Text="delete" Click="deleteBtn_Click"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
+                <shell:ApplicationBarMenuItem x:Name="settings" Text="Settings" Click="settings_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

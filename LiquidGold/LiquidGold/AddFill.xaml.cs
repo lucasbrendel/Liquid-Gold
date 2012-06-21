@@ -40,7 +40,6 @@ namespace LiquidGold
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             string index = String.Empty;
-            NavigationContext.QueryString.TryGetValue("selectedIndex", out index);
 
             var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
             var fillItemsInDB = from ViewModel.FillUp fill in fillUpDb.FillUpItems select fill;
@@ -48,6 +47,12 @@ namespace LiquidGold
             _fills = new ObservableCollection<ViewModel.FillUp>(fillItemsInDB);
 
             VehiclesList.ItemsSource = _vehicles;
+            if (NavigationContext.QueryString.TryGetValue("Name", out index))
+            {
+                ViewModel.Vehicle veh = new ViewModel.Vehicle();
+                veh.Name = index;
+                VehiclesList.SelectedItem = _vehicles.IndexOf(veh);
+            }
 
             base.OnNavigatedTo(e);
         }

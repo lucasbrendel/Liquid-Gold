@@ -23,13 +23,11 @@
         <Grid.Resources>
             <DataTemplate x:Name="VehiclesPicker">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{Binding Image}" Width="50" Height="50"/>
                     <TextBlock Text="{Binding Name}"/>
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Name="VehicleFullModePicker">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{Binding Image}" Width="70" Height="70"/>
                     <TextBlock Text="{Binding Name}"/>
                 </StackPanel>
             </DataTemplate>
@@ -48,11 +46,11 @@
                                     FullModeItemTemplate="{StaticResource VehicleFullModePicker}"
                                     FullModeHeader="Vehicles" CacheMode="BitmapCache"/>
                 <TextBlock Text="Odometer" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox Name="Odo_txt" />
+                <TextBox Name="Odo_txt" InputScope="TelephoneNumber"/>
                 <TextBlock Text="Quantity" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox Name="Quantity_txt"/>
+                <TextBox Name="Quantity_txt" InputScope="TelephoneNumber"/>
                 <TextBlock Text="Cost per unit" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox Name="Cost_txt"/>
+                <TextBox Name="Cost_txt" InputScope="TelephoneNumber"/>
                 <TextBlock Text="Date of Fill" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
                 <toolkit:DatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate"/>
             </StackPanel>

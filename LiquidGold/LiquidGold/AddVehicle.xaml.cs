@@ -12,8 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Microsoft.Phone.Tasks;
-using System.Windows.Media.Imaging;
+
 
 namespace LiquidGold
 {
@@ -23,8 +22,6 @@ namespace LiquidGold
 
         private ObservableCollection<ViewModel.Vehicle> _vehicles;
 
-        private PhotoChooserTask _photos = new PhotoChooserTask();
-
         private bool IsValueAdded;
 
         public AddVehicle()
@@ -33,18 +30,6 @@ namespace LiquidGold
             IsValueAdded = false;
 
             vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
-
-            _photos.Completed += new EventHandler<PhotoResult>(_photos_Completed);
-        }
-
-        void _photos_Completed(object sender, PhotoResult e)
-        {
-            if (e.TaskResult == TaskResult.OK)
-            {
-                BitmapImage _image = new BitmapImage();
-                _image.SetSource(e.ChosenPhoto);
-                vehImage.Source = _image;
-            }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -60,26 +45,9 @@ namespace LiquidGold
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pickImage_btn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                _photos.Show();
-            }
-            catch(InvalidOperationException)
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void AddBtn_Click(object sender, EventArgs e)
         {
-            ViewModel.Vehicle vehicle = new ViewModel.Vehicle { Name = Name_txt.Text, VehImage = vehImage.Source.ToString() };
+            ViewModel.Vehicle vehicle = new ViewModel.Vehicle { Name = Name_txt.Text, Make=Make_txt.Text, Model=Model_txt.Text};
 
             if (Name_txt.Text != String.Empty)
             {

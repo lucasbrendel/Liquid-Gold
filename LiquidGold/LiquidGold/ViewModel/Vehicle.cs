@@ -18,10 +18,19 @@ namespace LiquidGold.ViewModel
         /// </summary>
         private string _name;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private string _image;
+        private string _make;
+
+        private string _model;
+
+        public Vehicle()
+        {
+
+        }
+
+        public Vehicle(string Name)
+        {
+            _name = Name;
+        }
 
         /// <summary>
         /// 
@@ -41,23 +50,36 @@ namespace LiquidGold.ViewModel
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Column]
-        public string VehImage
+        [Column(CanBeNull = false)]
+        public string Make
         {
-            get { return _image; }
+            get { return _make; }
             set
             {
-                if (value != _image)
+                if (value != _make)
                 {
-                    NotifyPropertyChanging("VehImage");
-                    _image = value;
-                    NotifyPropertyChanged("VehImage");
+                    NotifyPropertyChanging("Make");
+                    _make = value;
+                    NotifyPropertyChanged("Make");
                 }
             }
         }
+
+        [Column(CanBeNull = false)]
+        public string Model
+        {
+            get { return _model; }
+            set
+            {
+                if (value != _model)
+                {
+                    NotifyPropertyChanging("Model");
+                    _model = value;
+                    NotifyPropertyChanged("Model");
+                }
+            }
+        }
+
 
         [Column(IsVersion = true)]
         private Binary _version;

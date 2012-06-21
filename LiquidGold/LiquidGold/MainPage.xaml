@@ -31,10 +31,13 @@
             <ListBox x:Name="VehicleList" SelectionChanged="VehicleList_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <toolkit:WrapPanel Margin="5">
-                            <Image Source="{Binding Image}" Width="50" Height="50"/>
-                            <TextBlock Text="{Binding Name}" Margin="5,5,0,5" Style="{StaticResource PhoneTextTitle2Style}"/>
-                        </toolkit:WrapPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding Name}" Margin="5,5,0,0" Style="{StaticResource PhoneTextTitle2Style}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Make}" Margin="5,0,10,10" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding Model}" Margin="0,0,0,10" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
