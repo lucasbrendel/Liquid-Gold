@@ -89,6 +89,7 @@ namespace LiquidGold
                 }
                 Index = i;
                 VehicleName.Text = _name;
+                CalculateDistance();
                 LoadStats();
                 HistoryList.ItemsSource = FillUpItems;
             }
@@ -113,58 +114,112 @@ namespace LiquidGold
 
         private void LoadStats()
         {
-            StatList.Add(new Stats{Name="Avg. Mileage", Value = 0.00});
-            StatList.Add(new Stats{Name="Avg. Quantity", Value = 0.00});
-            StatList.Add(new Stats{Name="Worst Mileage", Value = 0.00});
-            StatList.Add(new Stats{Name="Best Mileage", Value = 0.00});
-            StatList.Add(new Stats{Name="Avg. Distance", Value = 0.00});
-            StatList.Add(new Stats{Name="Max. Distance", Value = 0.00});
-            StatList.Add(new Stats{Name="Min. Distance", Value = 0.00});
-            StatList.Add(new Stats{Name="Average Total Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Lowest Total Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Highest Total Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Overall Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Cost Last Year", Value = 0.00});
-            StatList.Add(new Stats{Name="Cost Last Month", Value = 0.00});
-            StatList.Add(new Stats{Name="Avg. Yearly Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Avg. Monthly Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Avg. Cost/Distance", Value = 0.00});
-            StatList.Add(new Stats{Name="Max Cost/Distance", Value = 0.00});
-            StatList.Add(new Stats{Name="Min Cost/Distance", Value = 0.00});
-            StatList.Add(new Stats{Name="Avg. Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Max Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Min Cost", Value = 0.00});
-            StatList.Add(new Stats{Name="Smallest Quantity", Value = 0.00});
-            StatList.Add(new Stats{Name="Largest Quantity", Value = 0.00});
-            StatList.Add(new Stats{Name="TotalQuantity", Value = 0.00});
+            StatList.Add(new Stats { Name = "Avg. Mileage", Value = AvgMileage() });
+            StatList.Add(new Stats { Name = "Best Mileage", Value = BestMileage() });
+            StatList.Add(new Stats { Name = "Worst Mileage", Value = WorstMileage() });
+            StatList.Add(new Stats { Name = "Avg. Quantity", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Avg. Distance", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Max. Distance", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Min. Distance", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Average Total Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Lowest Total Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Highest Total Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Overall Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Cost Last Year", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Cost Last Month", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Avg. Yearly Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Avg. Monthly Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Avg. Cost/Distance", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Max Cost/Distance", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Min Cost/Distance", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Avg. Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Max Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Min Cost", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Smallest Quantity", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Largest Quantity", Value = 0.00 });
+            StatList.Add(new Stats { Name = "TotalQuantity", Value = 0.00 });
 
             StatsList.ItemsSource = StatList;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalculateDistance()
+        {
+            for (int i = 0; i < _fillUpItems.Count; i++)
+            {
+                if (i == 0)
+                {
+                    _fillUpItems[i].Distance = 0.0;
+                }
+                else
+                {
+                    _fillUpItems[i].Distance = _fillUpItems[i].Odometer - _fillUpItems[i - 1].Odometer;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private double AvgMileage()
         {
             double _value = 0.0;
-
-            foreach(ViewModel.FillUp fill in FillUpItems)
+            if (_fillUpItems.Count > 0)
             {
-                
-            }
+                double _fuel = _fillUpItems.Sum(fillup => fillup.Quantity);
+                double _distance = _fillUpItems.Last().Odometer - _fillUpItems.First().Odometer;
 
-            return _value;
+                _value = _distance / _fuel;
+            }
+            return Math.Round(_value, 2);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private double BestMileage()
         {
-            double _value = 0.0;
-
-            return _value;
+            double best = 0.0;
+            double temp = 0.0;
+            if (_fillUpItems.Count > 1)
+            {
+                foreach (ViewModel.FillUp fill in _fillUpItems)
+                {
+                    temp = fill.Distance / fill.Quantity;
+                    if (temp > best)
+                    {
+                        best = temp;
+                    }
+                }
+            }
+            return Math.Round(best, 2);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private double WorstMileage()
         {
-            double _value = 0.0;
-
-            return _value;
+            double worst = 0.0;
+            double temp = 0.0;
+            if (_fillUpItems.Count > 1)
+            {
+                worst = Double.PositiveInfinity;
+                foreach (ViewModel.FillUp fill in _fillUpItems)
+                {
+                    temp = fill.Distance / fill.Quantity;
+                    if (temp < worst)
+                    {
+                        worst = temp;
+                    }
+                }
+            }
+            return Math.Round(worst, 2);
         }
 
         #region INotifyPropertyChanged
