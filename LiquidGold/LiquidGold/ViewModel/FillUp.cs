@@ -40,7 +40,7 @@ namespace LiquidGold.ViewModel
             }
         }
 
-        [Column(CanBeNull=false)]
+        [Column(CanBeNull=false, IsPrimaryKey=true)]
         public int Odometer
         {
             get { return _odo; }
@@ -110,6 +110,15 @@ namespace LiquidGold.ViewModel
         public double TotalCost
         {
             get { return Math.Round(_cost * _quantity, 2); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double Distance
+        {
+            get;
+            set;
         }
 
         [Column(IsVersion=true)]

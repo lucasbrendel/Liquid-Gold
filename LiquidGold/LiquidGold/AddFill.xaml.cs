@@ -51,7 +51,7 @@ namespace LiquidGold
             {
                 ViewModel.Vehicle veh = new ViewModel.Vehicle();
                 veh.Name = index;
-                VehiclesList.SelectedItem = _vehicles.IndexOf(veh);
+                VehiclesList.SelectedIndex = _vehicles.IndexOf(_vehicles.Single(vehic => vehic.Name.Equals(index)));
             }
 
             base.OnNavigatedTo(e);
