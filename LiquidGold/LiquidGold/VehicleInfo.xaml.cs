@@ -115,29 +115,31 @@ namespace LiquidGold
         private void LoadStats()
         {
             StatList.Add(new Stats { Name = "Avg. Mileage", Value = AvgMileage() });
-            StatList.Add(new Stats { Name = "Best Mileage", Value = BestMileage() });
             StatList.Add(new Stats { Name = "Worst Mileage", Value = WorstMileage() });
-            StatList.Add(new Stats { Name = "Avg. Quantity", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Avg. Distance", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Max. Distance", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Min. Distance", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Average Total Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Lowest Total Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Highest Total Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Overall Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Cost Last Year", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Cost Last Month", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Avg. Yearly Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Avg. Monthly Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Avg. Cost/Distance", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Max Cost/Distance", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Min Cost/Distance", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Avg. Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Max Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Min Cost", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Smallest Quantity", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Largest Quantity", Value = 0.00 });
-            StatList.Add(new Stats { Name = "TotalQuantity", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Best Mileage", Value = BestMileage() });
+            StatList.Add(new Stats { Name = "Avg. Distance", Value = AverageDistance() });
+            StatList.Add(new Stats { Name = "Smallest Distance", Value = SmallestDistance() });
+            StatList.Add(new Stats { Name = "Longest Distance", Value = LargestDistance() });
+            StatList.Add(new Stats { Name = "Total Distance", Value = TotalDistance() });
+            StatList.Add(new Stats { Name = "Avg. Quantity", Value = AverageQuantity() });
+            StatList.Add(new Stats { Name = "Smallest Quantity", Value = SmallestQuantity() });
+            StatList.Add(new Stats { Name = "Largest Quantity", Value = LargestQuantity() });
+            StatList.Add(new Stats { Name = "Total Quantity", Value = TotalQuantity() });
+            StatList.Add(new Stats { Name = "Average Total Cost", Value = AverageTotalCost() });
+            StatList.Add(new Stats { Name = "Smallest Total Cost", Value = SmallestTotalCost() });
+            StatList.Add(new Stats { Name = "Largest Total Cost", Value = LargestTotalCost() });
+            StatList.Add(new Stats { Name = "Total Cost", Value = TotalCost()});
+            //StatList.Add(new Stats { Name = "Cost Last Year", Value = 0.00 });
+            //StatList.Add(new Stats { Name = "Cost Last Month", Value = 0.00 });
+            //StatList.Add(new Stats { Name = "Avg. Yearly Cost", Value = 0.00 });
+            //StatList.Add(new Stats { Name = "Avg. Monthly Cost", Value = 0.00 });
+            //StatList.Add(new Stats { Name = "Avg. Cost/Distance", Value = 0.00 });
+            //StatList.Add(new Stats { Name = "Max Cost/Distance", Value = 0.00 });
+            //StatList.Add(new Stats { Name = "Min Cost/Distance", Value = 0.00 });
+            StatList.Add(new Stats { Name = "Avg. Cost", Value = AvgCost() });
+            StatList.Add(new Stats { Name = "Max Cost", Value = MaxCost() });
+            StatList.Add(new Stats { Name = "Min Cost", Value = MinCost() });
+
 
             StatsList.ItemsSource = StatList;
         }
@@ -159,7 +161,9 @@ namespace LiquidGold
                 }
             }
         }
-        
+
+        #region stats
+
         /// <summary>
         /// 
         /// </summary>
@@ -169,10 +173,7 @@ namespace LiquidGold
             double _value = 0.0;
             if (_fillUpItems.Count > 0)
             {
-                double _fuel = _fillUpItems.Sum(fillup => fillup.Quantity);
-                double _distance = _fillUpItems.Last().Odometer - _fillUpItems.First().Odometer;
-
-                _value = _distance / _fuel;
+                _value = TotalDistance() / TotalQuantity();
             }
             return Math.Round(_value, 2);
         }
@@ -222,6 +223,218 @@ namespace LiquidGold
             return Math.Round(worst, 2);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double SmallestQuantity()
+        {
+            double _small = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _small = _fillUpItems.Min(fillup => fillup.Quantity);
+            }
+            return Math.Round(_small, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double LargestQuantity()
+        {
+            double _largest = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _largest = _fillUpItems.Max(fillup => fillup.Quantity);
+            }
+            return Math.Round(_largest, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double AverageQuantity()
+        {
+            double _avg = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _avg = (TotalQuantity() / _fillUpItems.Count);
+            }
+            return Math.Round(_avg, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double MinCost()
+        {
+            double _cost = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _cost = _fillUpItems.Min(fillup => fillup.Cost);
+            }
+            return Math.Round(_cost, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double MaxCost()
+        {
+            double _cost = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _cost = _fillUpItems.Max(fillup => fillup.Cost);
+            }
+            return Math.Round(_cost, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double AvgCost()
+        {
+            double _cost = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _cost = _fillUpItems.Sum(fillup => fillup.Cost) / _fillUpItems.Count;
+            }
+            return Math.Round(_cost, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double AverageTotalCost()
+        {
+            double _cost = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _cost = TotalCost() / _fillUpItems.Count;
+            }
+            return Math.Round(_cost, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double LargestTotalCost()
+        {
+            double _cost = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _cost = _fillUpItems.Max(fillup => fillup.TotalCost);
+            }
+            return Math.Round(_cost, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double SmallestTotalCost()
+        {
+            double _cost = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _cost = _fillUpItems.Min(fillup => fillup.TotalCost);
+            }
+            return Math.Round(_cost, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double TotalCost()
+        {
+            double _total = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _total = _fillUpItems.Sum(fillup => fillup.TotalCost);
+            }
+            return Math.Round(_total, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double TotalQuantity()
+        {
+            double _total = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _total = _fillUpItems.Sum(fillup => fillup.Quantity);
+            }
+            return Math.Round(_total, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double AverageDistance()
+        {
+            double _distance = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _distance = TotalDistance() / _fillUpItems.Count;
+            }
+            return Math.Round(_distance, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double SmallestDistance()
+        {
+            double _distance = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _distance = _fillUpItems.Min(fillup => fillup.Distance);
+            }
+            return Math.Round(_distance, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double LargestDistance()
+        {
+            double _distance = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _distance = _fillUpItems.Max(fillup => fillup.Distance);
+            }
+            return Math.Round(_distance, 2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private double TotalDistance()
+        {
+            double _total = 0.0;
+            if (_fillUpItems.Count > 0)
+            {
+                _total = _fillUpItems.Sum(fillup => fillup.Distance);
+            }
+            return _total;
+        }
+
+        #endregion stats
+
         #region INotifyPropertyChanged
         /// <summary>
         /// 
@@ -240,16 +453,28 @@ namespace LiquidGold
             }
         }
         #endregion
+
+        #region Events
         private void settings_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addFillBtn_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + VehicleName.Text.ToString(), UriKind.Relative));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteBtn_Click(object sender, EventArgs e)
         {
             MessageBoxResult results = MessageBox.Show("Are you sure you want to delete " + VehicleName.Text.ToUpper() + "?", "Delete", MessageBoxButton.OKCancel);
@@ -265,6 +490,8 @@ namespace LiquidGold
                 NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
             }
         }
+
+        #endregion Events
     }
 
     public class Stats
