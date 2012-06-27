@@ -22,7 +22,20 @@
             <!--Vehicle Info-->
             <controls:PivotItem Header="info">
                 <Grid>
-                    <TextBlock Name="VehicleName" Text="Vehicle Name" Style="{StaticResource PhoneTextTitle1Style}"/>
+                    <StackPanel>
+                        <TextBlock Name="VehicleName" Text="Vehicle Name" Style="{StaticResource PhoneTextTitle1Style}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Name="VehicleMake" Text="Make" Style="{StaticResource PhoneTextTitle2Style}" Margin="0,0,10,0"/>
+                            <TextBlock Name="VehicleModel" Text="Model" Style="{StaticResource PhoneTextTitle2Style}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="Average Mileage" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Name="AvgMileage" Text="00.0" FontSize="85" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Bottom">
+                        
+                    </StackPanel>
                 </Grid>
             </controls:PivotItem>
 

@@ -88,7 +88,7 @@ namespace LiquidGold
                 };
 
                 fillUpDb.FillUpItems.InsertOnSubmit(fill);
-                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("//VehicleInfo.xaml?Name=" + _vehicle.Name, UriKind.Relative));
             }
             else
             {

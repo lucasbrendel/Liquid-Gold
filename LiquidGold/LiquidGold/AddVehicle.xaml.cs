@@ -57,9 +57,16 @@ namespace LiquidGold
                 }
                 else
                 {
-                    vehicleDb.VehicleItems.InsertOnSubmit(vehicle);
-                    IsValueAdded = true;
-                    NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+                    if (InitOdo_txt.Text != String.Empty)
+                    {
+                        vehicleDb.VehicleItems.InsertOnSubmit(vehicle);
+                        IsValueAdded = true;
+                        NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter an intial odometer reading", "ERROR", MessageBoxButton.OK);
+                    }
                 }
             }
             else

@@ -22,6 +22,8 @@ namespace LiquidGold.ViewModel
 
         private string _model;
 
+        private double _initOdo;
+
         public Vehicle()
         {
 
@@ -80,7 +82,27 @@ namespace LiquidGold.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column(CanBeNull=false)]
+        public double InitOdometer
+        {
+            get { return _initOdo; }
+            set
+            {
+                if (value != _initOdo)
+                {
+                    NotifyPropertyChanging("InitOdometer");
+                    _initOdo = value;
+                    NotifyPropertyChanged("InitOdometer");
+                }
+            }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Column(IsVersion = true)]
         private Binary _version;
 

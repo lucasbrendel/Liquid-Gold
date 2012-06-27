@@ -35,6 +35,8 @@
                 <TextBox Name="Make_txt"/>
                 <TextBlock Text="Model"/>
                 <TextBox Name="Model_txt"/>
+                <TextBlock Text="Initial odometer before filling"/>
+                <TextBox Name="InitOdo_txt" InputScope="TelephoneNumber"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -24,14 +24,29 @@ namespace LiquidGold
         /// </summary>
         private ViewModel.FillUpDataContext fillUpDB;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private ViewModel.VehicleDataContext vehicleDB;
 
-        private ViewModel.Vehicle CurrentVeh;
+        /// <summary>
+        /// 
+        /// </summary>
+        private ViewModel.Vehicle CurrentVehicle;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private bool _delete;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private int Index;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private ObservableCollection<Stats> StatList = new ObservableCollection<Stats>();
 
         /// <summary>
@@ -78,6 +93,8 @@ namespace LiquidGold
             {
                 int i = 0;
                 var FillUpItemsInDB = from ViewModel.FillUp fills in fillUpDB.FillUpItems where fills.VehicleName == _name select fills;
+                var vehicle = from ViewModel.Vehicle veh in vehicleDB.VehicleItems where veh.Name == _name select veh;
+                CurrentVehicle = vehicle.First();
                 FillUpItems = new ObservableCollection<ViewModel.FillUp>(FillUpItemsInDB);
                 foreach (ViewModel.FillUp fill in FillUpItems)
                 {
@@ -153,7 +170,7 @@ namespace LiquidGold
             {
                 if (i == 0)
                 {
-                    _fillUpItems[i].Distance = 0.0;
+                    _fillUpItems[i].Distance = _fillUpItems[i].Odometer - CurrentVehicle.InitOdometer;
                 }
                 else
                 {
