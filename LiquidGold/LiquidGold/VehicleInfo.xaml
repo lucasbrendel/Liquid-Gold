@@ -6,7 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -25,17 +25,30 @@
                     <StackPanel>
                         <TextBlock Name="VehicleName" Text="Vehicle Name" Style="{StaticResource PhoneTextTitle1Style}"/>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Name="VehicleMake" Text="Make" Style="{StaticResource PhoneTextTitle2Style}" Margin="0,0,10,0"/>
-                            <TextBlock Name="VehicleModel" Text="Model" Style="{StaticResource PhoneTextTitle2Style}"/>
+                            <TextBlock Name="VehicleMake" Text="Make" Style="{StaticResource PhoneTextTitle3Style}" Margin="0,0,10,0"/>
+                            <TextBlock Name="VehicleModel" Text="Model" Style="{StaticResource PhoneTextTitle3Style}"/>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Text="Average Mileage" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Name="AvgMileage" Text="00.0" FontSize="85" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        
-                    </StackPanel>
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Average Mileage" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Name="AverageMileage" Text="00.0" FontSize="85" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="Number of fills:" Margin="0,0,10,0"/>
+                            <TextBlock Name="EntryCount"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="Days of fills:" Margin="0,0,10,0"/>
+                            <TextBlock Name="DaysCount"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </controls:PivotItem>
 
@@ -43,28 +56,55 @@
             <controls:PivotItem Header="history">
                 <Grid>
                     <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Stretch">
-                        <TextBlock Text="Date" Margin="0,0,15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
-                        <TextBlock Text="Odometer" Margin="15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
-                        <TextBlock Text="Total Cost" Margin="15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
-                        <TextBlock Text="Quantity" Margin="15,0" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Stretch"/>
-                    </StackPanel>
-                        
-                    <ListBox Name="HistoryList">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                               <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Date}" Margin="0,0,15,0" TextWrapping="NoWrap"/>
-                                        <TextBlock Text="{Binding Odometer}" Margin="15,0" TextWrapping="NoWrap"/>
-                                        <TextBlock Text="{Binding TotalCost}" Margin="15,0" TextWrapping="NoWrap"/>
-                                        <TextBlock Text="{Binding Quantity}" Margin="15,0" TextWrapping="NoWrap"/>
-                                    </StackPanel> 
-                                    <Line Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="2" HorizontalAlignment="Stretch"/>
-                               </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        <Grid VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Grid.Column="0" Text="Date" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Column="1" Text="Odometer" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="Total Cost" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Text="Quantity" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Right"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style x:Key="ListStyle" TargetType="ListBoxItem">
+                                    <Setter Property="Background" Value="{StaticResource PhoneSemitransparentBrush}"/>
+                                    <Setter Property="Margin" Value="2,6"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="BorderBrush" Value="{StaticResource PhoneBorderBrush}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <ContentPresenter/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                                <Style x:Key="ItemStyle" TargetType="TextBlock">
+                                    <Setter Property="Width" Value="80"/>
+                                    <Setter Property="Margin" Value="5"/>
+                                </Style>
+                            </Grid.Resources>
+                            <ListBox Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                       <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Date}" TextWrapping="NoWrap"/>
+                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Odometer}" TextWrapping="NoWrap"/>
+                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding TotalCost}" TextWrapping="NoWrap"/>
+                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Quantity}" TextWrapping="NoWrap"/>
+                                            </StackPanel> 
+                                            <Line Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="2" HorizontalAlignment="Stretch"/>
+                                       </StackPanel>    
+                                    </DataTemplate> 
+                                </ListBox.ItemTemplate> 
+                           </ListBox>
+                        </Grid>
                     </StackPanel>
                 </Grid>
             </controls:PivotItem>
@@ -73,7 +113,6 @@
             <controls:PivotItem Header="stats">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Check up to 3 items to see a graph of their respective history." TextWrapping="Wrap" Margin="0,0,0,10" Style="{StaticResource PhoneTextSubtleStyle}"/>
                         <ListBox Name="StatsList">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -85,13 +124,6 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
-                </Grid>
-            </controls:PivotItem>
-            
-            <!--Statistic Graphs-->
-            <controls:PivotItem Header="graphs">
-                <Grid>
-                    
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>

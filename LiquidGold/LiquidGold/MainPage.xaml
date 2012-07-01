@@ -46,11 +46,11 @@
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar x:Name="Appbar" IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton x:Name="AddVeh" IconUri="/Icons/car.png" Text="add vehicle" Click="AddVeh_Click"/>
             <shell:ApplicationBarIconButton x:Name="AddFill" IconUri="/Icons/fillup.png" Text="add fill" Click="AddFill_Click"/>
             <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="settings"/>
+                <shell:ApplicationBarMenuItem Text="settings" x:Name="settings_item" Click="settings_item_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

@@ -109,9 +109,23 @@ namespace LiquidGold
                 CalculateDistance();
                 LoadStats();
                 HistoryList.ItemsSource = FillUpItems;
+                FillInfo();
             }
 
             base.OnNavigatedTo(e);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void FillInfo()
+        {
+            VehicleName.Text = CurrentVehicle.Name;
+            VehicleMake.Text = CurrentVehicle.Make;
+            VehicleModel.Text = CurrentVehicle.Model;
+            AverageMileage.Text = AvgMileage().ToString();
+            EntryCount.Text = FillUpItems.Count.ToString();
+
         }
 
         /// <summary>
@@ -472,9 +486,15 @@ namespace LiquidGold
         #endregion
 
         #region Events
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void settings_Click(object sender, EventArgs e)
         {
-
+            NavigationService.Navigate(new Uri("//Settings.xaml", UriKind.Relative));
         }
 
         /// <summary>

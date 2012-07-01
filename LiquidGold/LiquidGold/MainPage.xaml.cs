@@ -110,5 +110,15 @@ namespace LiquidGold
         {
             NavigationService.Navigate(new Uri("//AddFill.xaml", UriKind.Relative));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void settings_item_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("//Settings.xaml", UriKind.Relative));
+        }
     }
 }
