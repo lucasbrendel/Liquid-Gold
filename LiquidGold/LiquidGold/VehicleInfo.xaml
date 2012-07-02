@@ -109,21 +109,26 @@
                 </Grid>
             </controls:PivotItem>
             
-            <!--Fill Statistics-->
+            <!-- Statistics-->
             <controls:PivotItem Header="stats">
                 <Grid>
-                    <StackPanel>
-                        <ListBox Name="StatsList">
+                        <ListBox Name="StatsList" ScrollViewer.ManipulationMode="Control">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <toolkit:WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                        <TextBlock Text="{Binding Name}" Style="{StaticResource PhoneTextTitle2Style}"/>
-                                        <TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextTitle2Style}" HorizontalAlignment="Right"/>
-                                    </StackPanel>
+                                  <Grid Width="173" Height="173" Background="{StaticResource PhoneAccentBrush}" Margin="5">
+                                        <Viewbox MaxWidth="173" MaxHeight="150" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Value}" FontSize="72"/>
+                                        </Viewbox>
+                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
+                                    </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                    </StackPanel>
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
