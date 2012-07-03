@@ -22,6 +22,8 @@ namespace LiquidGold.ViewModel
 
         private string _date;
 
+        private string _notes;
+
         /// <summary>
         /// 
         /// </summary>
@@ -100,6 +102,24 @@ namespace LiquidGold.ViewModel
                     DateTime _dates = DateTime.Parse(value);
                     _date = _dates.Date.ToShortDateString();
                     NotifyPropertyChanged("Date");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column(CanBeNull = true)]
+        public string Notes
+        {
+            get { return _notes; }
+            set
+            {
+                if (value != _notes)
+                {
+                    NotifyPropertyChanging("Notes");
+                    _notes = value;
+                    NotifyPropertyChanged("Notes");
                 }
             }
         }

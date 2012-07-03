@@ -120,7 +120,7 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                  <Grid Width="173" Height="173" Background="{StaticResource PhoneAccentBrush}" Margin="5">
+                                    <Grid Width="173" Height="173" Background="{StaticResource PhoneAccentBrush}" Margin="5">
                                         <Viewbox MaxWidth="173" MaxHeight="150" VerticalAlignment="Stretch" HorizontalAlignment="Center">
                                             <TextBlock Text="{Binding Value}" FontSize="72"/>
                                         </Viewbox>

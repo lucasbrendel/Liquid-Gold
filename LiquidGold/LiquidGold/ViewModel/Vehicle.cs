@@ -52,6 +52,9 @@ namespace LiquidGold.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Column(CanBeNull = false)]
         public string Make
         {
@@ -67,6 +70,9 @@ namespace LiquidGold.ViewModel
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Column(CanBeNull = false)]
         public string Model
         {

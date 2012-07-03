@@ -84,7 +84,8 @@ namespace LiquidGold
                     Odometer = Convert.ToInt32(Odo_txt.Text),
                     Quantity = Convert.ToDouble(Quantity_txt.Text),
                     Cost = Convert.ToDouble(Cost_txt.Text),
-                    Date = date.Date.ToString()
+                    Date = date.Date.ToString(),
+                    Notes = Notes_txt.Text
                 };
 
                 fillUpDb.FillUpItems.InsertOnSubmit(fill);

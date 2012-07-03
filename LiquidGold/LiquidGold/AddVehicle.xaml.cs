@@ -8,11 +8,11 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-
 
 namespace LiquidGold
 {
@@ -24,6 +24,9 @@ namespace LiquidGold
 
         private bool IsValueAdded;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public AddVehicle()
         {
             InitializeComponent();
@@ -32,6 +35,10 @@ namespace LiquidGold
             vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
@@ -109,6 +116,11 @@ namespace LiquidGold
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        private void ImageBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

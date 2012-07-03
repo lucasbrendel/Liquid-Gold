@@ -47,12 +47,24 @@
                                     FullModeHeader="Vehicles" CacheMode="BitmapCache"/>
                 <TextBlock Text="Odometer" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
                 <TextBox Name="Odo_txt" InputScope="TelephoneNumber"/>
-                <TextBlock Text="Quantity" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox Name="Quantity_txt" InputScope="TelephoneNumber"/>
-                <TextBlock Text="Cost per unit" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
-                <TextBox Name="Cost_txt" InputScope="TelephoneNumber"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Grid.Column="0" Text="Quantity" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
+                        <TextBox Grid.Column="0" Name="Quantity_txt" InputScope="TelephoneNumber"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Grid.Column="1" Text="Cost per unit" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
+                        <TextBox Grid.Column="1" Name="Cost_txt" InputScope="TelephoneNumber"/>
+                    </StackPanel>
+                </Grid>
                 <TextBlock Text="Date of Fill" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
                 <toolkit:DatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate"/>
+                <TextBlock Text="Notes" Style="{StaticResource PhoneTextGroupHeaderStyle}"/>
+                <TextBox Name="Notes_txt" Height="200"/>
             </StackPanel>
         </Grid>
     </Grid>

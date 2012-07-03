@@ -120,5 +120,40 @@ namespace LiquidGold
         {
             NavigationService.Navigate(new Uri("//Settings.xaml", UriKind.Relative));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VehicleList_Hold(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (VehicleList.SelectedIndex != -1)
+            {
+                ViewModel.Vehicle SelectedVehicle = (ViewModel.Vehicle)VehicleList.SelectedItem;
+                MenuItem menu = (MenuItem)sender;
+
+                //Selected context menu item is to pin to start
+                if (menu.Header.ToString().Equals("pin to start"))
+                {
+
+                }
+                //Selected context menu item is to delete the vehicle
+                else if (menu.Header.ToString().Equals("delete"))
+                {
+
+                }
+            }
+        }
     }
 }

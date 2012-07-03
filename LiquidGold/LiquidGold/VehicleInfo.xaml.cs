@@ -145,9 +145,9 @@ namespace LiquidGold
 
         private void LoadStats()
         {
-            StatList.Add(new Stats { Name = "Avg. Mileage", Value = AvgMileage() });
-            StatList.Add(new Stats { Name = "Worst Mileage", Value = WorstMileage() });
-            StatList.Add(new Stats { Name = "Best Mileage", Value = BestMileage() });
+            StatList.Add(new Stats { Name = "Avg. MPG", Value = AvgMileage() });
+            StatList.Add(new Stats { Name = "Worst MPG", Value = WorstMileage() });
+            StatList.Add(new Stats { Name = "Best MPG", Value = BestMileage() });
             StatList.Add(new Stats { Name = "Avg. Distance", Value = AverageDistance() });
             StatList.Add(new Stats { Name = "Smallest Distance", Value = SmallestDistance() });
             StatList.Add(new Stats { Name = "Longest Distance", Value = LargestDistance() });
@@ -159,7 +159,7 @@ namespace LiquidGold
             StatList.Add(new Stats { Name = "Average Total Cost", Value = AverageTotalCost() });
             StatList.Add(new Stats { Name = "Smallest Total Cost", Value = SmallestTotalCost() });
             StatList.Add(new Stats { Name = "Largest Total Cost", Value = LargestTotalCost() });
-            StatList.Add(new Stats { Name = "Total Cost", Value = TotalCost()});
+            StatList.Add(new Stats { Name = "Overall Cost", Value = TotalCost()});
             //StatList.Add(new Stats { Name = "Cost Last Year", Value = 0.00 });
             //StatList.Add(new Stats { Name = "Cost Last Month", Value = 0.00 });
             //StatList.Add(new Stats { Name = "Avg. Yearly Cost", Value = 0.00 });
@@ -167,9 +167,9 @@ namespace LiquidGold
             //StatList.Add(new Stats { Name = "Avg. Cost/Distance", Value = 0.00 });
             //StatList.Add(new Stats { Name = "Max Cost/Distance", Value = 0.00 });
             //StatList.Add(new Stats { Name = "Min Cost/Distance", Value = 0.00 });
-            StatList.Add(new Stats { Name = "Avg. Cost", Value = AvgCost() });
-            StatList.Add(new Stats { Name = "Max Cost", Value = MaxCost() });
-            StatList.Add(new Stats { Name = "Min Cost", Value = MinCost() });
+            StatList.Add(new Stats { Name = "Avg. $/gallon", Value = AvgCost() });
+            StatList.Add(new Stats { Name = "Max $/gallon", Value = MaxCost() });
+            StatList.Add(new Stats { Name = "Min $/gallon", Value = MinCost() });
 
 
             StatsList.ItemsSource = StatList;
