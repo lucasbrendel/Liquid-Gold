@@ -55,57 +55,37 @@
             <!--Fill History-->
             <controls:PivotItem Header="history">
                 <Grid>
-                    <StackPanel>
-                        <Grid VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="4*"/>
-                                <ColumnDefinition Width="4*"/>
-                                <ColumnDefinition Width="4*"/>
-                                <ColumnDefinition Width="4*"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <TextBlock Grid.Column="0" Text="Date" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Left"/>
-                            <TextBlock Grid.Column="1" Text="Odometer" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" Text="Total Cost" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="3" Text="Quantity" Style="{StaticResource PhoneTextAccentStyle}" HorizontalAlignment="Right"/>
-                        </Grid>
-                        <Grid>
-                            <Grid.Resources>
-                                <Style x:Key="ListStyle" TargetType="ListBoxItem">
-                                    <Setter Property="Background" Value="{StaticResource PhoneSemitransparentBrush}"/>
-                                    <Setter Property="Margin" Value="2,6"/>
-                                    <Setter Property="FontSize" Value="18"/>
-                                    <Setter Property="BorderBrush" Value="{StaticResource PhoneBorderBrush}"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate>
-                                                <ContentPresenter/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                                <Style x:Key="ItemStyle" TargetType="TextBlock">
-                                    <Setter Property="Width" Value="80"/>
-                                    <Setter Property="Margin" Value="5"/>
-                                </Style>
-                            </Grid.Resources>
-                            <ListBox Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                       <StackPanel Orientation="Vertical">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Date}" TextWrapping="NoWrap"/>
-                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Odometer}" TextWrapping="NoWrap"/>
-                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding TotalCost}" TextWrapping="NoWrap"/>
-                                                <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Quantity}" TextWrapping="NoWrap"/>
-                                            </StackPanel> 
-                                            <Line Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="2" HorizontalAlignment="Stretch"/>
-                                       </StackPanel>    
-                                    </DataTemplate> 
-                                </ListBox.ItemTemplate> 
-                           </ListBox>
-                        </Grid>
-                    </StackPanel>
+                    <Grid.Resources>
+                        <Style x:Key="ListStyle" TargetType="ListBoxItem">
+                            <Setter Property="Background" Value="{StaticResource PhoneSemitransparentBrush}"/>
+                            <Setter Property="Margin" Value="2,6"/>
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource PhoneBorderBrush}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style x:Key="ItemStyle" TargetType="TextBlock">
+                            <Setter Property="Width" Value="80"/>
+                            <Setter Property="Margin" Value="5"/>
+                        </Style>
+                    </Grid.Resources>
+                    <ListBox Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Date}" TextWrapping="NoWrap"/>
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Odometer}" TextWrapping="NoWrap"/>
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding TotalCost}" TextWrapping="NoWrap"/>
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Quantity}" TextWrapping="NoWrap"/>
+                                </StackPanel>  
+                            </DataTemplate> 
+                        </ListBox.ItemTemplate> 
+                    </ListBox>
                 </Grid>
             </controls:PivotItem>
             
