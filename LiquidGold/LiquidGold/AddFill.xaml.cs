@@ -22,6 +22,11 @@ namespace LiquidGold
         private ObservableCollection<ViewModel.Vehicle> _vehicles;
         private ObservableCollection<ViewModel.FillUp> _fills;
 
+        private bool _isEdit;
+
+        ViewModel.FillUp EditFill;
+
+        private int ind;
         /// <summary>
         /// 
         /// </summary>
@@ -46,12 +51,31 @@ namespace LiquidGold
             _vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
             _fills = new ObservableCollection<ViewModel.FillUp>(fillItemsInDB);
 
+            (App.Current as App).FillUps = fillUpDb;
+            (App.Current as App).Vehicles = vehicleDb;
+
             VehiclesList.ItemsSource = _vehicles;
             if (NavigationContext.QueryString.TryGetValue("Name", out index))
             {
+                string isEdit = "0";
+                string listIndex;
+                NavigationContext.QueryString.TryGetValue("IsEdit", out isEdit);
+                NavigationContext.QueryString.TryGetValue("Index", out listIndex);
                 ViewModel.Vehicle veh = new ViewModel.Vehicle();
                 veh.Name = index;
                 VehiclesList.SelectedIndex = _vehicles.IndexOf(_vehicles.Single(vehic => vehic.Name.Equals(index)));
+                _isEdit = false;
+                if (isEdit == "1")
+                {
+                    _isEdit = true;
+                    ind = int.Parse(listIndex);
+                    EditFill = _fills[ind];
+                    Odo_txt.Text = EditFill.Odometer.ToString();
+                    Quantity_txt.Text = EditFill.Quantity.ToString();
+                    Cost_txt.Text = EditFill.Cost.ToString();
+                    FillDate.Value = DateTime.Parse(EditFill.Date);
+                    Notes_txt.Text = EditFill.Notes.ToString();
+                }
             }
 
             base.OnNavigatedTo(e);
@@ -88,7 +112,26 @@ namespace LiquidGold
                     Notes = Notes_txt.Text
                 };
 
-                fillUpDb.FillUpItems.InsertOnSubmit(fill);
+                if (_isEdit)
+                {
+                    var _fil = from ViewModel.FillUp f in fillUpDb.FillUpItems where 
+                                   f.VehicleName == EditFill.VehicleName &&
+                               f.Cost == EditFill.Cost &&
+                               f.Date == EditFill.Date &&
+                               f.Notes == EditFill.Notes &&
+                               f.Quantity == EditFill.Quantity select f;
+                    fillUpDb.FillUpItems.DeleteAllOnSubmit(_fil);
+                    fillUpDb.SubmitChanges();
+
+                    fillUpDb.FillUpItems.InsertOnSubmit(fill);
+                    fillUpDb.SubmitChanges();
+                    (App.Current as App).FillUps = fillUpDb;
+                }
+                else
+                {
+                    fillUpDb.FillUpItems.InsertOnSubmit(fill);
+                }
+
                 NavigationService.Navigate(new Uri("//VehicleInfo.xaml?Name=" + _vehicle.Name, UriKind.Relative));
             }
             else

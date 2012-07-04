@@ -17,6 +17,9 @@ namespace LiquidGold
 {
     public partial class App : Application
     {
+        public ViewModel.VehicleDataContext Vehicles;
+        public ViewModel.FillUpDataContext FillUps;
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>

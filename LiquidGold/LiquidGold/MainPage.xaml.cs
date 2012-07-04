@@ -168,6 +168,8 @@ namespace LiquidGold
             vehicleDb.VehicleItems.DeleteOnSubmit(Vehicle);
             fills.SubmitChanges();
             vehicleDb.SubmitChanges();
+
+            (App.Current as App).FillUps = fills;
             RefreshVehicleList();
         }
 
@@ -180,6 +182,8 @@ namespace LiquidGold
 
             Vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
             VehicleList.ItemsSource = Vehicles;
+
+            (App.Current as App).Vehicles = vehicleDb;
 
             ApplicationBarIconButton btn = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
             if (btn != null)

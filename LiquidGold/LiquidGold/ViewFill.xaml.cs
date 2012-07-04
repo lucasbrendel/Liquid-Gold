@@ -46,5 +46,25 @@ namespace LiquidGold
             }
             base.OnNavigatedTo(e);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditFillBtn_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + PageTitle.Text + "&IsEdit=1&Index=0", UriKind.Relative));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteFillBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
