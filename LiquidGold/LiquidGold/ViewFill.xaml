@@ -24,7 +24,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="LIQUID GOLD" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="{Binding Name}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -51,10 +51,18 @@
             <Viewbox  Grid.Column="0" Grid.Row="3">
                 <TextBlock Text="Date of Fill" Style="{StaticResource PhoneTextAccentStyle}"/>
             </Viewbox>
-            <TextBlock Grid.Column="1" Grid.Row="0" Name="Odo_txt" Text="{Binding Odometer}"/>
-            <TextBlock Grid.Column="1" Grid.Row="1" Name="Quantity_txt" Text="{Binding Quantity}"/>
-            <TextBlock Grid.Column="1" Grid.Row="2" Name="Cost_txt" Text="{Binding Cost}"/>
-            <TextBlock Grid.Column="1" Grid.Row="3" Name="Date_txt" Text="{Binding Date}"/>
+            <Viewbox Grid.Column="1" Grid.Row="0">
+                <TextBlock Name="Odo_txt" />
+            </Viewbox>
+            <Viewbox Grid.Column="1" Grid.Row="1">
+                <TextBlock Name="Quantity_txt" />
+            </Viewbox>
+            <Viewbox  Grid.Column="1" Grid.Row="2">
+                <TextBlock Name="Cost_txt" />
+            </Viewbox>
+            <Viewbox  Grid.Column="1" Grid.Row="3">
+                <TextBlock Name="Date_txt" />
+            </Viewbox>
         </Grid>
         <Grid x:Name="NotePanel" Grid.Row="2">
             <Grid.RowDefinitions>
@@ -62,7 +70,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="Notes" Style="{StaticResource PhoneTextAccentStyle}"/>
-            <TextBlock Grid.Row="1" Name="Notes_txt" Text="{Binding Notes}"/>
+            <TextBlock Grid.Row="1" Name="Notes_txt"/>
         </Grid>
     </Grid>
  

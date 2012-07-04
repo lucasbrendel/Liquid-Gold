@@ -529,8 +529,20 @@ namespace LiquidGold
         }
 
         #endregion Events
+
+        private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.SelectedItem;
+
+            NavigationService.Navigate(new Uri("//ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
+                                                "&Date=" + fill.Date.ToString() + "&Cost=" + fill.Cost.ToString() +
+                                                "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString(), UriKind.Relative));
+        }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class Stats
     {
         private string _name;

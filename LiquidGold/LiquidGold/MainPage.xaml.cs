@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 using System.ComponentModel;
 
 namespace LiquidGold
@@ -53,10 +54,8 @@ namespace LiquidGold
         /// <param name="e"></param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
+            RefreshVehicleList();
 
-            Vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
-            VehicleList.ItemsSource = Vehicles;
             base.OnNavigatedTo(e);
         }
 
@@ -128,7 +127,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void VehicleList_Hold(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            
+            VehicleList.SelectedItem = sender;
         }
 
         /// <summary>
@@ -138,10 +137,11 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (VehicleList.SelectedIndex != -1)
+            MenuItem menu = (MenuItem)sender;
+            int index = VehicleList.ItemContainerGenerator.IndexFromContainer((VehicleList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem));
+            if (index != -1)
             {
-                ViewModel.Vehicle SelectedVehicle = (ViewModel.Vehicle)VehicleList.SelectedItem;
-                MenuItem menu = (MenuItem)sender;
+               ViewModel.Vehicle SelectedVehicle = (ViewModel.Vehicle)VehicleList.Items[index];
 
                 //Selected context menu item is to pin to start
                 if (menu.Header.ToString().Equals("pin to start"))
@@ -151,7 +151,46 @@ namespace LiquidGold
                 //Selected context menu item is to delete the vehicle
                 else if (menu.Header.ToString().Equals("delete"))
                 {
+                    DeleteVehicle(SelectedVehicle);
+                }
+            }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void DeleteVehicle(ViewModel.Vehicle Vehicle)
+        {
+            ViewModel.FillUpDataContext fills = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
+            var fil = from fill in fills.FillUpItems where fill.VehicleName == Vehicle.Name select fill;
+            ObservableCollection<ViewModel.FillUp> fillDB = new ObservableCollection<ViewModel.FillUp>(fil);
+            fills.FillUpItems.DeleteAllOnSubmit(fillDB);
+            vehicleDb.VehicleItems.DeleteOnSubmit(Vehicle);
+            fills.SubmitChanges();
+            vehicleDb.SubmitChanges();
+            RefreshVehicleList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RefreshVehicleList()
+        {
+            var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
+
+            Vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
+            VehicleList.ItemsSource = Vehicles;
+
+            ApplicationBarIconButton btn = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+            if (btn != null)
+            {
+                if (Vehicles.Count == 0)
+                {
+                    btn.IsEnabled = false;
+                }
+                else
+                {
+                    btn.IsEnabled = true;
                 }
             }
         }

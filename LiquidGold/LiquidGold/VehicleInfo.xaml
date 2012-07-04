@@ -74,7 +74,7 @@
                             <Setter Property="Margin" Value="5"/>
                         </Style>
                     </Grid.Resources>
-                    <ListBox Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}">
+                    <ListBox Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}" SelectionChanged="HistoryList_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

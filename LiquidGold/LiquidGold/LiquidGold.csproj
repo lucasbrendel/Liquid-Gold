@@ -84,6 +84,9 @@
     <Compile Include="VehicleInfo.xaml.cs">
       <DependentUpon>VehicleInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewFill.xaml.cs">
+      <DependentUpon>ViewFill.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\FillUp.cs" />
     <Compile Include="ViewModel\Vehicle.cs" />
   </ItemGroup>
@@ -109,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VehicleInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewFill.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
