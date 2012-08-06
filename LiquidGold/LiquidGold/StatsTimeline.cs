@@ -73,6 +73,83 @@ namespace LiquidGold
             return AvgMileage;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateWorstMileage()
+        {
+            ObservableCollection<Axis> WorstMileage = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            double mileage;
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                mileage = fill.Distance / fill.Quantity;
+                points.Add(mileage);
+                point.Y = points.Min();
+
+                WorstMileage.Add(point);
+            }
+
+            return WorstMileage;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateBestMileage()
+        {
+            ObservableCollection<Axis> BestMileage = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            double mileage;
+
+            foreach(ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                mileage = fill.Distance / fill.Quantity;
+                points.Add(mileage);
+                point.Y = points.Max();
+
+                BestMileage.Add(point);
+            }
+
+            return BestMileage;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateAverageDistance()
+        {
+            ObservableCollection<Axis> AvgDistance = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Distance);
+                point.Y = points.Average();
+
+                AvgDistance.Add(point);
+            }
+
+            return AvgDistance;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fill"></param>
+        /// <returns></returns>
         private ObservableCollection<ViewModel.FillUp> CalculateDistance(ObservableCollection<ViewModel.FillUp> fill)
         {
             for (int i = 0; i < fill.Count; i++)

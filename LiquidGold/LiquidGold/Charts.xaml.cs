@@ -60,6 +60,10 @@ namespace LiquidGold
             CalculateStat(ChartList.SelectedIndex);            
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Index"></param>
         private void CalculateStat(int Index)
         {
             if (Timeline != null)
@@ -72,10 +76,13 @@ namespace LiquidGold
                         Statistic = Timeline.CalculateAverageMileage();
                         break;
                     case 1:
+                        Statistic = Timeline.CalculateWorstMileage();
                         break;
                     case 2:
+                        Statistic = Timeline.CalculateBestMileage();
                         break;
                     case 3:
+                        Statistic = Timeline.CalculateAverageDistance();
                         break;
                     case 4:
                         break;
@@ -103,6 +110,10 @@ namespace LiquidGold
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Statistic"></param>
         private void FillChart(ObservableCollection<Axis> Statistic)
         {
             Chart.Series[0].ItemsSource = Statistic;
