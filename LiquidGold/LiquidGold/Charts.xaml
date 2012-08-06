@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage 
+﻿<phone:PhoneApplicationPage xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"  
     xmlns:chart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
     xmlns:chartEngine="clr-namespace:Telerik.Charting;assembly=Telerik.Windows.Controls.Chart"
     xmlns:my="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"  
@@ -30,15 +30,40 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+
+            <Grid.Resources>
+                <DataTemplate x:Name="StatPicker">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}"/>
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate x:Name="StatFullModePicker">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}" Margin="3,10" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </Grid.Resources>
+            
             <StackPanel>
-                <my:RadDataBoundListBox Name="ChartList" Height="20" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-                <chart:RadCartesianChart x:Name="Chart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <toolkit:ListPicker Name="ChartList" ItemTemplate="{StaticResource StatPicker}" FullModeItemTemplate="{StaticResource StatFullModePicker}"
+                                    FullModeHeader="Statistics" Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" SelectionChanged="ChartList_SelectionChanged" />
+                <chart:RadCartesianChart x:Name="Chart" VerticalAlignment="Stretch" Height="599" Width="453">
                     <chart:RadCartesianChart.HorizontalAxis>
-                        <chart:CategoricalAxis/>
+                        <chart:DateTimeContinuousAxis LabelFitMode="MultiLine" LabelFormat="MMM dd yyyy"/>
                     </chart:RadCartesianChart.HorizontalAxis>
                     <chart:RadCartesianChart.VerticalAxis>
-                        <chart:LinearAxis/>
+                        <chart:LinearAxis VerticalAlignment="Stretch"/>
                     </chart:RadCartesianChart.VerticalAxis>
+                    <chart:RadCartesianChart.Series>
+                        <chart:LineSeries Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="2" 
+                                          CategoryBinding="X" ValueBinding="Y" ItemsSource="{Binding}">
+                            <chart:LineSeries.PointTemplates>
+                                <DataTemplate>
+                                    <Rectangle Fill="{StaticResource PhoneForegroundBrush}"/>
+                                </DataTemplate>
+                            </chart:LineSeries.PointTemplates>
+                        </chart:LineSeries>
+                    </chart:RadCartesianChart.Series>
                 </chart:RadCartesianChart>
             </StackPanel>
         </Grid>

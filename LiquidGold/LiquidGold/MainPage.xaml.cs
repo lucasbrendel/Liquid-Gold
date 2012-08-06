@@ -46,6 +46,16 @@ namespace LiquidGold
             vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
 
             this.DataContext = vehicleDb;
+
+            LoadStorageVariables();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void LoadStorageVariables()
+        {
+            
         }
 
         /// <summary>

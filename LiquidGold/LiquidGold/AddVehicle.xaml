@@ -30,13 +30,13 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ScrollViewer>
                 <StackPanel>
-                    <TextBlock Text="Name of Vehicle"/>
+                    <TextBlock Text="Name of Vehicle" Style="{StaticResource TextCustomTitleStyle}"/>
                     <TextBox Name="Name_txt"/>
-                    <TextBlock Text="Make"/>
+                    <TextBlock Text="Make" Style="{StaticResource TextCustomTitleStyle}"/>
                     <TextBox Name="Make_txt"/>
-                    <TextBlock Text="Model"/>
+                    <TextBlock Text="Model" Style="{StaticResource TextCustomTitleStyle}"/>
                     <TextBox Name="Model_txt"/>
-                    <TextBlock Text="Initial odometer before filling"/>
+                    <TextBlock Text="Initial Odometer before Filling" Style="{StaticResource TextCustomTitleStyle}"/>
                     <TextBox Name="InitOdo_txt" InputScope="TelephoneNumber"/>
                 </StackPanel>
             </ScrollViewer>

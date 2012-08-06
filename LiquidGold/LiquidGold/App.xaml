@@ -7,6 +7,11 @@
 
     <!--Application Resources-->
     <Application.Resources>
+        <Style x:Name="TextCustomTitleStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeLarge}"/>
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiLight}"/>
+        </Style>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

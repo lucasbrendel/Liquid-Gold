@@ -20,6 +20,38 @@ namespace LiquidGold
         public ViewModel.VehicleDataContext Vehicles;
         public ViewModel.FillUpDataContext FillUps;
 
+        public bool FirstFill;
+        public enum Units
+        {
+            Imperial,
+            Metric
+        };
+
+        public Units UserUnits;
+        public bool LocationAware;
+
+        public string[] StatisticsArray = 
+        {
+            "Average Mileage",
+            "Worst Mileage",
+            "Best Mileage",
+            "Average Distance",
+            "Shortest Distance",
+            "Longest Distance",
+            "Total Distance",
+            "Average Quantity",
+            "Smallest Quanity",
+            "Largest Quantity",
+            "Total Quantity",
+            "Average Total Cost",
+            "Smallest Total Cost",
+            "Largest Total Cost",
+            "Overall Cost",
+            "Average Cost/Gallon",
+            "Smallest Cost/Gallon",
+            "Largest Cost/Gallon"
+        };
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -75,6 +107,9 @@ namespace LiquidGold
                     vehicleDB.CreateDatabase();
                 }
             }
+
+            UserUnits = Units.Imperial;
+            LocationAware = false;
 
         }
 

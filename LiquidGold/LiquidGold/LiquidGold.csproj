@@ -111,6 +111,7 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StatsTimeline.cs" />
     <Compile Include="VehicleInfo.xaml.cs">
       <DependentUpon>VehicleInfo.xaml</DependentUpon>
     </Compile>

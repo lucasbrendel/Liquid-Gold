@@ -1,5 +1,6 @@
 ﻿<phone:PhoneApplicationPage xmlns:my="clr-namespace:Microsoft.Live.Controls;assembly=Microsoft.Live.Controls"  
     x:Class="LiquidGold.Settings"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -18,22 +19,28 @@
     <Grid x:Name="LayoutRoot">
         <controls:Panorama Title="liquid gold">
 
+            <!--Panorama item-->
+            <controls:PanoramaItem Header="settings">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Location Aware" Style="{StaticResource TextCustomTitleStyle}"/>
+                        <telerikPrimitives:RadToggleSwitch Name="LocationSwitch"/>
+                        <TextBlock TextWrapping="Wrap" Text="Turning on location awareness will, by default, save the location of your fill should you want to look back. You can still choose not to save the location of a fill when you input the information."/>
+                        <TextBlock Margin="5" Text="Units" Style="{StaticResource TextCustomTitleStyle}"/>
+                        <RadioButton Name="ImperialRad" GroupName="Units" Content="Imperial"/>
+                        <RadioButton Name="MetricRad" GroupName="Units" Content="Metric"/>
+                    </StackPanel>
+                </Grid>
+            </controls:PanoramaItem>
+
             <!--Panorama item one-->
             <controls:PanoramaItem Header="about">
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Version" Style="{StaticResource PhoneTextAccentStyle}"/>
+                        <TextBlock Text="1.0" HorizontalAlignment="Center" FontSize="64"/>
                         <TextBlock Text="Licenses" Style="{StaticResource PhoneTextAccentStyle}"/>
-                    </StackPanel>
-                </Grid>
-            </controls:PanoramaItem>
-
-            <!--Panorama item two-->
-            <controls:PanoramaItem Header="backup">
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="This feature is coming SOON!" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                        <my:SignInButton IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" ClientId="0" Branding="Skydrive"/>
+                        <TextBlock Text="Shout Outs" Style="{StaticResource PhoneTextAccentStyle}"/>
                     </StackPanel>
                 </Grid>
             </controls:PanoramaItem>
