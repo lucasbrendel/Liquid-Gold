@@ -51,12 +51,34 @@ namespace LiquidGold
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="fill"></param>
+        /// <returns></returns>
+        private ObservableCollection<ViewModel.FillUp> CalculateDistance(ObservableCollection<ViewModel.FillUp> fill)
+        {
+            for (int i = 0; i < fill.Count; i++)
+            {
+                if (i == 0)
+                {
+                    fill[i].Distance = fill[i].Odometer - CurrentVehicle.InitOdometer;
+                }
+                else
+                {
+                    fill[i].Distance = fill[i].Odometer - fill[i - 1].Odometer;
+                }
+            }
+
+            return fill;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public ObservableCollection<Axis> CalculateAverageMileage()
         {
             ObservableCollection<Axis> AvgMileage = new ObservableCollection<Axis>();
             ObservableCollection<double> points = new ObservableCollection<double>();
-            
+
             double mileage;
 
             foreach (ViewModel.FillUp fill in _fills)
@@ -109,7 +131,7 @@ namespace LiquidGold
 
             double mileage;
 
-            foreach(ViewModel.FillUp fill in _fills)
+            foreach (ViewModel.FillUp fill in _fills)
             {
                 Axis point = new Axis();
                 point.X = DateTime.Parse(fill.Date);
@@ -148,23 +170,305 @@ namespace LiquidGold
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fill"></param>
         /// <returns></returns>
-        private ObservableCollection<ViewModel.FillUp> CalculateDistance(ObservableCollection<ViewModel.FillUp> fill)
+        public ObservableCollection<Axis> CalculateShortestDistance()
         {
-            for (int i = 0; i < fill.Count; i++)
+            ObservableCollection<Axis> MinDistance = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
             {
-                if (i == 0)
-                {
-                    fill[i].Distance = fill[i].Odometer - CurrentVehicle.InitOdometer;
-                }
-                else
-                {
-                    fill[i].Distance = fill[i].Odometer - fill[i - 1].Odometer;
-                }
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Distance);
+                point.Y = points.Min();
+
+                MinDistance.Add(point);
             }
 
-            return fill;
+            return MinDistance;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateLongestDistance()
+        {
+            ObservableCollection<Axis> MaxDistance = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Distance);
+                point.Y = points.Max();
+
+                MaxDistance.Add(point);
+            }
+
+            return MaxDistance;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateTotalDistance()
+        {
+            ObservableCollection<Axis> TotalDistance = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Distance);
+                point.Y = points.Sum();
+
+                TotalDistance.Add(point);
+            }
+
+            return TotalDistance;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateAverageQuantity()
+        {
+            ObservableCollection<Axis> Quantity = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Quantity);
+                point.Y = points.Average();
+
+                Quantity.Add(point);
+            }
+
+            return Quantity;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateSmallestQuantity()
+        {
+            ObservableCollection<Axis> Quantity = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Quantity);
+                point.Y = points.Min();
+
+                Quantity.Add(point);
+            }
+
+            return Quantity;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateLargestQuantity()
+        {
+            ObservableCollection<Axis> Quantity = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Quantity);
+                point.Y = points.Max();
+
+                Quantity.Add(point);
+            }
+
+            return Quantity;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateTotalQuantity()
+        {
+            ObservableCollection<Axis> Quantity = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Quantity);
+                point.Y = points.Sum();
+
+                Quantity.Add(point);
+            }
+
+            return Quantity;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateAverageTotalCost()
+        {
+            ObservableCollection<Axis> TotalCost = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.TotalCost);
+                point.Y = points.Average();
+
+                TotalCost.Add(point);
+            }
+
+            return TotalCost;
+        }
+
+        public ObservableCollection<Axis> CalculateSmallestTotalCost()
+        {
+            ObservableCollection<Axis> TotalCost = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.TotalCost);
+                point.Y = points.Min();
+
+                TotalCost.Add(point);
+            }
+
+            return TotalCost;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateLargestTotalCost()
+        {
+            ObservableCollection<Axis> TotalCost = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.TotalCost);
+                point.Y = points.Max();
+
+                TotalCost.Add(point);
+            }
+
+            return TotalCost;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateTotalTotalCost()
+        {
+            ObservableCollection<Axis> TotalCost = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.TotalCost);
+                point.Y = points.Sum();
+
+                TotalCost.Add(point);
+            }
+
+            return TotalCost;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateAverageCostPerGallon()
+        {
+            ObservableCollection<Axis> CostGallon = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Cost);
+                point.Y = points.Average();
+
+                CostGallon.Add(point);
+            }
+
+            return CostGallon;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateSmallestCostPerGallon()
+        {
+            ObservableCollection<Axis> CostGallon = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Cost);
+                point.Y = points.Min();
+
+                CostGallon.Add(point);
+            }
+
+            return CostGallon;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<Axis> CalculateLargestCostPerGallon()
+        {
+            ObservableCollection<Axis> CostGallon = new ObservableCollection<Axis>();
+            ObservableCollection<double> points = new ObservableCollection<double>();
+
+            foreach (ViewModel.FillUp fill in _fills)
+            {
+                Axis point = new Axis();
+                point.X = DateTime.Parse(fill.Date);
+                points.Add(fill.Cost);
+                point.Y = points.Max();
+
+                CostGallon.Add(point);
+            }
+
+            return CostGallon;
         }
     }
 }

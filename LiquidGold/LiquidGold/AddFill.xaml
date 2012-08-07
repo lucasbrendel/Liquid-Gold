@@ -44,7 +44,7 @@
             <StackPanel>
                 <toolkit:ListPicker Name="VehiclesList" ItemTemplate="{StaticResource VehiclesPicker}" 
                                     FullModeItemTemplate="{StaticResource VehicleFullModePicker}"
-                                    FullModeHeader="Vehicles" CacheMode="BitmapCache"/>
+                                    FullModeHeader="Vehicles" />
                 <TextBlock Text="Odometer" Style="{StaticResource TextCustomTitleStyle}"/>
                 <TextBox Name="Odo_txt" InputScope="TelephoneNumber"/>
                 <Grid>

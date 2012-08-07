@@ -14,6 +14,8 @@ using System.Collections;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Telerik.Windows.Controls;
+using Telerik;
+using Telerik.Charting;
 
 namespace LiquidGold
 {
@@ -25,6 +27,24 @@ namespace LiquidGold
         public Charts()
         {
             InitializeComponent();
+            ChartTooltipBehavior behavior = (ChartTooltipBehavior)this.Chart.Behaviors[0];
+            behavior.ContextNeeded += new EventHandler<TooltipContextNeededEventArgs>(behavior_ContextNeeded);
+        }
+
+        void behavior_ContextNeeded(object sender, TooltipContextNeededEventArgs e)
+        {
+            e.Context = this.CreateContext(e.DefaultContext);
+        }
+
+        private Axis CreateContext(ChartDataContext chartDataContext)
+        {
+            CategoricalDataPoint DataPoint = (CategoricalDataPoint)chartDataContext.ClosestDataPoint.DataPoint;
+
+            return new Axis()
+            {
+                X = (DateTime)DataPoint.Category,
+                Y = (double)DataPoint.Value
+            };
         }
 
         /// <summary>
@@ -57,7 +77,10 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void ChartList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CalculateStat(ChartList.SelectedIndex);            
+            if (ChartList.SelectedIndex != -1)
+            {
+                CalculateStat(ChartList.SelectedIndex);
+            }
         }
 
         /// <summary>
@@ -85,22 +108,46 @@ namespace LiquidGold
                         Statistic = Timeline.CalculateAverageDistance();
                         break;
                     case 4:
+                        Statistic = Timeline.CalculateShortestDistance();
                         break;
                     case 5:
+                        Statistic = Timeline.CalculateLongestDistance();
                         break;
                     case 6:
+                        Statistic = Timeline.CalculateTotalDistance();
                         break;
                     case 7:
+                        Statistic = Timeline.CalculateAverageQuantity();
                         break;
                     case 8:
+                        Statistic = Timeline.CalculateSmallestQuantity();
                         break;
                     case 9:
+                        Statistic = Timeline.CalculateLargestQuantity();
                         break;
                     case 10:
+                        Statistic = Timeline.CalculateTotalQuantity();
                         break;
                     case 11:
+                        Statistic = Timeline.CalculateAverageTotalCost();
                         break;
                     case 12:
+                        Statistic = Timeline.CalculateSmallestTotalCost();
+                        break;
+                    case 13:
+                        Statistic = Timeline.CalculateLargestTotalCost();
+                        break;
+                    case 14:
+                        Statistic = Timeline.CalculateTotalTotalCost();
+                        break;
+                    case 15:
+                        Statistic = Timeline.CalculateAverageCostPerGallon();
+                        break;
+                    case 16:
+                        Statistic = Timeline.CalculateSmallestCostPerGallon();
+                        break;
+                    case 17:
+                        Statistic = Timeline.CalculateLargestCostPerGallon();
                         break;
                     default:
                         break;
@@ -116,7 +163,12 @@ namespace LiquidGold
         /// <param name="Statistic"></param>
         private void FillChart(ObservableCollection<Axis> Statistic)
         {
-            Chart.Series[0].ItemsSource = Statistic;
+            LineSeries series = ((LineSeries)Chart.Series[0]);
+            series.CategoryBinding = new PropertyNameDataPointBinding() { PropertyName = "X" };
+            series.ValueBinding = new GenericDataPointBinding<Axis, double>() { ValueSelector = Axis => Axis.Y };
+            series.ItemsSource = Statistic;
+
+            //Chart.Series[0].ItemsSource = Statistic;
         }
     }
 }
