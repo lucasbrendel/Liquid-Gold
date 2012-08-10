@@ -24,6 +24,16 @@ namespace LiquidGold.ViewModel
 
         private string _notes;
 
+        public FillUp()
+        {
+            _vehicleName = String.Empty;
+            _odo = 0;
+            _cost = 0.0;
+            _quantity = 0.0;
+            _date = String.Empty;
+            _notes = String.Empty;
+        }
+
         /// <summary>
         /// 
         /// </summary>

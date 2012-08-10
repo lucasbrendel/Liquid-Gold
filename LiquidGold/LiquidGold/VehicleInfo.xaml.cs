@@ -14,11 +14,19 @@ using Microsoft.Phone.Controls;
 using System.Data;
 using System.Data.Linq;
 using System.ComponentModel;
+using Telerik;
+using Telerik.Windows.Controls;
 
 namespace LiquidGold
 {
     public partial class VehicleInfo : PhoneApplicationPage, INotifyPropertyChanged
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private ViewModel.FillUp fill = new ViewModel.FillUp();
+        
         /// <summary>
         /// 
         /// </summary>
@@ -125,7 +133,12 @@ namespace LiquidGold
             VehicleModel.Text = CurrentVehicle.Model;
             AverageMileage.Text = AvgMileage().ToString();
             EntryCount.Text = FillUpItems.Count.ToString();
-
+            if (FillUpItems.Count > 0 && Gauge.MaxValue > BestMileage())
+            {
+                Gauge.MaxValue = Math.Ceiling(AvgMileage() / 10) * 10;
+            }
+            ValueIndicator.Value = AvgMileage();
+            DaysCount.Text = (DateTime.Parse(FillUpItems.Max(f => f.Date)) - DateTime.Parse(FillUpItems.Min(f => f.Date))).Days.ToString();
         }
 
         /// <summary>
@@ -217,7 +230,7 @@ namespace LiquidGold
         {
             double best = 0.0;
             double temp = 0.0;
-            if (_fillUpItems.Count > 1)
+            if (_fillUpItems.Count > 0)
             {
                 foreach (ViewModel.FillUp fill in _fillUpItems)
                 {
@@ -239,7 +252,7 @@ namespace LiquidGold
         {
             double worst = 0.0;
             double temp = 0.0;
-            if (_fillUpItems.Count > 1)
+            if (_fillUpItems.Count > 0)
             {
                 worst = Double.PositiveInfinity;
                 foreach (ViewModel.FillUp fill in _fillUpItems)
@@ -537,11 +550,15 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.SelectedItem;
+            fill = (ViewModel.FillUp)HistoryList.SelectedItem;
 
-            NavigationService.Navigate(new Uri("//ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
-                                                "&Date=" + fill.Date.ToString() + "&Cost=" + fill.Cost.ToString() +
-                                                "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString(), UriKind.Relative));
+            try
+            {
+                NavigationService.Navigate(new Uri("//ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
+                                                    "&Date=" + fill.Date.ToString() + "&Cost=" + fill.Cost.ToString() +
+                                                    "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString(), UriKind.Relative));
+            }
+            catch (NullReferenceException) { }
         }
 
         /// <summary>
@@ -550,9 +567,21 @@ namespace LiquidGold
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void StatsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("//Charts.xaml?Name=" + CurrentVehicle.Name + "&Index=" + StatsList.SelectedIndex.ToString(), UriKind.Relative));
+        {       
+            NavigationService.Navigate(new Uri("//Charts.xaml?Name=" + CurrentVehicle.Name + "&Index=" + StatsList.SelectedIndex, UriKind.Relative));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PhoneApplicationPage_BackKeyPress(object sender, CancelEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+        }
+        
+
     }
 
     /// <summary>

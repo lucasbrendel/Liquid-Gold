@@ -36,6 +36,8 @@ namespace LiquidGold
 
             vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
             fillUpDb = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
+
+            FillDate.Value = DateTime.Now;
         }
 
         /// <summary>

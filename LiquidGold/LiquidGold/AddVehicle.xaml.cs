@@ -54,7 +54,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void AddBtn_Click(object sender, EventArgs e)
         {
-            ViewModel.Vehicle vehicle = new ViewModel.Vehicle { Name = Name_txt.Text, Make=Make_txt.Text, Model=Model_txt.Text};
+            ViewModel.Vehicle vehicle = new ViewModel.Vehicle { Name = Name_txt.Text, Make = Make_txt.Text, Model = Model_txt.Text, InitOdometer = Double.Parse(InitOdo_txt.Text) };
 
             if (Name_txt.Text != String.Empty)
             {
