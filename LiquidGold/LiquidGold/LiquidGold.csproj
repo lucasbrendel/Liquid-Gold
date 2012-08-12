@@ -63,9 +63,6 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
-    <Reference Include="Telerik.Windows.BackgroundAgentTools">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.BackgroundAgentTools.dll</HintPath>
-    </Reference>
     <Reference Include="Telerik.Windows.Behaviors">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Behaviors.dll</HintPath>
     </Reference>
@@ -183,6 +180,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\CarEmpty.jpg" />
+    <Content Include="Icons\Board Pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\car.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

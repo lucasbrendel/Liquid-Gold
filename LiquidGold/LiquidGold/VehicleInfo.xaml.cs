@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using System.Data;
-using System.Data.Linq;
 using System.ComponentModel;
-using Telerik;
 using Telerik.Windows.Controls;
 
 namespace LiquidGold
@@ -574,8 +564,16 @@ namespace LiquidGold
         {
             NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
         }
-        
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pinBtn_Click(object sender, EventArgs e)
+        {
+            LiveTileHelper.CreateTile(new RadExtendedTileData() { Title = VehicleName.Text.ToString(), BackVisualElement = this.AverageMileage, BackTitle = "Average Mileage" }, new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
+        }
     }
 
     /// <summary>
