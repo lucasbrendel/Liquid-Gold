@@ -20,13 +20,7 @@ using Telerik.Windows.Controls;
 namespace LiquidGold
 {
     public partial class VehicleInfo : PhoneApplicationPage, INotifyPropertyChanged
-    {
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ViewModel.FillUp fill = new ViewModel.FillUp();
-        
+    {        
         /// <summary>
         /// 
         /// </summary>
@@ -550,7 +544,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            fill = (ViewModel.FillUp)HistoryList.SelectedItem;
+            ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.SelectedItem;
 
             try
             {

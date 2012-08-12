@@ -46,16 +46,6 @@ namespace LiquidGold
             vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
 
             this.DataContext = vehicleDb;
-
-            LoadStorageVariables();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void LoadStorageVariables()
-        {
-            
         }
 
         /// <summary>
@@ -156,7 +146,13 @@ namespace LiquidGold
                 //Selected context menu item is to pin to start
                 if (menu.Header.ToString().Equals("pin to start"))
                 {
-
+                    ShellTile VehicleTile = new ShellTile();
+                    StandardTileData TileData = new StandardTileData()
+                    {
+                        Title = SelectedVehicle.Name.ToString(),
+                        BackTitle = "Average Mileage",
+                        BackContent = "Number"
+                    };
                 }
                 //Selected context menu item is to delete the vehicle
                 else if (menu.Header.ToString().Equals("delete"))
