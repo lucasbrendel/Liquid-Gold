@@ -1,12 +1,6 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Collections.ObjectModel;
+﻿using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.ComponentModel;
-using System.Windows.Media.Imaging;
-using System.Windows.Controls;
 
 namespace LiquidGold.ViewModel 
 {

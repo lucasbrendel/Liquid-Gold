@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
-using System.ComponentModel;
 using Telerik.Windows.Controls;
 
 namespace LiquidGold
@@ -562,7 +562,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void PhoneApplicationPage_BackKeyPress(object sender, CancelEventArgs e)
         {
-            NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         /// <summary>
