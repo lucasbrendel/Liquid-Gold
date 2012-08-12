@@ -5,7 +5,7 @@ namespace LiquidGold
     public partial class Settings : PhoneApplicationPage
     {
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         public Settings()
         {
@@ -13,9 +13,9 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Override function to handle when page is navigated to
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">Navigation event argument</param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

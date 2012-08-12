@@ -5,11 +5,18 @@ namespace LiquidGold
 {
     public partial class ViewFill : PhoneApplicationPage
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ViewFill()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Override of navigation to
+        /// </summary>
+        /// <param name="e">Navigation event argument</param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             string Name;
@@ -38,20 +45,20 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Edit the current fill
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void EditFillBtn_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + PageTitle.Text + "&IsEdit=1&Index=0", UriKind.Relative));
         }
 
         /// <summary>
-        /// 
+        /// Delete the current fill entry
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void DeleteFillBtn_Click(object sender, EventArgs e)
         {
 

@@ -16,7 +16,7 @@ namespace LiquidGold
         private bool IsValueAdded;
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         public AddVehicle()
         {
@@ -27,9 +27,9 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Override on navigation to
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">Navigation event argument</param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
@@ -39,10 +39,10 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Add a new vehicle to data source
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void AddBtn_Click(object sender, EventArgs e)
         {
             ViewModel.Vehicle vehicle = new ViewModel.Vehicle { Name = Name_txt.Text, Make = Make_txt.Text, Model = Model_txt.Text, InitOdometer = Double.Parse(InitOdo_txt.Text) };
@@ -73,6 +73,10 @@ namespace LiquidGold
             }
         }
 
+        /// <summary>
+        /// Event on navigating from page
+        /// </summary>
+        /// <param name="e">Navigation event argument</param>
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
@@ -83,35 +87,13 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Cancel adding vehicle
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="propertyName"></param>
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        private void ImageBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -7,9 +7,6 @@ namespace LiquidGold.ViewModel
     [Table]
     public class Vehicle : INotifyPropertyChanged, INotifyPropertyChanging
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private string _name;
 
         private string _make;
@@ -18,18 +15,25 @@ namespace LiquidGold.ViewModel
 
         private double _initOdo;
 
+        /// <summary>
+        /// Construcotr
+        /// </summary>
         public Vehicle()
         {
 
         }
 
+        /// <summary>
+        /// Overloaded constructor
+        /// </summary>
+        /// <param name="Name">Name of the vehicle</param>
         public Vehicle(string Name)
         {
             _name = Name;
         }
 
         /// <summary>
-        /// 
+        /// Name of vehicle
         /// </summary>
         [Column(CanBeNull=false, IsPrimaryKey=true)]
         public string Name
@@ -47,7 +51,7 @@ namespace LiquidGold.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Manufacture make of the vehicle
         /// </summary>
         [Column(CanBeNull = false)]
         public string Make
@@ -65,7 +69,7 @@ namespace LiquidGold.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Model of vehicle make
         /// </summary>
         [Column(CanBeNull = false)]
         public string Model
@@ -83,7 +87,7 @@ namespace LiquidGold.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// The initial odometer reading before filling
         /// </summary>
         [Column(CanBeNull=false)]
         public double InitOdometer
@@ -101,7 +105,7 @@ namespace LiquidGold.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Table value
         /// </summary>
         [Column(IsVersion = true)]
         private Binary _version;
@@ -109,14 +113,14 @@ namespace LiquidGold.ViewModel
         #region INotifyPropertyChanged Members
 
         /// <summary>
-        /// 
+        /// Property changed event
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 
+        /// Notify all listeners of changed property
         /// </summary>
-        /// <param name="propertyName"></param>
+        /// <param name="propertyName">Name of property that changed</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -130,14 +134,14 @@ namespace LiquidGold.ViewModel
         #region INotifyPropertyChanging Members
 
         /// <summary>
-        /// 
+        /// Property changing event
         /// </summary>
         public event PropertyChangingEventHandler PropertyChanging;
 
         /// <summary>
-        /// 
+        /// Notify all listeners of changing property
         /// </summary>
-        /// <param name="propertyName"></param>
+        /// <param name="propertyName">Name of property changing</param>
         private void NotifyPropertyChanging(string propertyName)
         {
             if (PropertyChanging != null)
@@ -149,20 +153,17 @@ namespace LiquidGold.ViewModel
         #endregion
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public class VehicleDataContext : DataContext
     {
         /// <summary>
-        /// 
+        /// String to connect to data source
         /// </summary>
         public static string VehicleConnectionString = "Data Source=isostore:/Vehicles.sdf";
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
-        /// <param name="ConnectionString"></param>
+        /// <param name="ConnectionString">String of source connection</param>
         public VehicleDataContext(string ConnectionString)
             : base(ConnectionString)
         {
@@ -170,7 +171,7 @@ namespace LiquidGold.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Table of database values
         /// </summary>
         public Table<Vehicle> VehicleItems;
     }

@@ -11,39 +11,18 @@ namespace LiquidGold
 {
     public partial class VehicleInfo : PhoneApplicationPage, INotifyPropertyChanged
     {        
-        /// <summary>
-        /// 
-        /// </summary>
         private ViewModel.FillUpDataContext fillUpDB;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private ViewModel.VehicleDataContext vehicleDB;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private ViewModel.Vehicle CurrentVehicle;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private bool _delete;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private int Index;
 
-        /// <summary>
-        /// 
-        /// </summary>
         private ObservableCollection<Stats> StatList = new ObservableCollection<Stats>();
 
-        /// <summary>
-        /// 
-        /// </summary>
         private ObservableCollection<ViewModel.FillUp> _fillUpItems;
 
         /// <summary>
@@ -63,7 +42,7 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         public VehicleInfo()
         {
@@ -75,7 +54,7 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Override of navigation to page
         /// </summary>
         /// <param name="e"></param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -108,7 +87,7 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Populates all visual data fields
         /// </summary>
         private void FillInfo()
         {
@@ -126,9 +105,9 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Override of navigation from page
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">Navigation event arguments</param>
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
@@ -140,6 +119,9 @@ namespace LiquidGold
             }
         }
 
+        /// <summary>
+        /// Load all statistics
+        /// </summary>
         private void LoadStats()
         {
             StatList.Add(new Stats { Name = "Avg. MPG", Value = AvgMileage() });
@@ -157,23 +139,15 @@ namespace LiquidGold
             StatList.Add(new Stats { Name = "Smallest Total Cost", Value = SmallestTotalCost() });
             StatList.Add(new Stats { Name = "Largest Total Cost", Value = LargestTotalCost() });
             StatList.Add(new Stats { Name = "Overall Cost", Value = TotalCost()});
-            //StatList.Add(new Stats { Name = "Cost Last Year", Value = 0.00 });
-            //StatList.Add(new Stats { Name = "Cost Last Month", Value = 0.00 });
-            //StatList.Add(new Stats { Name = "Avg. Yearly Cost", Value = 0.00 });
-            //StatList.Add(new Stats { Name = "Avg. Monthly Cost", Value = 0.00 });
-            //StatList.Add(new Stats { Name = "Avg. Cost/Distance", Value = 0.00 });
-            //StatList.Add(new Stats { Name = "Max Cost/Distance", Value = 0.00 });
-            //StatList.Add(new Stats { Name = "Min Cost/Distance", Value = 0.00 });
             StatList.Add(new Stats { Name = "Avg. $/gallon", Value = AvgCost() });
             StatList.Add(new Stats { Name = "Max $/gallon", Value = MaxCost() });
             StatList.Add(new Stats { Name = "Min $/gallon", Value = MinCost() });
-
 
             StatsList.ItemsSource = StatList;
         }
 
         /// <summary>
-        /// 
+        /// Calculate distance for each fill
         /// </summary>
         private void CalculateDistance()
         {
@@ -465,14 +439,14 @@ namespace LiquidGold
 
         #region INotifyPropertyChanged
         /// <summary>
-        /// 
+        /// Event for a changed property
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// 
+        /// Notify all listeners of changed property
         /// </summary>
-        /// <param name="propertyName"></param>
+        /// <param name="propertyName">Name of changed property</param>
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -485,30 +459,30 @@ namespace LiquidGold
         #region Events
 
         /// <summary>
-        /// 
+        /// Event to navigate to settings page
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void settings_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("//Settings.xaml", UriKind.Relative));
         }
 
         /// <summary>
-        /// 
+        /// Event to add a new fill
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void addFillBtn_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + VehicleName.Text.ToString(), UriKind.Relative));
         }
 
         /// <summary>
-        /// 
+        /// Event to delete vehicle and all fills
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void deleteBtn_Click(object sender, EventArgs e)
         {
             MessageBoxResult results = MessageBox.Show("Are you sure you want to delete " + VehicleName.Text.ToUpper() + "?", "Delete", MessageBoxButton.OKCancel);
@@ -525,13 +499,11 @@ namespace LiquidGold
             }
         }
 
-        #endregion Events
-
         /// <summary>
-        /// 
+        /// Event when selection of history fills changes
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.SelectedItem;
@@ -546,50 +518,56 @@ namespace LiquidGold
         }
 
         /// <summary>
-        /// 
+        /// Event when a stat item is selected
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void StatsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {       
             NavigationService.Navigate(new Uri("//Charts.xaml?Name=" + CurrentVehicle.Name + "&Index=" + StatsList.SelectedIndex, UriKind.Relative));
         }
 
         /// <summary>
-        /// 
+        /// Event when back key is pressed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void PhoneApplicationPage_BackKeyPress(object sender, CancelEventArgs e)
         {
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         /// <summary>
-        /// 
+        /// Event to pin tile to start screen
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object of event sender</param>
+        /// <param name="e"> Event argument</param>
         private void pinBtn_Click(object sender, EventArgs e)
         {
             LiveTileHelper.CreateTile(new RadExtendedTileData() { Title = VehicleName.Text.ToString(), BackVisualElement = this.AverageMileage, BackTitle = "Average Mileage" }, new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
         }
+
+        #endregion Events
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public class Stats
     {
         private string _name;
 
         private double _value;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Stats()
         {
-
+            _name = String.Empty;
+            _value = Double.NaN;
         }
 
+        /// <summary>
+        /// Name property of statistic
+        /// </summary>
         public string Name
         {
             get { return _name; }
@@ -602,6 +580,9 @@ namespace LiquidGold
             }
         }
 
+        /// <summary>
+        /// Value property of statistic
+        /// </summary>
         public double Value
         {
             get { return _value; }
