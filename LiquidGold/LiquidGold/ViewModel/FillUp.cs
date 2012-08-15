@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
-
 namespace LiquidGold.ViewModel
 {
     [Table]
@@ -21,6 +20,10 @@ namespace LiquidGold.ViewModel
 
         private string _notes;
 
+        private double _latitude;
+
+        private double _longitude;
+
         public FillUp()
         {
             _vehicleName = String.Empty;
@@ -29,6 +32,8 @@ namespace LiquidGold.ViewModel
             _quantity = 0.0;
             _date = String.Empty;
             _notes = String.Empty;
+            _longitude = 0.0;
+            _latitude = 0.0;
         }
 
         /// <summary>
@@ -127,6 +132,42 @@ namespace LiquidGold.ViewModel
                     NotifyPropertyChanging("Notes");
                     _notes = value;
                     NotifyPropertyChanged("Notes");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column]
+        public double Latitude
+        {
+            get { return _latitude; }
+            set
+            {
+                if (value != _latitude)
+                {
+                    NotifyPropertyChanging("Latitude");
+                    _latitude = value;
+                    NotifyPropertyChanged("Longitude");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Column]
+        public double Longitude
+        {
+            get { return _longitude; }
+            set
+            {
+                if (value != _longitude)
+                {
+                    NotifyPropertyChanging("Longitude");
+                    _longitude = value;
+                    NotifyPropertyChanged("Longitude");
                 }
             }
         }

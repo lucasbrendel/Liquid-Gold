@@ -15,6 +15,9 @@ namespace LiquidGold
 
         private ObservableCollection<ViewModel.Vehicle> _vehicles;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ObservableCollection<ViewModel.Vehicle> Vehicles
         {
             get { return _vehicles; }

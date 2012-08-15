@@ -7,7 +7,7 @@ using Microsoft.Phone.Controls;
 
 namespace LiquidGold
 {
-    public partial class AddVehicle : PhoneApplicationPage, INotifyPropertyChanged
+    public partial class AddVehicle : PhoneApplicationPage
     {
         private ViewModel.VehicleDataContext vehicleDb;
 

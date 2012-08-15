@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using System.Device.Location;
+using Telerik.Windows.Controls;
 
 namespace LiquidGold
 {
@@ -18,6 +20,10 @@ namespace LiquidGold
 
         ViewModel.FillUp EditFill;
 
+        private GeoCoordinateWatcher watcher;
+        private double _lat = Double.NaN;
+        private double _lon = Double.NaN;
+
         private int ind;
         /// <summary>
         /// 
@@ -30,6 +36,57 @@ namespace LiquidGold
             fillUpDb = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
 
             FillDate.Value = DateTime.Now;
+
+            if (watcher == null)
+            {
+                watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+                watcher.MovementThreshold = 50;
+                watcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
+                watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            }
+
+            watcher.Start();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        {
+            _lat = e.Position.Location.Latitude;
+            _lon = e.Position.Location.Longitude;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
+        {
+            switch (e.Status)
+            {
+                case GeoPositionStatus.Disabled:
+                    if (watcher.Permission == GeoPositionPermission.Denied)
+                    {
+                        RadMessageBox.Show("Location Denied", MessageBoxButtons.OK, "Location services on this device are denied. Please change them in settings to save location.",
+                            null, false, true, HorizontalAlignment.Stretch, VerticalAlignment.Top, null);
+                    }
+                    else
+                    {
+                        RadMessageBox.Show("Location Issues", MessageBoxButtons.OK, "There are issues with location services. Your location may not save now.",
+                            null, false, true, System.Windows.HorizontalAlignment.Stretch, System.Windows.VerticalAlignment.Top, null);
+                    }
+                    break;
+                case GeoPositionStatus.Initializing:
+                    break;
+                case GeoPositionStatus.Ready:
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -91,11 +148,18 @@ namespace LiquidGold
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void AddFill_Click(object sender, EventArgs e)
-        {
+        {          
             if (Odo_txt.Text != String.Empty && Quantity_txt.Text != String.Empty && Cost_txt.Text != String.Empty)
             {
                 ViewModel.Vehicle _vehicle = (ViewModel.Vehicle)VehiclesList.SelectedItem;
                 DateTime date = (DateTime)FillDate.Value;
+
+                if (!LocationSwitch.IsChecked)
+                {
+                    _lat = Double.NaN;
+                    _lon = Double.NaN;
+                }
+
                 ViewModel.FillUp fill = new ViewModel.FillUp()
                 {
                     VehicleName = _vehicle.Name,
@@ -103,7 +167,9 @@ namespace LiquidGold
                     Quantity = Convert.ToDouble(Quantity_txt.Text),
                     Cost = Convert.ToDouble(Cost_txt.Text),
                     Date = date.Date.ToString(),
-                    Notes = Notes_txt.Text
+                    Notes = Notes_txt.Text,
+                    Latitude = _lat,
+                    Longitude = _lon
                 };
 
                 if (_isEdit)
@@ -126,6 +192,7 @@ namespace LiquidGold
                     fillUpDb.FillUpItems.InsertOnSubmit(fill);
                 }
 
+                watcher.Stop();
                 NavigationService.Navigate(new Uri("//VehicleInfo.xaml?Name=" + _vehicle.Name, UriKind.Relative));
             }
             else

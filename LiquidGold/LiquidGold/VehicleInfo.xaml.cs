@@ -512,7 +512,8 @@ namespace LiquidGold
             {
                 NavigationService.Navigate(new Uri("//ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
                                                     "&Date=" + fill.Date.ToString() + "&Cost=" + fill.Cost.ToString() +
-                                                    "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString(), UriKind.Relative));
+                                                    "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString() + 
+                                                    "&Lat=" + fill.Latitude.ToString() + "&Lon=" + fill.Longitude.ToString(), UriKind.Relative));
             }
             catch (NullReferenceException) { }
         }

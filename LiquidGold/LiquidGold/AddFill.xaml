@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"  
+﻿<phone:PhoneApplicationPage xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"  xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"  
     x:Class="LiquidGold.AddFill"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -41,31 +41,34 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel>
-                <toolkit:ListPicker Name="VehiclesList" ItemTemplate="{StaticResource VehiclesPicker}" 
-                                    FullModeItemTemplate="{StaticResource VehicleFullModePicker}"
-                                    FullModeHeader="Vehicles" />
-                <TextBlock Text="Odometer" Style="{StaticResource TextCustomTitleStyle}"/>
-                <TextBox Name="Odo_txt" InputScope="TelephoneNumber"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel>
-                        <TextBlock Grid.Column="0" Text="Quantity" Style="{StaticResource TextCustomTitleStyle}"/>
-                        <TextBox Grid.Column="0" Name="Quantity_txt" InputScope="TelephoneNumber"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Grid.Column="1" Text="Cost per unit" Style="{StaticResource TextCustomTitleStyle}"/>
-                        <TextBox Grid.Column="1" Name="Cost_txt" InputScope="TelephoneNumber"/>
-                    </StackPanel>
-                </Grid>
-                <TextBlock Text="Date of Fill" Style="{StaticResource TextCustomTitleStyle}"/>
-                <telerikInput:RadDatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate"/>
-                <TextBlock Text="Notes" Style="{StaticResource TextCustomTitleStyle}"/>
-                <TextBox Name="Notes_txt" Height="200"/>
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel>
+                    <toolkit:ListPicker Name="VehiclesList" ItemTemplate="{StaticResource VehiclesPicker}" 
+                                        FullModeItemTemplate="{StaticResource VehicleFullModePicker}"
+                                        FullModeHeader="Vehicles" />
+                    <TextBlock Text="Odometer" Style="{StaticResource TextCustomTitleStyle}"/>
+                    <TextBox Name="Odo_txt" InputScope="TelephoneNumber"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Grid.Column="0" Text="Quantity" Style="{StaticResource TextCustomTitleStyle}"/>
+                            <TextBox Grid.Column="0" Name="Quantity_txt" InputScope="TelephoneNumber"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Grid.Column="1" Text="Cost per unit" Style="{StaticResource TextCustomTitleStyle}"/>
+                            <TextBox Grid.Column="1" Name="Cost_txt" InputScope="TelephoneNumber"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Text="Date of Fill" Style="{StaticResource TextCustomTitleStyle}"/>
+                    <telerikInput:RadDatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate"/>
+                    <telerikPrimitives:RadToggleSwitch Name="LocationSwitch" Header="Save Location"/>
+                    <TextBlock Text="Notes" Style="{StaticResource TextCustomTitleStyle}"/>
+                    <TextBox Name="Notes_txt" Height="200"/>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
  

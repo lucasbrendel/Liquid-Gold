@@ -69,6 +69,16 @@
             <!--Fill History-->
             <controls:PivotItem Header="history">
                 <Grid>
+                	<Grid.RowDefinitions>
+                		<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>           	
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
                     <Grid.Resources>
                         <Style x:Key="ListStyle" TargetType="ListBoxItem">
                             <Setter Property="Background" Value="{StaticResource PhoneSemitransparentBrush}"/>
@@ -88,14 +98,20 @@
                             <Setter Property="Margin" Value="5"/>
                         </Style>
                     </Grid.Resources>
-                    <ListBox Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}" SelectionChanged="HistoryList_SelectionChanged">
-                        <ListBox.ItemTemplate>
+					
+		     		<TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource PhoneTextAccentStyle}" Text="Date" TextWrapping="NoWrap" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource PhoneTextAccentStyle}" Text="Odometer" TextWrapping="NoWrap" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource PhoneTextAccentStyle}" Text="Cost" TextWrapping="NoWrap" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource PhoneTextAccentStyle}" Text="Quantity" TextWrapping="NoWrap" HorizontalAlignment="Right"/>
+					
+                    <ListBox Grid.Row="1" Grid.ColumnSpan="4" Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}" SelectionChanged="HistoryList_SelectionChanged">
+						<ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Date}" TextWrapping="NoWrap"/>
-                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Odometer}" TextWrapping="NoWrap"/>
-                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding TotalCost}" TextWrapping="NoWrap"/>
-                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Quantity}" TextWrapping="NoWrap"/>
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Date}" TextWrapping="NoWrap" HorizontalAlignment="Left"/>
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Odometer}" TextWrapping="NoWrap" HorizontalAlignment="Center"/>
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding TotalCost}" TextWrapping="NoWrap" HorizontalAlignment="Center"/>
+                                    <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Quantity}" TextWrapping="NoWrap" HorizontalAlignment="Right"/>
                                 </StackPanel>  
                             </DataTemplate> 
                         </ListBox.ItemTemplate> 
@@ -115,12 +131,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="2" Margin="3" Height="175" Width="175" BorderBrush="{StaticResource PhoneAccentBrush}">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <Viewbox>
+                                    <Grid>
+                                        <Viewbox VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                             <TextBlock Text="{Binding Value}"/>
                                         </Viewbox>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </StackPanel>
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Bottom"/>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

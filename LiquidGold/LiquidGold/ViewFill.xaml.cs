@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Device.Location;
 using Microsoft.Phone.Controls;
 
 namespace LiquidGold
 {
     public partial class ViewFill : PhoneApplicationPage
     {
+        private GeoCoordinate _location = new GeoCoordinate();
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -25,6 +28,7 @@ namespace LiquidGold
             string Cost;
             string Date;
             string Notes;
+            string Lat, Lon;
 
             if (NavigationContext.QueryString.TryGetValue("Name", out Name))
             {
@@ -33,6 +37,8 @@ namespace LiquidGold
                 NavigationContext.QueryString.TryGetValue("Cost", out Cost);
                 NavigationContext.QueryString.TryGetValue("Date", out Date);
                 NavigationContext.QueryString.TryGetValue("Notes", out Notes);
+                NavigationContext.QueryString.TryGetValue("Lat", out Lat);
+                NavigationContext.QueryString.TryGetValue("Lon", out Lon);
 
                 PageTitle.Text = Name;
                 Odo_txt.Text = Odo;
@@ -40,6 +46,12 @@ namespace LiquidGold
                 Cost_txt.Text = Cost;
                 Date_txt.Text = Date;
                 Notes_txt.Text = Notes;
+
+                _location.Latitude = Double.Parse(Lat);
+                _location.Longitude = Double.Parse(Lon);
+
+                LocationPin.Location = _location;
+                FillLocationMap.Center = LocationPin.Location;
             }
             base.OnNavigatedTo(e);
         }
