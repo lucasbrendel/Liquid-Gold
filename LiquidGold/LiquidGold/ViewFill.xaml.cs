@@ -8,6 +8,8 @@ namespace LiquidGold
     {
         private GeoCoordinate _location = new GeoCoordinate();
 
+        private string _index;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -29,6 +31,7 @@ namespace LiquidGold
             string Date;
             string Notes;
             string Lat, Lon;
+            string index;
 
             if (NavigationContext.QueryString.TryGetValue("Name", out Name))
             {
@@ -39,6 +42,7 @@ namespace LiquidGold
                 NavigationContext.QueryString.TryGetValue("Notes", out Notes);
                 NavigationContext.QueryString.TryGetValue("Lat", out Lat);
                 NavigationContext.QueryString.TryGetValue("Lon", out Lon);
+                NavigationContext.QueryString.TryGetValue("Index", out index);
 
                 PageTitle.Text = Name;
                 Odo_txt.Text = Odo;
@@ -46,12 +50,19 @@ namespace LiquidGold
                 Cost_txt.Text = Cost;
                 Date_txt.Text = Date;
                 Notes_txt.Text = Notes;
+                _index = index;
 
-                _location.Latitude = Double.Parse(Lat);
-                _location.Longitude = Double.Parse(Lon);
-
-                LocationPin.Location = _location;
-                FillLocationMap.Center = LocationPin.Location;
+                if (Double.IsNaN(Double.Parse(Lat)) || Double.IsNaN(Double.Parse(Lon)))
+                {
+                    FillLocationMap.Visibility = System.Windows.Visibility.Collapsed;
+                }
+                else
+                {
+                    _location.Latitude = Double.Parse(Lat);
+                    _location.Longitude = Double.Parse(Lon);
+                    LocationPin.Location = _location;
+                    FillLocationMap.Center = LocationPin.Location;
+                }
             }
             base.OnNavigatedTo(e);
         }
@@ -63,7 +74,7 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void EditFillBtn_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + PageTitle.Text + "&IsEdit=1&Index=0", UriKind.Relative));
+            NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + PageTitle.Text + "&IsEdit=1&Index=" + _index, UriKind.Relative));
         }
 
         /// <summary>

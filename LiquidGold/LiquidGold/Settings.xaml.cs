@@ -10,6 +10,8 @@ namespace LiquidGold
 
         private LiveConnectClient _client;
 
+        private LiveAuthClient _auth;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -28,21 +30,31 @@ namespace LiquidGold
 
             LocationSwitch.IsChecked = (App.Current as App).LocationAware;
 
-            if ((App.Current as App).UserUnits == App.Units.Imperial)
-            {
-                ImperialRad.IsChecked = true;
-            }
-            else
-            {
-                MetricRad.IsChecked = true;
-            }
+            //if ((App.Current as App).UserUnits == App.Units.Imperial)
+            //{
+            //    ImperialRad.IsChecked = true;
+            //}
+            //else
+            //{
+            //    MetricRad.IsChecked = true;
+            //}
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackupBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            _client.GetAsync(_auth.Session.AccessToken.ToString() + "/skydrive/my_documents");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RestoreBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
 
@@ -73,9 +85,9 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void SkydriveSignIn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            LiveAuthClient auth = new LiveAuthClient(SkydriveSignIn.ClientId);
-            auth.LoginCompleted += new System.EventHandler<LoginCompletedEventArgs>(auth_LoginCompleted);
-            auth.LoginAsync(new string[] { "wl.signin", "wl.basic" });
+            _auth = new LiveAuthClient(SkydriveSignIn.ClientId);
+            _auth.LoginCompleted += new System.EventHandler<LoginCompletedEventArgs>(auth_LoginCompleted);
+            _auth.LoginAsync(new string[] { "wl.signin", "wl.basic" });
         }
 
         /// <summary>

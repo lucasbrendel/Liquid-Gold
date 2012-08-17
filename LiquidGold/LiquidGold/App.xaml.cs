@@ -12,13 +12,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.IO.IsolatedStorage;
 
 namespace LiquidGold
 {
     public partial class App : Application
     {
-        public ViewModel.VehicleDataContext Vehicles;
-        public ViewModel.FillUpDataContext FillUps;
+        public ViewModel.VehicleDataContext Vehicles = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
+        public ViewModel.FillUpDataContext FillUps = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
 
         public bool FirstFill;
         public enum Units
@@ -29,6 +30,7 @@ namespace LiquidGold
 
         public Units UserUnits;
         public bool LocationAware;
+        public bool AskUserForLocation;
 
         public string[] StatisticsArray = 
         {
@@ -109,7 +111,26 @@ namespace LiquidGold
             }
 
             UserUnits = Units.Imperial;
-            LocationAware = false;
+
+            try
+            {
+                LocationAware = Boolean.Parse(IsolatedStorageSettings.ApplicationSettings["LocationAware"].ToString());
+                AskUserForLocation = false;
+            }
+            catch (KeyNotFoundException)
+            {
+                AskUserForLocation = true;
+                LocationAware = false;
+            }
+
+            try
+            {
+                FirstFill = Boolean.Parse(IsolatedStorageSettings.ApplicationSettings["FirstRun"].ToString());
+            }
+            catch (KeyNotFoundException)
+            {
+                FirstFill = true;
+            }
 
         }
 

@@ -513,7 +513,8 @@ namespace LiquidGold
                 NavigationService.Navigate(new Uri("//ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
                                                     "&Date=" + fill.Date.ToString() + "&Cost=" + fill.Cost.ToString() +
                                                     "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString() + 
-                                                    "&Lat=" + fill.Latitude.ToString() + "&Lon=" + fill.Longitude.ToString(), UriKind.Relative));
+                                                    "&Lat=" + fill.Latitude.ToString() + "&Lon=" + fill.Longitude.ToString() + 
+                                                    "&Index=" + HistoryList.SelectedIndex.ToString(), UriKind.Relative));
             }
             catch (NullReferenceException) { }
         }

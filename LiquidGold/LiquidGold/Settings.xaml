@@ -26,18 +26,18 @@
                         <TextBlock Text="Location Aware" Style="{StaticResource TextCustomTitleStyle}"/>
                         <telerikPrimitives:RadToggleSwitch Name="LocationSwitch"/>
                         <TextBlock TextWrapping="Wrap" Text="Turning on location awareness will, by default, save the location of your fill should you want to look back. You can still choose not to save the location of a fill when you input the information."/>
-                        <TextBlock Margin="5" Text="Units" Style="{StaticResource TextCustomTitleStyle}"/>
-                        <RadioButton Name="ImperialRad" GroupName="Units" Content="Imperial"/>
-                        <RadioButton Name="MetricRad" GroupName="Units" Content="Metric"/>
+                        <TextBlock Margin="5" Text="Units" Style="{StaticResource TextCustomTitleStyle}" Visibility="Collapsed"/>
+                        <RadioButton Name="ImperialRad" GroupName="Units" Content="Imperial" Visibility="Collapsed"/>
+                        <RadioButton Name="MetricRad" GroupName="Units" Content="Metric" Visibility="Collapsed"/>
                     </StackPanel>
                 </Grid>
             </controls:PanoramaItem>
             
-            <controls:PanoramaItem Header="backup">
+            <controls:PanoramaItem Header="backup" Visibility="Collapsed">
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Click Sign In to log in to Skydrive and save your fill history or retreive it from Skydrive. This app will never see your credentials." TextWrapping="Wrap"/>
-                        <my:SignInButton Scopes="wl.signin wl.basic" Branding="Skydrive" Name="SkydriveSignIn" ClientId="000000004C0C850D" SessionChanged="SkydriveSignIn_SessionChanged" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                        <my:SignInButton Scopes="wl.signin wl.basic wl.skydrive" Branding="Skydrive" Name="SkydriveSignIn" ClientId="000000004C0C850D" SessionChanged="SkydriveSignIn_SessionChanged" Click="SkydriveSignIn_Click"  VerticalAlignment="Top" HorizontalAlignment="Center"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>

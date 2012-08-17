@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Telerik.Windows.Controls;
+using System.IO.IsolatedStorage;
 
 namespace LiquidGold
 {
@@ -38,9 +40,8 @@ namespace LiquidGold
         {
             InitializeComponent();
 
-            vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
-
-            this.DataContext = vehicleDb;
+            //vehicleDb = (App.Current as App).Vehicles;
+            //this.Vehicles = vehicleDb.VehicleItems.AsEnumerable<ViewModel.Vehicle>() as ObservableCollection<ViewModel.Vehicle>;
         }
 
         /// <summary>
@@ -49,9 +50,37 @@ namespace LiquidGold
         /// <param name="e"></param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            RefreshVehicleList();
-
             base.OnNavigatedTo(e);
+            var veh = from ViewModel.Vehicle vehs in (App.Current as App).Vehicles.VehicleItems select vehs;
+            this.Vehicles = new ObservableCollection<ViewModel.Vehicle>(veh);
+            RefreshVehicleList();
+            if ((App.Current as App).AskUserForLocation)
+            {
+                AskUserForLocation();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void AskUserForLocation()
+        {
+            RadMessageBox.Show("Access Location", MessageBoxButtons.YesNo, "Liquid Gold wants to check to make you want location awareness on by default. Choose 'Yes', if you want it to save your location.",
+                null, false, true, System.Windows.HorizontalAlignment.Stretch, System.Windows.VerticalAlignment.Top, closedHandler: (args) =>
+                    {
+                        if (args.Result == DialogResult.OK)
+                        {
+                            (App.Current as App).LocationAware = true;
+                        }
+                        else
+                        {
+                            (App.Current as App).LocationAware = false;
+                        }
+                    }
+            );
+
+            IsolatedStorageSettings.ApplicationSettings["LocationAware"] = (App.Current as App).LocationAware.ToString();
+            IsolatedStorageSettings.ApplicationSettings.Save();
         }
 
         /// <summary>
@@ -156,15 +185,15 @@ namespace LiquidGold
         /// </summary>
         private void DeleteVehicle(ViewModel.Vehicle Vehicle)
         {
-            ViewModel.FillUpDataContext fills = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
-            var fil = from fill in fills.FillUpItems where fill.VehicleName == Vehicle.Name select fill;
+            //ViewModel.FillUpDataContext fills = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
+            var fil = from fill in (App.Current as App).FillUps.FillUpItems where fill.VehicleName == Vehicle.Name select fill;
             ObservableCollection<ViewModel.FillUp> fillDB = new ObservableCollection<ViewModel.FillUp>(fil);
-            fills.FillUpItems.DeleteAllOnSubmit(fillDB);
-            vehicleDb.VehicleItems.DeleteOnSubmit(Vehicle);
-            fills.SubmitChanges();
-            vehicleDb.SubmitChanges();
+            (App.Current as App).FillUps.FillUpItems.DeleteAllOnSubmit(fillDB);
+            (App.Current as App).Vehicles.VehicleItems.DeleteOnSubmit(Vehicle);
+            (App.Current as App).FillUps.SubmitChanges();
+            (App.Current as App).Vehicles.SubmitChanges();
 
-            (App.Current as App).FillUps = fills;
+            //(App.Current as App).FillUps = fills;
             RefreshVehicleList();
         }
 
@@ -173,17 +202,12 @@ namespace LiquidGold
         /// </summary>
         private void RefreshVehicleList()
         {
-            var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
-
-            Vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
-            VehicleList.ItemsSource = Vehicles;
-
-            (App.Current as App).Vehicles = vehicleDb;
+            VehicleList.ItemsSource = this.Vehicles;
 
             ApplicationBarIconButton btn = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
             if (btn != null)
             {
-                if (Vehicles.Count == 0)
+                if (VehicleList.Items.Count == 0)
                 {
                     btn.IsEnabled = false;
                 }
@@ -191,6 +215,15 @@ namespace LiquidGold
                 {
                     btn.IsEnabled = true;
                 }
+
+                //if (VehicleList.Items.Count == 5)
+                //{
+                //    AddVeh.IsEnabled = false;
+                //}
+                //else
+                //{
+                //    AddVeh.IsEnabled = true;
+                //}
             }
         }
     }
