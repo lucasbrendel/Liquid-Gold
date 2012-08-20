@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO.IsolatedStorage;
+using Telerik.Windows.Controls;
 
 namespace LiquidGold
 {
@@ -138,6 +139,38 @@ namespace LiquidGold
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            ApplicationUsageHelper.Init("1.0");
+            try
+            {
+                string val = IsolatedStorageSettings.ApplicationSettings["RemindAgain"].ToString();
+            }
+            catch(KeyNotFoundException)
+            {
+                RadRateApplicationReminder reminder = new RadRateApplicationReminder();
+                reminder.AllowUsersToSkipFurtherReminders = true;
+                reminder.MessageBoxInfo = new Telerik.Windows.Controls.Reminders.MessageBoxInfoModel()
+                {
+                    Title = "Rate Liquid Gold",
+                    Buttons = MessageBoxButtons.YesNo,
+                    Content = "Would you like to rate this app? It would be greatly appreciated.",
+                    SkipFurtherRemindersMessage = "Skip further reminders"
+                };
+                reminder.ShowReminderMessage(reminder.MessageBoxInfo);
+                reminder.ReminderClosed += new EventHandler<ReminderClosedEventArgs>(reminder_ReminderClosed);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void reminder_ReminderClosed(object sender, ReminderClosedEventArgs e)
+        {
+            if (e.MessageBoxEventArgs.IsCheckBoxChecked)
+            {
+                IsolatedStorageSettings.ApplicationSettings["RemindAgain"] = "1";
+            }
         }
 
         // Code to execute when the application is activated (brought to foreground)
