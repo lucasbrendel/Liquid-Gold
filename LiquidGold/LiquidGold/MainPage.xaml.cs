@@ -42,6 +42,19 @@ namespace LiquidGold
 
             //vehicleDb = (App.Current as App).Vehicles;
             //this.Vehicles = vehicleDb.VehicleItems.AsEnumerable<ViewModel.Vehicle>() as ObservableCollection<ViewModel.Vehicle>;
+
+            ShellTile tile = LiveTileHelper.GetTile(new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
+
+            if (tile == null)
+            {
+                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[1];
+                item.IsEnabled = true;
+            }
+            else
+            {
+                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[1];
+                item.IsEnabled = false;
+            }
         }
 
         /// <summary>
@@ -205,6 +218,7 @@ namespace LiquidGold
             VehicleList.ItemsSource = this.Vehicles;
 
             ApplicationBarIconButton btn = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+            ApplicationBarIconButton vehbtn = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
             if (btn != null)
             {
                 if (VehicleList.Items.Count == 0)
@@ -216,15 +230,25 @@ namespace LiquidGold
                     btn.IsEnabled = true;
                 }
 
-                //if (VehicleList.Items.Count == 5)
-                //{
-                //    AddVeh.IsEnabled = false;
-                //}
-                //else
-                //{
-                //    AddVeh.IsEnabled = true;
-                //}
+                if (VehicleList.Items.Count == 5)
+                {
+                    vehbtn.IsEnabled = false;
+                }
+                else
+                {
+                    vehbtn.IsEnabled = true;
+                }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PinQuickFill_Click(object sender, EventArgs e)
+        {
+            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = "Add Fill" }, new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 using System.Device.Location;
 using Telerik.Windows.Controls;
 
@@ -48,6 +49,19 @@ namespace LiquidGold
             }
 
             watcher.Start();
+
+            ShellTile tile =  LiveTileHelper.GetTile(new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
+
+            if (tile == null)
+            {
+                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
+                item.IsEnabled = true;
+            }
+            else
+            {
+                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
+                item.IsEnabled = false;
+            }
         }
 
         /// <summary>
@@ -134,6 +148,10 @@ namespace LiquidGold
                 {
                     EditLocationBtn.Visibility = System.Windows.Visibility.Collapsed;
                 }
+            }
+            else
+            {
+                EditLocationBtn.Visibility = System.Windows.Visibility.Collapsed;
             }
                 
             LocationSwitch.IsChecked = (App.Current as App).LocationAware;
@@ -330,6 +348,16 @@ namespace LiquidGold
         {
             AddFillPanel.Visibility = System.Windows.Visibility.Visible;
             EditLocationPanel.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PinQuickFill_Click(object sender, EventArgs e)
+        {
+            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = "Add Fill" }, new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

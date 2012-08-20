@@ -546,11 +546,14 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void pinBtn_Click(object sender, EventArgs e)
         {
-            LiveTileHelper.CreateTile(new RadExtendedTileData() { Title = VehicleName.Text.ToString(), BackVisualElement = this.AverageMileage, BackTitle = "Average Mileage" }, new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
+            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = VehicleName.Text.ToString(), BackVisualElement = this.AverageMileage, BackTitle = "Average Mileage" }, new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
         }
 
-        #endregion Events
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ContextEdit_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menu = (MenuItem)sender;
@@ -570,6 +573,8 @@ namespace LiquidGold
                 }
             }
         }
+
+        #endregion Events
     }
 
     public class Stats

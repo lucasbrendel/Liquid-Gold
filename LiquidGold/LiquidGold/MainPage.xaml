@@ -57,6 +57,7 @@
             <shell:ApplicationBarIconButton x:Name="AddFill" IsEnabled="False" IconUri="/Icons/fillup.png" Text="add fill" Click="AddFill_Click"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="settings" x:Name="settings_item" Click="settings_item_Click"/>
+                <shell:ApplicationBarMenuItem Text="pin quick fill" x:Name="PinQuickFill" Click="PinQuickFill_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
