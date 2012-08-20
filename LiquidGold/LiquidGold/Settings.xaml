@@ -53,12 +53,21 @@
             <!--Panorama item one-->
             <controls:PanoramaItem Header="about">
                 <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Version" Style="{StaticResource PhoneTextAccentStyle}"/>
-                        <TextBlock Text="1.0" HorizontalAlignment="Center" FontSize="64"/>
-                        <TextBlock Text="Licenses" Style="{StaticResource PhoneTextAccentStyle}"/>
-                        <TextBlock Text="Shout Outs" Style="{StaticResource PhoneTextAccentStyle}"/>
-                    </StackPanel>
+                    <ScrollViewer>
+                        <StackPanel>
+                            <TextBlock Text="Version" Style="{StaticResource PhoneTextAccentStyle}"/>
+                            <TextBlock Text="1.0" HorizontalAlignment="Center" FontSize="64"/>
+                            <TextBlock Text="Shout Out" Style="{StaticResource PhoneTextAccentStyle}"/>
+                            <TextBlock Text="Thanks to Telerik, and the creators of the Silverlight Toolkit for Windows Phone. " TextWrapping="Wrap"/>
+                            <TextBlock Text="Send any issues, requests, or inquiries to LiquidGoldApp@outlook.com or click the button below." TextWrapping="Wrap"/>
+                        
+                            <TextBlock Text="Coming Soon" Style="{StaticResource PhoneTextAccentStyle}"/>
+                            <TextBlock Text="- Backup to Skydrive"/>
+                            <TextBlock Text="- Choose Imperial or Metric units"/>
+                            <TextBlock Text="- Search fill entries"/>
+                            <TextBlock Text="- More graph options and statistics"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>

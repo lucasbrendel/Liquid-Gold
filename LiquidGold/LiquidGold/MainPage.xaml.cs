@@ -40,9 +40,6 @@ namespace LiquidGold
         {
             InitializeComponent();
 
-            //vehicleDb = (App.Current as App).Vehicles;
-            //this.Vehicles = vehicleDb.VehicleItems.AsEnumerable<ViewModel.Vehicle>() as ObservableCollection<ViewModel.Vehicle>;
-
             ShellTile tile = LiveTileHelper.GetTile(new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
 
             if (tile == null)
