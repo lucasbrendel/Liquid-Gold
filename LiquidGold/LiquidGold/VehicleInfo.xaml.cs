@@ -546,7 +546,7 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void pinBtn_Click(object sender, EventArgs e)
         {
-            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = VehicleName.Text.ToString(), BackVisualElement = this.AverageMileage, BackTitle = "Average Mileage" }, new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
+            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = VehicleName.Text.ToString(), BackVisualElement = this.AverageMileage, BackTitle = "Average Mileage", BackgroundImage=new Uri("/Images/Car.png", UriKind.RelativeOrAbsolute) }, new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
         }
 
         /// <summary>

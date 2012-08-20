@@ -180,7 +180,7 @@ namespace LiquidGold
                 //Selected context menu item is to pin to start
                 if (menu.Header.ToString().Equals("pin to start"))
                 {
-
+                    LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = SelectedVehicle.Name.ToString(), BackgroundImage = new Uri("/Images/Car.png", UriKind.RelativeOrAbsolute) }, new Uri("/VehicleInfo.xaml?Name=" + SelectedVehicle.Name.ToString(), UriKind.RelativeOrAbsolute)); 
                 }
                 //Selected context menu item is to delete the vehicle
                 else if (menu.Header.ToString().Equals("delete"))
@@ -245,7 +245,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void PinQuickFill_Click(object sender, EventArgs e)
         {
-            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = "Add Fill" }, new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
+            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = "Add Fill", BackgroundImage= new Uri("/Images/AddFillIcon.png", UriKind.RelativeOrAbsolute) }, new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

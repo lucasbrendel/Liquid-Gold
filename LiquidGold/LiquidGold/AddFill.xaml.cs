@@ -357,7 +357,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void PinQuickFill_Click(object sender, EventArgs e)
         {
-            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = "Add Fill" }, new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
+            LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = "Add Fill", BackgroundImage=new Uri("/Images/AddFillIcon.png", UriKind.RelativeOrAbsolute) }, new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

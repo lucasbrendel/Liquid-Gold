@@ -167,6 +167,8 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\Car.png" />
+    <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Icons\appbar.add.dark.png" />
     <Content Include="Icons\appbar.cancel.dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -183,7 +185,6 @@
     <Content Include="Icons\appbar.edit.dark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\CarEmpty.jpg" />
     <Content Include="Icons\Board Pin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -194,7 +195,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Icons\LocationPin.png" />
-    <Content Include="SplashScreenImage.jpg" />
+    <Content Include="Images\AddFillIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
