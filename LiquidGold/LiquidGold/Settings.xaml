@@ -24,7 +24,7 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Location Aware" Style="{StaticResource TextCustomTitleStyle}"/>
-                        <telerikPrimitives:RadToggleSwitch Name="LocationSwitch"/>
+                        <telerikPrimitives:RadToggleSwitch Name="LocationSwitch" CheckedChanged="LocationSwitch_CheckedChanged" />
                         <TextBlock TextWrapping="Wrap" Text="Turning on location awareness will, by default, save the location of your fill should you want to look back. You can still choose not to save the location of a fill when you input the information."/>
                         <TextBlock Margin="5" Text="Units" Style="{StaticResource TextCustomTitleStyle}" Visibility="Collapsed"/>
                         <RadioButton Name="ImperialRad" GroupName="Units" Content="Imperial" Visibility="Collapsed"/>

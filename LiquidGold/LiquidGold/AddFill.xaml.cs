@@ -18,6 +18,8 @@ namespace LiquidGold
 
         private bool _isEdit;
 
+        ViewModel.FillUp fill;
+
         ViewModel.FillUp EditFill;
 
         private GeoCoordinateWatcher watcher;
@@ -126,8 +128,15 @@ namespace LiquidGold
                     Cost_txt.Text = EditFill.Cost.ToString();
                     FillDate.Value = DateTime.Parse(EditFill.Date);
                     Notes_txt.Text = EditFill.Notes.ToString();
+                    EditLocationBtn.Visibility = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    EditLocationBtn.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
+                
+            LocationSwitch.IsChecked = (App.Current as App).LocationAware;
 
             base.OnNavigatedTo(e);
         }
@@ -160,7 +169,7 @@ namespace LiquidGold
                     _lon = Double.NaN;
                 }
 
-                ViewModel.FillUp fill = new ViewModel.FillUp()
+                fill = new ViewModel.FillUp()
                 {
                     VehicleName = _vehicle.Name,
                     Odometer = Convert.ToInt32(Odo_txt.Text),
@@ -209,6 +218,118 @@ namespace LiquidGold
         private void CancelFill_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
-        }   
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditLocationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddFillPanel.Visibility = System.Windows.Visibility.Collapsed;
+            EditLocationPanel.Visibility = System.Windows.Visibility.Visible;
+            LatPanel.Visibility = System.Windows.Visibility.Collapsed;
+            LonPanel.Visibility = System.Windows.Visibility.Collapsed;
+            GoToMe();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputCoordBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LatTxt.Text = Pushpin.Location.Latitude.ToString();
+            LonTxt.Text = Pushpin.Location.Longitude.ToString();
+            LatPanel.Visibility = System.Windows.Visibility.Visible;
+            LonPanel.Visibility = System.Windows.Visibility.Visible;
+            InputCoordBtn.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LatTxt_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LonTxt_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MeBtn_Click(object sender, EventArgs e)
+        {
+            GoToMe();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GoToMe()
+        {
+            Pushpin.Location = watcher.Position.Location;
+            LatTxt.Text = Pushpin.Location.Latitude.ToString();
+            LonTxt.Text = Pushpin.Location.Longitude.ToString();
+            EditMap.Center = Pushpin.Location;
+            EditMap.ZoomLevel = 15;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            _lat = Pushpin.Location.Latitude;
+            _lon = Pushpin.Location.Longitude;
+
+            AddFillPanel.Visibility = System.Windows.Visibility.Visible;
+            EditLocationPanel.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditMap_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Point p = e.GetPosition(this.EditMap);
+            GeoCoordinate geo = new GeoCoordinate();
+            geo = EditMap.ViewportPointToLocation(p);
+            Pushpin.Location = geo;
+            LatTxt.Text = Pushpin.Location.Latitude.ToString();
+            LonTxt.Text = Pushpin.Location.Longitude.ToString();
+            EditMap.Center = Pushpin.Location;
+            EditMap.ZoomLevel = 15;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddFillPanel.Visibility = System.Windows.Visibility.Visible;
+            EditLocationPanel.Visibility = System.Windows.Visibility.Collapsed;
+        }
     }
 }

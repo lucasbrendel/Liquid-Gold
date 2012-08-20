@@ -1,6 +1,7 @@
 ﻿using Microsoft.Phone.Controls;
 using Microsoft.Live;
 using Telerik.Windows.Controls;
+using System.IO.IsolatedStorage;
 
 namespace LiquidGold
 {
@@ -106,6 +107,18 @@ namespace LiquidGold
             {
                 RadMessageBox.Show("Error", MessageBoxButtons.OK, e.Error.ToString(), null, false, false, System.Windows.HorizontalAlignment.Stretch, System.Windows.VerticalAlignment.Top, null);
             }            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LocationSwitch_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            (App.Current as App).LocationAware = LocationSwitch.IsChecked;
+            IsolatedStorageSettings.ApplicationSettings["LocationAware"] = (App.Current as App).LocationAware.ToString();
+            IsolatedStorageSettings.ApplicationSettings.Save();
         }
     }
 }
