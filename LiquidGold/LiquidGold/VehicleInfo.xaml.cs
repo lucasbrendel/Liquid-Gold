@@ -550,6 +550,26 @@ namespace LiquidGold
         }
 
         #endregion Events
+
+        private void ContextEdit_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = (MenuItem)sender;
+            int index = HistoryList.ItemContainerGenerator.IndexFromContainer((HistoryList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem));
+            if (index != -1)
+            {
+                if (menu.Header.ToString().Equals("edit"))
+                {
+                    ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.SelectedItem;
+
+                    try
+                    {
+                        NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + VehicleName.Text + "&IsEdit=1&Index=" + index, UriKind.Relative));
+                    }
+                    catch (NullReferenceException)
+                    { }
+                }
+            }
+        }
     }
 
     public class Stats
