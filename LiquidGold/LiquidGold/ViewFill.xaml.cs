@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Device.Location;
 using Microsoft.Phone.Controls;
+using Telerik.Windows.Controls;
+using System.Linq;
+
 
 namespace LiquidGold
 {
@@ -84,7 +87,31 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void DeleteFillBtn_Click(object sender, EventArgs e)
         {
+            RadMessageBox.Show("Delete Fill", MessageBoxButtons.OKCancel, "Are you sure you want to delete this fill? This can't be undone.",
+                null, false, true, System.Windows.HorizontalAlignment.Stretch, System.Windows.VerticalAlignment.Top, closedHandler: (args) =>
+                    {
+                        if (args.Result == DialogResult.OK)
+                        {
+                            DeleteFill();
+                        }
+                        else
+                        {
 
+                        }
+                    }
+            );
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        private void DeleteFill()
+        {
+            var fil = from ViewModel.FillUp fils in (App.Current as App).FillUps.FillUpItems where fils.Odometer == Int32.Parse(Odo_txt.Text) && fils.VehicleName == PageTitle.Text select fils;
+            ViewModel.FillUp fill = fil.First();
+            (App.Current as App).FillUps.FillUpItems.DeleteOnSubmit(fill);
+            (App.Current as App).FillUps.SubmitChanges();
+            NavigationService.Navigate(new Uri("/VehicleInfo.xaml?Name=" + PageTitle.Text, UriKind.Relative));
         }
     }
 }

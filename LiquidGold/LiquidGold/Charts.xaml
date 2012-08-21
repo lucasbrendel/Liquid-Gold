@@ -51,12 +51,12 @@
             </Grid.Resources>
            
             <telerikInput:RadListPicker Grid.Row="0" Name="ChartList" ItemTemplate="{StaticResource StatPicker}" Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" SelectionChanged="ChartList_SelectionChanged" />
-            <chart:RadCartesianChart Grid.Row="1" x:Name="Chart" VerticalAlignment="Stretch">
+            <chart:RadCartesianChart Grid.Row="1" x:Name="Chart" VerticalAlignment="Stretch" >
                 <chart:RadCartesianChart.HorizontalAxis>
                     <chart:DateTimeCategoricalAxis LabelFitMode="Rotate" LabelFormat="dd MMM yyyy"/>
                 </chart:RadCartesianChart.HorizontalAxis>
                 <chart:RadCartesianChart.VerticalAxis>
-                    <chart:LinearAxis VerticalAlignment="Stretch"/>
+                    <chart:LinearAxis />
                 </chart:RadCartesianChart.VerticalAxis>
                 <chart:RadCartesianChart.Series>
                     <chart:LineSeries Stroke="{StaticResource PhoneAccentBrush}" StrokeThickness="2" 
@@ -70,6 +70,7 @@
                 </chart:RadCartesianChart.Series>
                 <chart:RadCartesianChart.Behaviors>
                     <chart:ChartTooltipBehavior/>
+                    <chart:ChartPanAndZoomBehavior ZoomMode="Horizontal" PanMode="Both"/>
                 </chart:RadCartesianChart.Behaviors>
                 <chart:RadCartesianChart.TooltipTemplate>
                     <DataTemplate>

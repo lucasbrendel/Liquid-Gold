@@ -14,11 +14,14 @@ namespace LiquidGold
         private StatsTimeline Timeline;
         string VehicleName;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Charts()
         {
             InitializeComponent();
-            ChartTooltipBehavior behavior = (ChartTooltipBehavior)this.Chart.Behaviors[0];
-            behavior.ContextNeeded += new EventHandler<TooltipContextNeededEventArgs>(behavior_ContextNeeded);
+            //ChartTooltipBehavior behavior = (ChartTooltipBehavior)this.Chart.Behaviors[0];
+            //behavior.ContextNeeded += new EventHandler<TooltipContextNeededEventArgs>(behavior_ContextNeeded);
         }
 
         void behavior_ContextNeeded(object sender, TooltipContextNeededEventArgs e)
@@ -26,6 +29,11 @@ namespace LiquidGold
             e.Context = this.CreateContext(e.DefaultContext);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chartDataContext"></param>
+        /// <returns></returns>
         private Axis CreateContext(ChartDataContext chartDataContext)
         {
             CategoricalDataPoint DataPoint = (CategoricalDataPoint)chartDataContext.ClosestDataPoint.DataPoint;

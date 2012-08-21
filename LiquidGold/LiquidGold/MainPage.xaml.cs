@@ -195,6 +195,12 @@ namespace LiquidGold
         /// </summary>
         private void DeleteVehicle(ViewModel.Vehicle Vehicle)
         {
+            ShellTile Tile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Name=" + Vehicle.Name.ToString()));
+
+            if (Tile != null)
+            {
+                Tile.Delete();
+            }
             //ViewModel.FillUpDataContext fills = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
             var fil = from fill in (App.Current as App).FillUps.FillUpItems where fill.VehicleName == Vehicle.Name select fill;
             ObservableCollection<ViewModel.FillUp> fillDB = new ObservableCollection<ViewModel.FillUp>(fil);
@@ -203,6 +209,8 @@ namespace LiquidGold
             (App.Current as App).FillUps.SubmitChanges();
             (App.Current as App).Vehicles.SubmitChanges();
 
+            var veh = from ViewModel.Vehicle vehs in (App.Current as App).Vehicles.VehicleItems select vehs;
+            this.Vehicles = new ObservableCollection<ViewModel.Vehicle>(veh);
             //(App.Current as App).FillUps = fills;
             RefreshVehicleList();
         }

@@ -63,25 +63,7 @@ namespace LiquidGold
             string _name;
             if (NavigationContext.QueryString.TryGetValue("Name", out _name))
             {
-                int i = 0;
-                var FillUpItemsInDB = from ViewModel.FillUp fills in fillUpDB.FillUpItems where fills.VehicleName == _name select fills;
-                var vehicle = from ViewModel.Vehicle veh in vehicleDB.VehicleItems where veh.Name == _name select veh;
-                CurrentVehicle = vehicle.First();
-                FillUpItems = new ObservableCollection<ViewModel.FillUp>(FillUpItemsInDB);
-                foreach (ViewModel.FillUp fill in FillUpItems)
-                {
-                    if (fill.VehicleName == _name)
-                    {
-                        break;
-                    }
-                    i++;
-                }
-                Index = i;
-                VehicleName.Text = _name;
-                CalculateDistance();
-                LoadStats();
-                HistoryList.ItemsSource = FillUpItems;
-                FillInfo();
+                RefreshPage(_name);
             }
 
             ShellTile tile = LiveTileHelper.GetTile(new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
@@ -98,6 +80,29 @@ namespace LiquidGold
             }
 
             base.OnNavigatedTo(e);
+        }
+
+        private void RefreshPage(string _name)
+        {
+            int i = 0;
+            var FillUpItemsInDB = from ViewModel.FillUp fills in fillUpDB.FillUpItems where fills.VehicleName == _name select fills;
+            var vehicle = from ViewModel.Vehicle veh in vehicleDB.VehicleItems where veh.Name == _name select veh;
+            CurrentVehicle = vehicle.First();
+            FillUpItems = new ObservableCollection<ViewModel.FillUp>(FillUpItemsInDB);
+            foreach (ViewModel.FillUp fill in FillUpItems)
+            {
+                if (fill.VehicleName == _name)
+                {
+                    break;
+                }
+                i++;
+            }
+            Index = i;
+            VehicleName.Text = _name;
+            CalculateDistance();
+            LoadStats();
+            HistoryList.ItemsSource = FillUpItems;
+            FillInfo();
         }
 
         /// <summary>
@@ -145,6 +150,7 @@ namespace LiquidGold
         /// </summary>
         private void LoadStats()
         {
+            StatList.Clear();
             StatList.Add(new Stats { Name = "Avg. MPG", Value = AvgMileage() });
             StatList.Add(new Stats { Name = "Worst MPG", Value = WorstMileage() });
             StatList.Add(new Stats { Name = "Best MPG", Value = BestMileage() });
@@ -581,13 +587,12 @@ namespace LiquidGold
             int index = HistoryList.ItemContainerGenerator.IndexFromContainer((HistoryList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem));
             if (index != -1)
             {
+                ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.Items[index];
                 if (menu.Header.ToString().Equals("edit"))
                 {
-                    ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.SelectedItem;
-
                     try
                     {
-                        NavigationService.Navigate(new Uri("/AddFill.xaml?Name=" + VehicleName.Text + "&IsEdit=1&Index=" + index, UriKind.Relative));
+                        NavigationService.Navigate(new Uri("/AddFill.xaml?Name=" + VehicleName.Text + "&IsEdit=1&Index=" + fill.Odometer.ToString(), UriKind.Relative));
                     }
                     catch (NullReferenceException)
                     { }
@@ -595,7 +600,60 @@ namespace LiquidGold
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fill"></param>
+        private void DeleteFill(ViewModel.FillUp fill)
+        {
+            RadMessageBox.Show("Delete Fill", MessageBoxButtons.OKCancel, "Are you sure you want to delete this fill? This can't be undone.",
+               null, false, true, System.Windows.HorizontalAlignment.Stretch, System.Windows.VerticalAlignment.Top, closedHandler: (args) =>
+               {
+                   if (args.Result == DialogResult.OK)
+                   {
+                       Delete(fill);
+                   }
+                   else
+                   {
+
+                   }
+               }
+           );
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fill"></param>
+        private void Delete(ViewModel.FillUp fill)
+        {
+            var fil = from ViewModel.FillUp fils in (App.Current as App).FillUps.FillUpItems where fils.Odometer == fill.Odometer && fils.VehicleName == VehicleName.Text select fils;
+            ViewModel.FillUp fills = fil.First();
+            (App.Current as App).FillUps.FillUpItems.DeleteOnSubmit(fills);
+            (App.Current as App).FillUps.SubmitChanges();
+            RefreshPage(VehicleName.Text);
+        }
+
         #endregion Events
+
+        private void ContextDelete_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = (MenuItem)sender;
+            int index = HistoryList.ItemContainerGenerator.IndexFromContainer((HistoryList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem));
+            if (index != -1)
+            {
+                ViewModel.FillUp fill = (ViewModel.FillUp)HistoryList.Items[index];
+                if (menu.Header.ToString().Equals("delete"))
+                {
+                    try
+                    {
+                        DeleteFill(fill);
+                    }
+                    catch (NullReferenceException)
+                    { }
+                }
+            }
+        }
     }
 
     public class Stats

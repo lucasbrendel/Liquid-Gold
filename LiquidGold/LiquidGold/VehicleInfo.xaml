@@ -110,7 +110,7 @@
                                     <toolkit:ContextMenuService.ContextMenu>
                                         <toolkit:ContextMenu>
                                             <toolkit:MenuItem Header="edit" x:Name="ContextEdit" Click="ContextEdit_Click"/>
-                                            <!--<toolkit:MenuItem Header="delete"/>-->
+                                            <toolkit:MenuItem Header="delete" x:Name="ContextDelete" Click="ContextDelete_Click"/>
                                         </toolkit:ContextMenu>
                                     </toolkit:ContextMenuService.ContextMenu>
                                     <TextBlock Style="{StaticResource ItemStyle}" Text="{Binding Date}" TextWrapping="NoWrap" Margin="0,10,10,10"/>

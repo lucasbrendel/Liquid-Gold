@@ -136,7 +136,7 @@ namespace LiquidGold
                 {
                     _isEdit = true;
                     ind = int.Parse(listIndex);
-                    EditFill = _fills[ind];
+                    EditFill = _fills.FirstOrDefault(x => x.Odometer == ind);
                     Odo_txt.Text = EditFill.Odometer.ToString();
                     Quantity_txt.Text = EditFill.Quantity.ToString();
                     Cost_txt.Text = EditFill.Cost.ToString();
