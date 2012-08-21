@@ -23,6 +23,9 @@ namespace LiquidGold
         public ViewModel.FillUpDataContext FillUps = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
 
         public bool FirstFill;
+
+        public RadDiagnostics Diagnostics;
+
         public enum Units
         {
             Imperial,
@@ -158,6 +161,34 @@ namespace LiquidGold
                 reminder.ShowReminderMessage(reminder.MessageBoxInfo);
                 reminder.ReminderClosed += new EventHandler<ReminderClosedEventArgs>(reminder_ReminderClosed);
             }
+
+            Diagnostics = new RadDiagnostics()
+            {
+                EmailTo = "Liquidgoldapp@outlook.com",
+                EmailSubject = "ERROR",
+                IncludeScreenshot = true,
+                HandleUnhandledException = true,
+                ApplicationName = "Liquid Gold",
+                ApplicationVersion = "1.0"
+            };
+            Diagnostics.MessageBoxInfo = new Telerik.Windows.Controls.Reminders.MessageBoxInfoModel()
+            {
+                Buttons = MessageBoxButtons.YesNo,
+                Title = "ERROR",
+                Content = "There seems to have been an error. Do you want to send a report to help resolve this issue?"
+            };
+            Diagnostics.Init();
+            Diagnostics.ExceptionOccurred += new EventHandler<ExceptionOccurredEventArgs>(Diagnostics_ExceptionOccurred);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Diagnostics_ExceptionOccurred(object sender, ExceptionOccurredEventArgs e)
+        {
+            Diagnostics.ReportHandledException(e.Exception);
         }
         
         /// <summary>
