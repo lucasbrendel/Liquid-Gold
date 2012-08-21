@@ -2,6 +2,7 @@
 using Microsoft.Live;
 using Telerik.Windows.Controls;
 using System.IO.IsolatedStorage;
+using Microsoft.Phone.Tasks;
 
 namespace LiquidGold
 {
@@ -119,6 +120,18 @@ namespace LiquidGold
             (App.Current as App).LocationAware = LocationSwitch.IsChecked;
             IsolatedStorageSettings.ApplicationSettings["LocationAware"] = (App.Current as App).LocationAware.ToString();
             IsolatedStorageSettings.ApplicationSettings.Save();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EmailDevBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            EmailComposeTask compose = new EmailComposeTask();
+            compose.To = "liquidgoldapp@outlook.com";
+            compose.Show();
         }
     }
 }

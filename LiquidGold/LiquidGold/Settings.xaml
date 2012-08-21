@@ -59,8 +59,8 @@
                             <TextBlock Text="1.0" HorizontalAlignment="Center" FontSize="64"/>
                             <TextBlock Text="Shout Out" Style="{StaticResource PhoneTextAccentStyle}"/>
                             <TextBlock Text="Thanks to Telerik, and the creators of the Silverlight Toolkit for Windows Phone. " TextWrapping="Wrap"/>
-                            <TextBlock Text="Send any issues, requests, or inquiries to LiquidGoldApp@outlook.com or click the button below." TextWrapping="Wrap"/>
-                        
+                            <TextBlock Text="Send any issues, requests, or inquiries to liquidgoldapp@outlook.com. This app is new and may have bugs, but I want to make it better for the user." TextWrapping="Wrap"/>
+                            <!--<Button Content="Email Dev" Name="EmailDevBtn" Click="EmailDevBtn_Click"/>-->
                             <TextBlock Text="Coming Soon" Style="{StaticResource PhoneTextAccentStyle}"/>
                             <TextBlock Text="- Backup to Skydrive"/>
                             <TextBlock Text="- Choose Imperial or Metric units"/>
