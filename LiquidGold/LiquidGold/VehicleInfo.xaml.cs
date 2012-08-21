@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
 using Telerik.Windows.Controls;
+using Microsoft.Phone.Shell;
 
 namespace LiquidGold
 {
@@ -83,6 +84,19 @@ namespace LiquidGold
                 FillInfo();
             }
 
+            ShellTile tile = LiveTileHelper.GetTile(new Uri("/VehicleInfo.xaml?Name=" + VehicleName.Text.ToString(), UriKind.RelativeOrAbsolute));
+
+            if (tile == null)
+            {
+                ApplicationBarIconButton item = (ApplicationBarIconButton)ApplicationBar.Buttons[2];
+                item.IsEnabled = true;
+            }
+            else
+            {
+                ApplicationBarIconButton item = (ApplicationBarIconButton)ApplicationBar.Buttons[2];
+                item.IsEnabled = false;
+            }
+
             base.OnNavigatedTo(e);
         }
 
@@ -96,12 +110,19 @@ namespace LiquidGold
             VehicleModel.Text = CurrentVehicle.Model;
             AverageMileage.Text = AvgMileage().ToString();
             EntryCount.Text = FillUpItems.Count.ToString();
-            if (FillUpItems.Count > 0 && Gauge.MaxValue > BestMileage())
+            if (FillUpItems.Count > 0 && BestMileage() > Gauge.MaxValue)
             {
                 Gauge.MaxValue = Math.Ceiling(AvgMileage() / 10) * 10;
             }
             ValueIndicator.Value = AvgMileage();
-            DaysCount.Text = (DateTime.Parse(FillUpItems.Max(f => f.Date)) - DateTime.Parse(FillUpItems.Min(f => f.Date))).Days.ToString();
+            if (FillUpItems.Count > 0)
+            {
+                DaysCount.Text = ((DateTime.Parse(FillUpItems.Max(f => f.Date)) - DateTime.Parse(FillUpItems.Min(f => f.Date))).Days + 1).ToString();
+            }
+            else
+            {
+                DaysCount.Text = "0";
+            }
         }
 
         /// <summary>
@@ -465,7 +486,7 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void settings_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//Settings.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }
 
         /// <summary>
@@ -475,7 +496,7 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void addFillBtn_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + VehicleName.Text.ToString(), UriKind.Relative));
+            NavigationService.Navigate(new Uri("/AddFill.xaml?Name=" + VehicleName.Text.ToString(), UriKind.Relative));
         }
 
         /// <summary>
@@ -495,7 +516,7 @@ namespace LiquidGold
                 ObservableCollection<ViewModel.Vehicle> vehicles = new ObservableCollection<ViewModel.Vehicle>(VehiclesInDB);
                 vehicleDB.VehicleItems.DeleteOnSubmit(vehicles[Index]);
                 _delete = true;
-                NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
         }
 
@@ -510,7 +531,7 @@ namespace LiquidGold
 
             try
             {
-                NavigationService.Navigate(new Uri("//ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
+                NavigationService.Navigate(new Uri("/ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
                                                     "&Date=" + fill.Date.ToString() + "&Cost=" + fill.Cost.ToString() +
                                                     "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString() + 
                                                     "&Lat=" + fill.Latitude.ToString() + "&Lon=" + fill.Longitude.ToString() + 
@@ -526,7 +547,7 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void StatsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {       
-            NavigationService.Navigate(new Uri("//Charts.xaml?Name=" + CurrentVehicle.Name + "&Index=" + StatsList.SelectedIndex, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Charts.xaml?Name=" + CurrentVehicle.Name + "&Index=" + StatsList.SelectedIndex, UriKind.Relative));
         }
 
         /// <summary>
@@ -566,7 +587,7 @@ namespace LiquidGold
 
                     try
                     {
-                        NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + VehicleName.Text + "&IsEdit=1&Index=" + index, UriKind.Relative));
+                        NavigationService.Navigate(new Uri("/AddFill.xaml?Name=" + VehicleName.Text + "&IsEdit=1&Index=" + index, UriKind.Relative));
                     }
                     catch (NullReferenceException)
                     { }

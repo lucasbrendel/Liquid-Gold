@@ -131,7 +131,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void AddVeh_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//AddVehicle.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/AddVehicle.xaml", UriKind.Relative));
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void AddFill_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//AddFill.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/AddFill.xaml", UriKind.Relative));
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void settings_item_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//Settings.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace LiquidGold
                 //Selected context menu item is to pin to start
                 if (menu.Header.ToString().Equals("pin to start"))
                 {
-                    LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = SelectedVehicle.Name.ToString(), BackgroundImage = new Uri("/Images/Car.png", UriKind.RelativeOrAbsolute) }, new Uri("/VehicleInfo.xaml?Name=" + SelectedVehicle.Name.ToString(), UriKind.RelativeOrAbsolute)); 
+                    LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = SelectedVehicle.Name.ToString(), BackgroundImage = new Uri("/Images/Car.png", UriKind.Relative) }, new Uri("/VehicleInfo.xaml?Name=" + SelectedVehicle.Name.ToString(), UriKind.RelativeOrAbsolute)); 
                 }
                 //Selected context menu item is to delete the vehicle
                 else if (menu.Header.ToString().Equals("delete"))

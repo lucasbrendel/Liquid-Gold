@@ -67,28 +67,36 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
-    <Reference Include="Telerik.Windows.Behaviors">
+    <Reference Include="Telerik.Windows.Behaviors, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Behaviors.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.Chart">
+    <Reference Include="Telerik.Windows.Controls.Chart, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Controls.Chart.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.Data">
+    <Reference Include="Telerik.Windows.Controls.Data, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Controls.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.DataVisualization">
+    <Reference Include="Telerik.Windows.Controls.DataVisualization, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.Input">
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Controls.Input.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.Primitives">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Controls.Primitives.DLL</HintPath>
+    <Reference Include="Telerik.Windows.Controls.Primitives, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Controls.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Core">
+    <Reference Include="Telerik.Windows.Core, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Data">
+    <Reference Include="Telerik.Windows.Data, Version=2012.2.801.2040, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\RadControls for Windows Phone 7 Q2 2012\Binaries\WindowsPhone\Telerik.Windows.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -167,7 +175,9 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\Car.png" />
+    <Content Include="Images\Car.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="Icons\appbar.add.dark.png" />
     <Content Include="Icons\appbar.cancel.dark.png">
