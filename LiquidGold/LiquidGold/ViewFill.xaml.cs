@@ -77,7 +77,7 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void EditFillBtn_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("//AddFill.xaml?Name=" + PageTitle.Text + "&IsEdit=1&Index=" + _index, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/AddFill.xaml?Name=" + PageTitle.Text + "&IsEdit=1&Index=" + Odo_txt.Text, UriKind.Relative));
         }
 
         /// <summary>

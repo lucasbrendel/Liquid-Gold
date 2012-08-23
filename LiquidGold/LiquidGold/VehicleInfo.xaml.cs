@@ -82,6 +82,10 @@ namespace LiquidGold
             base.OnNavigatedTo(e);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_name"></param>
         private void RefreshPage(string _name)
         {
             int i = 0;

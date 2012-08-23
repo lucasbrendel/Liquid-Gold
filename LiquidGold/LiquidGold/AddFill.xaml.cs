@@ -113,6 +113,8 @@ namespace LiquidGold
         {
             string index = String.Empty;
 
+            LocationSwitch.IsChecked = (App.Current as App).LocationAware;
+
             var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
             var fillItemsInDB = from ViewModel.FillUp fill in fillUpDb.FillUpItems select fill;
             _vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
@@ -142,7 +144,6 @@ namespace LiquidGold
                     Cost_txt.Text = EditFill.Cost.ToString();
                     FillDate.Value = DateTime.Parse(EditFill.Date);
                     Notes_txt.Text = EditFill.Notes.ToString();
-                    EditLocationBtn.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
@@ -153,8 +154,6 @@ namespace LiquidGold
             {
                 EditLocationBtn.Visibility = System.Windows.Visibility.Collapsed;
             }
-                
-            LocationSwitch.IsChecked = (App.Current as App).LocationAware;
 
             base.OnNavigatedTo(e);
         }
@@ -249,7 +248,20 @@ namespace LiquidGold
             EditLocationPanel.Visibility = System.Windows.Visibility.Visible;
             LatPanel.Visibility = System.Windows.Visibility.Collapsed;
             LonPanel.Visibility = System.Windows.Visibility.Collapsed;
-            GoToMe();
+            GoToFill();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GoToFill()
+        {
+            GeoCoordinate coord = new GeoCoordinate(EditFill.Latitude, EditFill.Longitude);
+            Pushpin.Location = coord;
+            LatTxt.Text = EditFill.Latitude.ToString();
+            LonTxt.Text = EditFill.Longitude.ToString();
+            EditMap.Center = Pushpin.Location;
+            EditMap.ZoomLevel = 15;
         }
 
         /// <summary>
