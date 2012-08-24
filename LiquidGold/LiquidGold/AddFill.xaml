@@ -65,7 +65,7 @@
                         </StackPanel>
                     </Grid>
                     <TextBlock Text="Date of Fill" Style="{StaticResource TextCustomTitleStyle}"/>
-                    <telerikInput:RadDatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate"/>
+                    <telerikInput:RadDatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate" OkButtonIconUri="/Icons/Check.png" CancelButtonIconUri="/Icons/appbar.cancel.dark.png"/>
                     <Button Content="Edit Location" Name="EditLocationBtn" Click="EditLocationBtn_Click"/>
                     <telerikPrimitives:RadToggleSwitch Name="LocationSwitch" Header="Save Location"/>
                     <TextBlock Text="Notes" Style="{StaticResource TextCustomTitleStyle}"/>
