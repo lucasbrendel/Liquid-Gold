@@ -183,7 +183,16 @@ namespace LiquidGold
                 //Selected context menu item is to delete the vehicle
                 else if (menu.Header.ToString().Equals("delete"))
                 {
-                    DeleteVehicle(SelectedVehicle);
+                    RadMessageBox.Show("Delete " + SelectedVehicle.Name + "?", MessageBoxButtons.YesNo, "Are you sure you want to delete this vehicle? All information will be lost.", null,
+                        false, true, System.Windows.HorizontalAlignment.Stretch, System.Windows.VerticalAlignment.Top, closedHandler: (args) =>
+                        {
+                            if (args.Result == DialogResult.OK)
+                            {
+                                DeleteVehicle(SelectedVehicle);
+                            }
+                        }
+                    );
+                    
                 }
             }
         }
@@ -199,7 +208,6 @@ namespace LiquidGold
             {
                 Tile.Delete();
             }
-            //ViewModel.FillUpDataContext fills = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
             var fil = from fill in (App.Current as App).FillUps.FillUpItems where fill.VehicleName == Vehicle.Name select fill;
             ObservableCollection<ViewModel.FillUp> fillDB = new ObservableCollection<ViewModel.FillUp>(fil);
             (App.Current as App).FillUps.FillUpItems.DeleteAllOnSubmit(fillDB);
