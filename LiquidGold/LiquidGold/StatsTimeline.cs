@@ -13,9 +13,6 @@ namespace LiquidGold
 
     public class StatsTimeline
     {
-        private ViewModel.FillUpDataContext fillUpDb;
-        private ViewModel.VehicleDataContext vehicleDb;
-
         private ObservableCollection<ViewModel.FillUp> _fills;
         private ObservableCollection<ViewModel.Vehicle> _vehicle;
 
@@ -26,10 +23,8 @@ namespace LiquidGold
         /// </summary>
         public StatsTimeline(string VehicleName)
         {
-            fillUpDb = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
-            vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
-            var fillItemsInDB = from ViewModel.FillUp fill in fillUpDb.FillUpItems where fill.VehicleName == VehicleName select fill;
-            var vehicleItems = from ViewModel.Vehicle veh in vehicleDb.VehicleItems where veh.Name == VehicleName select veh;
+            var fillItemsInDB = from ViewModel.FillUp fill in (App.Current as App).FillUps.FillUpItems where fill.VehicleName == VehicleName select fill;
+            var vehicleItems = from ViewModel.Vehicle veh in (App.Current as App).Vehicles.VehicleItems where veh.Name == VehicleName select veh;
             _fills = new ObservableCollection<ViewModel.FillUp>(fillItemsInDB);
             _vehicle = new ObservableCollection<ViewModel.Vehicle>(vehicleItems);
             CurrentVehicle = _vehicle[0];

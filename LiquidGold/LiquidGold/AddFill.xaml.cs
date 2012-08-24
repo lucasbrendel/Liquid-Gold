@@ -11,9 +11,6 @@ namespace LiquidGold
 {
     public partial class AddFill : PhoneApplicationPage
     {
-        private ViewModel.VehicleDataContext vehicleDb;
-        private ViewModel.FillUpDataContext fillUpDb;
-
         private ObservableCollection<ViewModel.Vehicle> _vehicles;
         private ObservableCollection<ViewModel.FillUp> _fills;
 
@@ -35,33 +32,7 @@ namespace LiquidGold
         {
             InitializeComponent();
 
-            vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
-            fillUpDb = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
-
             FillDate.Value = DateTime.Now;
-
-            if (watcher == null)
-            {
-                watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
-                watcher.MovementThreshold = 50;
-                watcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
-                watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
-            }
-
-            watcher.Start();
-
-            ShellTile tile =  LiveTileHelper.GetTile(new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
-
-            if (tile == null)
-            {
-                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
-                item.IsEnabled = true;
-            }
-            else
-            {
-                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
-                item.IsEnabled = false;
-            }
         }
 
         /// <summary>
@@ -115,13 +86,13 @@ namespace LiquidGold
 
             LocationSwitch.IsChecked = (App.Current as App).LocationAware;
 
-            var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
-            var fillItemsInDB = from ViewModel.FillUp fill in fillUpDb.FillUpItems select fill;
+            var vehItemsInDB = from ViewModel.Vehicle veh in (App.Current as App).Vehicles.VehicleItems select veh;
+            var fillItemsInDB = from ViewModel.FillUp fill in (App.Current as App).FillUps.FillUpItems select fill;
             _vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
             _fills = new ObservableCollection<ViewModel.FillUp>(fillItemsInDB);
 
-            (App.Current as App).FillUps = fillUpDb;
-            (App.Current as App).Vehicles = vehicleDb;
+            //(App.Current as App).FillUps = fillUpDb;
+            //(App.Current as App).Vehicles = vehicleDb;
 
             VehiclesList.ItemsSource = _vehicles;
             if (NavigationContext.QueryString.TryGetValue("Name", out index))
@@ -165,7 +136,8 @@ namespace LiquidGold
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            fillUpDb.SubmitChanges();
+            (App.Current as App).FillUps.SubmitChanges();
+            //fillUpDb.SubmitChanges();
         }
 
         /// <summary>
@@ -200,22 +172,22 @@ namespace LiquidGold
 
                 if (_isEdit)
                 {
-                    var _fil = from ViewModel.FillUp f in fillUpDb.FillUpItems where 
+                    var _fil = from ViewModel.FillUp f in (App.Current as App).FillUps.FillUpItems where 
                                    f.VehicleName == EditFill.VehicleName &&
                                f.Cost == EditFill.Cost &&
                                f.Date == EditFill.Date &&
                                f.Notes == EditFill.Notes &&
                                f.Quantity == EditFill.Quantity select f;
-                    fillUpDb.FillUpItems.DeleteAllOnSubmit(_fil);
-                    fillUpDb.SubmitChanges();
+                    (App.Current as App).FillUps.FillUpItems.DeleteAllOnSubmit(_fil);
+                    (App.Current as App).FillUps.SubmitChanges();
 
-                    fillUpDb.FillUpItems.InsertOnSubmit(fill);
-                    fillUpDb.SubmitChanges();
-                    (App.Current as App).FillUps = fillUpDb;
+                    (App.Current as App).FillUps.FillUpItems.InsertOnSubmit(fill);
+                    (App.Current as App).FillUps.SubmitChanges();
+                    //(App.Current as App).FillUps = fillUpDb;
                 }
                 else
                 {
-                    fillUpDb.FillUpItems.InsertOnSubmit(fill);
+                    (App.Current as App).FillUps.FillUpItems.InsertOnSubmit(fill);
                 }
 
                 watcher.Stop();
@@ -370,6 +342,37 @@ namespace LiquidGold
         private void PinQuickFill_Click(object sender, EventArgs e)
         {
             LiveTileHelper.CreateOrUpdateTile(new RadExtendedTileData() { Title = "Add Fill", BackgroundImage=new Uri("/Images/AddFillIcon.png", UriKind.RelativeOrAbsolute) }, new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (watcher == null)
+            {
+                watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+                watcher.MovementThreshold = 50;
+                watcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
+                watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            }
+
+            watcher.Start();
+
+            ShellTile tile = LiveTileHelper.GetTile(new Uri("/AddFill.xaml", UriKind.RelativeOrAbsolute));
+
+            if (tile == null)
+            {
+                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
+                item.IsEnabled = true;
+            }
+            else
+            {
+                ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
+                item.IsEnabled = false;
+            }
         }
     }
 }

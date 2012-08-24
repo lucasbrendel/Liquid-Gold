@@ -13,8 +13,6 @@ namespace LiquidGold
 {
     public partial class MainPage : INotifyPropertyChanged
     {
-        //private ViewModel.VehicleDataContext vehicleDb;
-
         private ObservableCollection<ViewModel.Vehicle> _vehicles;
 
         /// <summary>

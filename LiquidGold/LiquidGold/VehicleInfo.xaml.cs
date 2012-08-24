@@ -12,10 +12,6 @@ namespace LiquidGold
 {
     public partial class VehicleInfo : PhoneApplicationPage, INotifyPropertyChanged
     {        
-        private ViewModel.FillUpDataContext fillUpDB;
-
-        private ViewModel.VehicleDataContext vehicleDB;
-
         private ViewModel.Vehicle CurrentVehicle;
 
         private bool _delete;
@@ -48,8 +44,6 @@ namespace LiquidGold
         public VehicleInfo()
         {
             InitializeComponent();
-            fillUpDB = new ViewModel.FillUpDataContext(ViewModel.FillUpDataContext.DBConnectionString);
-            vehicleDB = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
             this.DataContext = this;
             _delete = false;
         }
@@ -89,8 +83,8 @@ namespace LiquidGold
         private void RefreshPage(string _name)
         {
             int i = 0;
-            var FillUpItemsInDB = from ViewModel.FillUp fills in fillUpDB.FillUpItems where fills.VehicleName == _name select fills;
-            var vehicle = from ViewModel.Vehicle veh in vehicleDB.VehicleItems where veh.Name == _name select veh;
+            var FillUpItemsInDB = from ViewModel.FillUp fills in (App.Current as App).FillUps.FillUpItems where fills.VehicleName == _name select fills;
+            var vehicle = from ViewModel.Vehicle veh in (App.Current as App).Vehicles.VehicleItems where veh.Name == _name select veh;
             CurrentVehicle = vehicle.First();
             FillUpItems = new ObservableCollection<ViewModel.FillUp>(FillUpItemsInDB);
             foreach (ViewModel.FillUp fill in FillUpItems)
@@ -144,8 +138,8 @@ namespace LiquidGold
 
             if (_delete)
             {
-                fillUpDB.SubmitChanges();
-                vehicleDB.SubmitChanges();
+                (App.Current as App).FillUps.SubmitChanges();
+                (App.Current as App).Vehicles.SubmitChanges();
             }
         }
 
@@ -520,11 +514,11 @@ namespace LiquidGold
 
             if (results == MessageBoxResult.OK)
             {
-                fillUpDB.FillUpItems.DeleteAllOnSubmit(FillUpItems);
-                
-                var VehiclesInDB = from ViewModel.Vehicle veh in vehicleDB.VehicleItems select veh;
+                (App.Current as App).FillUps.FillUpItems.DeleteAllOnSubmit(FillUpItems);
+
+                var VehiclesInDB = from ViewModel.Vehicle veh in (App.Current as App).Vehicles.VehicleItems select veh;
                 ObservableCollection<ViewModel.Vehicle> vehicles = new ObservableCollection<ViewModel.Vehicle>(VehiclesInDB);
-                vehicleDB.VehicleItems.DeleteOnSubmit(vehicles[Index]);
+                (App.Current as App).Vehicles.VehicleItems.DeleteOnSubmit(vehicles[Index]);
                 _delete = true;
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }

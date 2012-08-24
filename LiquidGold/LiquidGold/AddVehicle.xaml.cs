@@ -9,8 +9,6 @@ namespace LiquidGold
 {
     public partial class AddVehicle : PhoneApplicationPage
     {
-        private ViewModel.VehicleDataContext vehicleDb;
-
         private ObservableCollection<ViewModel.Vehicle> _vehicles;
 
         private bool IsValueAdded;
@@ -22,8 +20,6 @@ namespace LiquidGold
         {
             InitializeComponent();
             IsValueAdded = false;
-
-            vehicleDb = new ViewModel.VehicleDataContext(ViewModel.VehicleDataContext.VehicleConnectionString);
         }
 
         /// <summary>
@@ -32,7 +28,7 @@ namespace LiquidGold
         /// <param name="e">Navigation event argument</param>
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            var vehItemsInDB = from ViewModel.Vehicle veh in vehicleDb.VehicleItems select veh;
+            var vehItemsInDB = from ViewModel.Vehicle veh in (App.Current as App).Vehicles.VehicleItems select veh;
             _vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
 
             base.OnNavigatedTo(e);
@@ -57,7 +53,7 @@ namespace LiquidGold
                 {
                     if (InitOdo_txt.Text != String.Empty)
                     {
-                        vehicleDb.VehicleItems.InsertOnSubmit(vehicle);
+                        (App.Current as App).Vehicles.VehicleItems.InsertOnSubmit(vehicle);
                         IsValueAdded = true;
                         NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
                     }
@@ -82,7 +78,7 @@ namespace LiquidGold
             base.OnNavigatedFrom(e);
             if (IsValueAdded)
             {
-                vehicleDb.SubmitChanges();
+                (App.Current as App).Vehicles.SubmitChanges();
             }
         }
 
