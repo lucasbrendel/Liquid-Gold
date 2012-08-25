@@ -146,29 +146,11 @@ namespace LiquidGold
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void AddFill_Click(object sender, EventArgs e)
-        {          
-            if (Odo_txt.Text != String.Empty && Quantity_txt.Text != String.Empty && Cost_txt.Text != String.Empty)
+        {
+            if (IsFillReady())
             {
                 ViewModel.Vehicle _vehicle = (ViewModel.Vehicle)VehiclesList.SelectedItem;
-                DateTime date = (DateTime)FillDate.Value;
-
-                if (!LocationSwitch.IsChecked)
-                {
-                    _lat = Double.NaN;
-                    _lon = Double.NaN;
-                }
-
-                fill = new ViewModel.FillUp()
-                {
-                    VehicleName = _vehicle.Name,
-                    Odometer = Convert.ToInt32(Odo_txt.Text),
-                    Quantity = Convert.ToDouble(Quantity_txt.Text),
-                    Cost = Convert.ToDouble(Cost_txt.Text),
-                    Date = date.Date.ToString(),
-                    Notes = Notes_txt.Text,
-                    Latitude = _lat,
-                    Longitude = _lon
-                };
+                CreateFill(_vehicle);
 
                 if (_isEdit)
                 {
@@ -183,7 +165,6 @@ namespace LiquidGold
 
                     (App.Current as App).FillUps.FillUpItems.InsertOnSubmit(fill);
                     (App.Current as App).FillUps.SubmitChanges();
-                    //(App.Current as App).FillUps = fillUpDb;
                 }
                 else
                 {
@@ -197,6 +178,42 @@ namespace LiquidGold
             {
                 MessageBox.Show("All values must be filled", "ERROR", MessageBoxButton.OK);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private bool IsFillReady()
+        {
+            return Odo_txt.Text != String.Empty && Quantity_txt.Text != String.Empty && Cost_txt.Text != String.Empty;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_vehicle"></param>
+        private void CreateFill(ViewModel.Vehicle _vehicle)
+        {
+            DateTime date = (DateTime)FillDate.Value;
+
+            if (!LocationSwitch.IsChecked)
+            {
+                _lat = Double.NaN;
+                _lon = Double.NaN;
+            }
+
+            fill = new ViewModel.FillUp()
+            {
+                VehicleName = _vehicle.Name,
+                Odometer = Convert.ToInt32(Odo_txt.Text),
+                Quantity = Convert.ToDouble(Quantity_txt.Text),
+                Cost = Convert.ToDouble(Cost_txt.Text),
+                Date = date.Date.ToString(),
+                Notes = Notes_txt.Text,
+                Latitude = _lat,
+                Longitude = _lon
+            };
         }
 
         /// <summary>
@@ -257,7 +274,18 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void LatTxt_LostFocus(object sender, RoutedEventArgs e)
         {
-
+            TextLocationUpdate();
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        private void TextLocationUpdate()
+        {
+            GeoCoordinate coord = new GeoCoordinate(Double.Parse(LatTxt.Text), Double.Parse(LatTxt.Text));
+            Pushpin.Location = coord;
+            EditMap.Center = Pushpin.Location;
+            EditMap.ZoomLevel = 15;
         }
 
         /// <summary>
@@ -267,7 +295,7 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void LonTxt_LostFocus(object sender, RoutedEventArgs e)
         {
-
+            TextLocationUpdate();
         }
 
         /// <summary>
@@ -373,6 +401,36 @@ namespace LiquidGold
                 ApplicationBarMenuItem item = (ApplicationBarMenuItem)ApplicationBar.MenuItems[0];
                 item.IsEnabled = false;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddNewFillBtn_Click(object sender, EventArgs e)
+        {
+            if (IsFillReady())
+            {
+                ViewModel.Vehicle _vehicle = (ViewModel.Vehicle)VehiclesList.SelectedItem;
+                CreateFill(_vehicle);
+
+                (App.Current as App).FillUps.FillUpItems.InsertOnSubmit(fill);
+                (App.Current as App).FillUps.SubmitChanges();
+
+                ResetControls();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ResetControls()
+        {
+            Odo_txt.Text = String.Empty;
+            Quantity_txt.Text = String.Empty;
+            Cost_txt.Text = String.Empty;
+            Notes_txt.Text = String.Empty;
         }
     }
 }
