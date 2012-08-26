@@ -24,6 +24,11 @@ namespace LiquidGold
             //behavior.ContextNeeded += new EventHandler<TooltipContextNeededEventArgs>(behavior_ContextNeeded);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void behavior_ContextNeeded(object sender, TooltipContextNeededEventArgs e)
         {
             e.Context = this.CreateContext(e.DefaultContext);

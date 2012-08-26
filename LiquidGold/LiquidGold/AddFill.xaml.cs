@@ -202,6 +202,11 @@ namespace LiquidGold
                 _lat = Double.NaN;
                 _lon = Double.NaN;
             }
+            else
+            {
+                _lat = watcher.Position.Location.Latitude;
+                _lon = watcher.Position.Location.Longitude;
+            }
 
             fill = new ViewModel.FillUp()
             {
@@ -223,7 +228,6 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void CancelFill_Click(object sender, EventArgs e)
         {
-            //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             NavigationService.GoBack();
         }
 

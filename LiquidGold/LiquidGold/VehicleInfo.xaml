@@ -69,16 +69,6 @@
             <!--Fill History-->
             <controls:PivotItem Header="history">
                 <Grid>
-                	<Grid.RowDefinitions>
-                		<RowDefinition Height="Auto"/>
-						<RowDefinition Height="*"/>           	
-					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
                     <Grid.Resources>
                         <Style x:Key="ListStyle" TargetType="ListBoxItem">
                             <Setter Property="Background" Value="White"/>
@@ -103,10 +93,15 @@
                         </Style>
                     </Grid.Resources>
 					
-                    <ListBox Grid.Row="0" Grid.ColumnSpan="4" Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}" SelectionChanged="HistoryList_SelectionChanged">
-						<ListBox.ItemTemplate>
+                    <ListBox Name="HistoryList" ItemContainerStyle="{StaticResource ListStyle}" SelectionChanged="HistoryList_SelectionChanged">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <toolkit:WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="White">
+                                <StackPanel Orientation="Horizontal" Background="White" HorizontalAlignment="Stretch">
                                     <toolkit:ContextMenuService.ContextMenu>
                                         <toolkit:ContextMenu>
                                             <toolkit:MenuItem Header="edit" x:Name="ContextEdit" Click="ContextEdit_Click"/>
