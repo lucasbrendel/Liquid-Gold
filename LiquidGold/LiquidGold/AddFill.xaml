@@ -84,29 +84,33 @@
 
                 <!--TitlePanel contains the name of the application and page title-->
                 <Button Content="Input Coordinates" HorizontalAlignment="Center" VerticalAlignment="Top" Name="InputCoordBtn" Click="InputCoordBtn_Click" Grid.ColumnSpan="2"/>
-                    <StackPanel Name="LatPanel" Grid.Row="0" Grid.Column="0">
-                        <TextBlock FontSize="16" Text="Latitude" />
-                        <telerikPrimitives:RadTextBox Name="LatTxt" AcceptsReturn="False" LostFocus="LatTxt_LostFocus" />
-                    </StackPanel>
-                    <StackPanel Name="LonPanel" Grid.Row="0" Grid.Column="1">
-                        <TextBlock FontSize="16" Text="Longitude"/>
-                        <telerikPrimitives:RadTextBox Name="LonTxt" AcceptsReturn="False" LostFocus="LonTxt_LostFocus" />
-                    </StackPanel>
+                <StackPanel Name="LatPanel" Grid.Row="0" Grid.Column="0">
+                    <TextBlock FontSize="16" Text="Latitude" />
+                    <telerikPrimitives:RadTextBox Name="LatTxt" AcceptsReturn="False" LostFocus="LatTxt_LostFocus" InputScope="TelephoneNumber"/>
+                </StackPanel>
+                <StackPanel Name="LonPanel" Grid.Row="0" Grid.Column="1">
+                    <TextBlock FontSize="16" Text="Longitude"/>
+                    <telerikPrimitives:RadTextBox Name="LonTxt" AcceptsReturn="False" LostFocus="LonTxt_LostFocus" InputScope="TelephoneNumber"/>
+                </StackPanel>
 
-                <!--ContentPanel - place additional content here-->
                 <Grid x:Name="MapPanel" Grid.Row="1" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <my:Map Grid.Row="0" Name="EditMap" Tap="EditMap_Tap" CredentialsProvider="Akx5fJ4gb8LwSxnbKDDGHs-CjkjYWTfTGO-UH3tWovMA6keAFS19CnrL7ZQnJAAF">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <my:Map Grid.Row="0" Grid.ColumnSpan="5" Name="EditMap" Tap="EditMap_Tap" CredentialsProvider="Akx5fJ4gb8LwSxnbKDDGHs-CjkjYWTfTGO-UH3tWovMA6keAFS19CnrL7ZQnJAAF">
                         <my:Pushpin Name="Pushpin"/>
                     </my:Map>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1">
-                        <Button Name="SaveBtn" Click="SaveBtn_Click" Content="Save" />
-                        <Button Name="MeBtn" Click="MeBtn_Click" Content="Go to Me"/>
-                        <Button Name="CancelBtn" Click="CancelBtn_Click" Content="Cancel"/>
-                    </StackPanel>
+                    <Button Grid.Column="1" Grid.Row="1" Content="Save" Name="SaveBtn" Click="SaveBtn_Click"/>
+                    <Button Grid.Column="2" Grid.Row="1" Content="Go to Me" Name="MeBtn" Click="MeBtn_Click"/>
+                    <Button Grid.Column="3" Grid.Row="1" Content="Cancel" Name="CancelBtn" Click="CancelBtn_Click"/>
                 </Grid>
             </Grid>
         </Grid>
@@ -116,7 +120,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton x:Name="AddFillBtn" IconUri="/Icons/appbar.save.dark.png" Text="save" Click="AddFill_Click"/>
-            <shell:ApplicationBarIconButton x:Name="AddNewFillBtn" IconUri="/Icons/appbar.add.dark.png" Text="save/new" Click="AddNewFillBtn_Click"/> 
+            <shell:ApplicationBarIconButton x:Name="AddNewFillBtn" IconUri="/Icons/appbar.add.dark.png" Text="save/new" Click="AddNewFillBtn_Click"/>
             <shell:ApplicationBarIconButton x:Name="CancelFill" IconUri="/Icons/appbar.cancel.dark.png" Text="cancel" Click="CancelFill_Click"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="PinQuickFill" Click="PinQuickFill_Click" Text="pin quick fill"/>

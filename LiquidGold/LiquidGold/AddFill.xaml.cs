@@ -16,9 +16,9 @@ namespace LiquidGold
 
         private bool _isEdit;
 
-        ViewModel.FillUp fill;
+        private ViewModel.FillUp fill;
 
-        ViewModel.FillUp EditFill;
+        private ViewModel.FillUp EditFill;
 
         private GeoCoordinateWatcher watcher;
         private double _lat = Double.NaN;
@@ -91,9 +91,6 @@ namespace LiquidGold
             _vehicles = new ObservableCollection<ViewModel.Vehicle>(vehItemsInDB);
             _fills = new ObservableCollection<ViewModel.FillUp>(fillItemsInDB);
 
-            //(App.Current as App).FillUps = fillUpDb;
-            //(App.Current as App).Vehicles = vehicleDb;
-
             VehiclesList.ItemsSource = _vehicles;
             if (NavigationContext.QueryString.TryGetValue("Name", out index))
             {
@@ -107,6 +104,9 @@ namespace LiquidGold
                 _isEdit = false;
                 if (isEdit == "1")
                 {
+                    ApplicationBarIconButton AppBtn = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                    AppBtn.IsEnabled = false;
+
                     _isEdit = true;
                     ind = int.Parse(listIndex);
                     EditFill = _fills.FirstOrDefault(x => x.Odometer == ind);
@@ -223,7 +223,8 @@ namespace LiquidGold
         /// <param name="e"></param>
         private void CancelFill_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            NavigationService.GoBack();
         }
 
         /// <summary>
@@ -237,6 +238,7 @@ namespace LiquidGold
             EditLocationPanel.Visibility = System.Windows.Visibility.Visible;
             LatPanel.Visibility = System.Windows.Visibility.Collapsed;
             LonPanel.Visibility = System.Windows.Visibility.Collapsed;
+            ApplicationBar.IsVisible = false;
             GoToFill();
         }
 
@@ -301,16 +303,6 @@ namespace LiquidGold
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MeBtn_Click(object sender, EventArgs e)
-        {
-            GoToMe();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void GoToMe()
         {
             Pushpin.Location = watcher.Position.Location;
@@ -318,20 +310,6 @@ namespace LiquidGold
             LonTxt.Text = Pushpin.Location.Longitude.ToString();
             EditMap.Center = Pushpin.Location;
             EditMap.ZoomLevel = 15;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveBtn_Click(object sender, EventArgs e)
-        {
-            _lat = Pushpin.Location.Latitude;
-            _lon = Pushpin.Location.Longitude;
-
-            AddFillPanel.Visibility = System.Windows.Visibility.Visible;
-            EditLocationPanel.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         /// <summary>
@@ -349,17 +327,6 @@ namespace LiquidGold
             LonTxt.Text = Pushpin.Location.Longitude.ToString();
             EditMap.Center = Pushpin.Location;
             EditMap.ZoomLevel = 15;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
-        {
-            AddFillPanel.Visibility = System.Windows.Visibility.Visible;
-            EditLocationPanel.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         /// <summary>
@@ -431,6 +398,42 @@ namespace LiquidGold
             Quantity_txt.Text = String.Empty;
             Cost_txt.Text = String.Empty;
             Notes_txt.Text = String.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _lat = Pushpin.Location.Latitude;
+            _lon = Pushpin.Location.Longitude;
+
+            AddFillPanel.Visibility = System.Windows.Visibility.Visible;
+            EditLocationPanel.Visibility = System.Windows.Visibility.Collapsed;
+            ApplicationBar.IsVisible = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GoToMe();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddFillPanel.Visibility = System.Windows.Visibility.Visible;
+            EditLocationPanel.Visibility = System.Windows.Visibility.Collapsed;
         }
     }
 }
