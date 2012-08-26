@@ -52,18 +52,24 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <my:Map Name="FillLocationMap" Height="150" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Grid.Row="0" ZoomLevel="15" CredentialsProvider="Akx5fJ4gb8LwSxnbKDDGHs-CjkjYWTfTGO-UH3tWovMA6keAFS19CnrL7ZQnJAAF">
                 <my:Pushpin Name="LocationPin" Height="50" Foreground="{StaticResource PhoneAccentBrush}"/>
             </my:Map>
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Odometer" Style="{StaticResource TextStyle}"/>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Quantity" Style="{StaticResource TextStyle}"/>
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="Cost" Style="{StaticResource TextStyle}"/>
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="Date of Fill" Style="{StaticResource TextStyle}"/>
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Distance" Style="{StaticResource TextStyle}"/>
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="Quantity" Style="{StaticResource TextStyle}"/>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Mileage" Style="{StaticResource TextStyle}"/>
+            <TextBlock Grid.Column="0" Grid.Row="5" Text="Cost" Style="{StaticResource TextStyle}"/>
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Date of Fill" Style="{StaticResource TextStyle}"/>
             <TextBlock Grid.Column="1" Grid.Row="1" Name="Odo_txt" Style="{StaticResource TextNormalStyle}" />
-            <TextBlock Grid.Column="1" Grid.Row="2" Name="Quantity_txt" Style="{StaticResource TextNormalStyle}"/>
-            <TextBlock Grid.Column="1" Grid.Row="3" Name="Cost_txt" Style="{StaticResource TextNormalStyle}"/>
-            <TextBlock Grid.Column="1" Grid.Row="4" Name="Date_txt" Style="{StaticResource TextNormalStyle}"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Name="Dist_txt" Style="{StaticResource TextNormalStyle}"/>
+            <TextBlock Grid.Column="1" Grid.Row="3" Name="Quantity_txt" Style="{StaticResource TextNormalStyle}"/>
+            <TextBlock Grid.Column="1" Grid.Row="4" Name="Mile_txt" Style="{StaticResource TextNormalStyle}"/>
+            <TextBlock Grid.Column="1" Grid.Row="5" Name="Cost_txt" Style="{StaticResource TextNormalStyle}"/>
+            <TextBlock Grid.Column="1" Grid.Row="6" Name="Date_txt" Style="{StaticResource TextNormalStyle}"/>
         </Grid>
         <Grid x:Name="NotePanel" Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>

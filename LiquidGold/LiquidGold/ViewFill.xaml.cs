@@ -3,6 +3,7 @@ using System.Device.Location;
 using Microsoft.Phone.Controls;
 using Telerik.Windows.Controls;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 
 namespace LiquidGold
@@ -28,46 +29,59 @@ namespace LiquidGold
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             string Name;
-            string Odo;
-            string Quan;
-            string Cost;
-            string Date;
-            string Notes;
-            string Lat, Lon;
             string index;
 
             if (NavigationContext.QueryString.TryGetValue("Name", out Name))
             {
-                NavigationContext.QueryString.TryGetValue("Odo", out Odo);
-                NavigationContext.QueryString.TryGetValue("Quantity", out Quan);
-                NavigationContext.QueryString.TryGetValue("Cost", out Cost);
-                NavigationContext.QueryString.TryGetValue("Date", out Date);
-                NavigationContext.QueryString.TryGetValue("Notes", out Notes);
-                NavigationContext.QueryString.TryGetValue("Lat", out Lat);
-                NavigationContext.QueryString.TryGetValue("Lon", out Lon);
                 NavigationContext.QueryString.TryGetValue("Index", out index);
-
-                PageTitle.Text = Name;
-                Odo_txt.Text = Odo;
-                Quantity_txt.Text = Quan;
-                Cost_txt.Text = Cost;
-                Date_txt.Text = Date;
-                Notes_txt.Text = Notes;
                 _index = index;
 
-                if (Double.IsNaN(Double.Parse(Lat)) || Double.IsNaN(Double.Parse(Lon)))
+                var fill = from ViewModel.FillUp fil in (App.Current as App).FillUps.FillUpItems where fil.VehicleName == Name select fil;
+                var veh = from ViewModel.Vehicle v in (App.Current as App).Vehicles.VehicleItems where v.Name == Name select v;
+                ViewModel.Vehicle vehs = new ViewModel.Vehicle();
+                vehs = veh.First();
+                ObservableCollection<ViewModel.FillUp> fills = new ObservableCollection<ViewModel.FillUp>(fill);
+                ViewModel.FillUp f = fills[Int32.Parse(_index)];
+                CalcDistance(vehs, fills, f);
+                FillControls(Name, f);
+                
+                if (Double.IsNaN(f.Latitude) || Double.IsNaN(f.Longitude))
                 {
                     FillLocationMap.Visibility = System.Windows.Visibility.Collapsed;
                 }
                 else
                 {
-                    _location.Latitude = Double.Parse(Lat);
-                    _location.Longitude = Double.Parse(Lon);
+                    _location.Latitude = f.Latitude;
+                    _location.Longitude = f.Longitude;
                     LocationPin.Location = _location;
                     FillLocationMap.Center = LocationPin.Location;
                 }
             }
             base.OnNavigatedTo(e);
+        }
+
+        private void FillControls(string Name, ViewModel.FillUp f)
+        {
+            PageTitle.Text = Name;
+            Odo_txt.Text = f.Odometer.ToString();
+            Dist_txt.Text = f.Distance.ToString();
+            Quantity_txt.Text = f.Quantity.ToString();
+            Mile_txt.Text = Math.Round((f.Distance / f.Quantity), 2).ToString();
+            Cost_txt.Text = f.Cost.ToString();
+            Date_txt.Text = f.Date.ToString();
+            Notes_txt.Text = f.Notes.ToString();
+        }
+
+        private void CalcDistance(ViewModel.Vehicle vehs, ObservableCollection<ViewModel.FillUp> fills, ViewModel.FillUp f)
+        {
+            if (_index.Equals("0"))
+            {
+                f.Distance = fills[Int32.Parse(_index)].Odometer - vehs.InitOdometer;
+            }
+            else
+            {
+                f.Distance = fills[Int32.Parse(_index)].Odometer - fills[Int32.Parse(_index) - 1].Odometer;
+            }
         }
 
         /// <summary>
@@ -93,10 +107,6 @@ namespace LiquidGold
                         if (args.Result == DialogResult.OK)
                         {
                             DeleteFill();
-                        }
-                        else
-                        {
-
                         }
                     }
             );

@@ -535,11 +535,8 @@ namespace LiquidGold
 
             try
             {
-                NavigationService.Navigate(new Uri("/ViewFill.xaml?Name=" + VehicleName.Text + "&Odo=" + fill.Odometer.ToString() +
-                                                    "&Date=" + fill.Date.ToString() + "&Cost=" + fill.Cost.ToString() +
-                                                    "&Notes=" + fill.Notes.ToString() + "&Quantity=" + fill.Quantity.ToString() + 
-                                                    "&Lat=" + fill.Latitude.ToString() + "&Lon=" + fill.Longitude.ToString() + 
-                                                    "&Index=" + HistoryList.SelectedIndex.ToString(), UriKind.Relative));
+                NavigationService.Navigate(new Uri("/ViewFill.xaml?Name=" + VehicleName.Text +  "&Index=" + HistoryList.SelectedIndex.ToString(), UriKind.Relative));
+                HistoryList.SelectedIndex = -1;
             }
             catch (NullReferenceException) { }
         }
@@ -552,6 +549,7 @@ namespace LiquidGold
         private void StatsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {       
             NavigationService.Navigate(new Uri("/Charts.xaml?Name=" + CurrentVehicle.Name + "&Index=" + StatsList.SelectedIndex, UriKind.Relative));
+            StatsList.SelectedIndex = -1;
         }
 
         /// <summary>
