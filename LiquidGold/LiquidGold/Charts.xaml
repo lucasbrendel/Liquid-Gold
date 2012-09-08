@@ -53,7 +53,7 @@
             <telerikInput:RadListPicker Grid.Row="0" Name="ChartList" ItemTemplate="{StaticResource StatPicker}" Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch" SelectionChanged="ChartList_SelectionChanged" />
             <chart:RadCartesianChart Grid.Row="1" x:Name="Chart" VerticalAlignment="Stretch" >
                 <chart:RadCartesianChart.HorizontalAxis>
-                    <chart:DateTimeCategoricalAxis LabelFitMode="Rotate" LabelFormat="dd MMM yyyy"/>
+                    <chart:DateTimeContinuousAxis LabelFitMode="Rotate" LabelFormat="MMM dd yyyy" LabelInterval="3"/>
                 </chart:RadCartesianChart.HorizontalAxis>
                 <chart:RadCartesianChart.VerticalAxis>
                     <chart:LinearAxis />
