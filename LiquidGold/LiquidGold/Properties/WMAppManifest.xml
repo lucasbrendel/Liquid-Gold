@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{261cf188-324b-4a90-89b6-a3abfeff33bc}" Title="Liquid Gold" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="LiquidGold author" Description="Sample description" Publisher="LiquidGold">
+  <App xmlns="" ProductID="{261cf188-324b-4a90-89b6-a3abfeff33bc}" Title="Liquid Gold" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="Lucas Brendel" Description="Fuel consumption tracker" Publisher="Lucas Brendel">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
