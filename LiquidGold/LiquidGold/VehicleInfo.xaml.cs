@@ -630,8 +630,11 @@ namespace LiquidGold
             RefreshPage(VehicleName.Text);
         }
 
-        #endregion Events
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ContextDelete_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menu = (MenuItem)sender;
@@ -650,6 +653,18 @@ namespace LiquidGold
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void vehList_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+        }
+
+        #endregion Events
     }
 
     public class Stats
