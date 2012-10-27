@@ -1,0 +1,7 @@
+<MarketplaceDetails>
+  <SmallAppTile>Background.png</SmallAppTile>
+  <LargeAppTile>ApplicationIcon.png</LargeAppTile>
+  <PCAppTile>
+  </PCAppTile>
+  <ScreenShots>AddVehicle.png;;;;;;;;</ScreenShots>
+</MarketplaceDetails>

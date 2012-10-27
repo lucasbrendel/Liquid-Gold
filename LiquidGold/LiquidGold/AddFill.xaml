@@ -48,28 +48,19 @@
                     <toolkit:ListPicker Name="VehiclesList" ItemTemplate="{StaticResource VehiclesPicker}" 
                                         FullModeItemTemplate="{StaticResource VehicleFullModePicker}"
                                         FullModeHeader="Vehicles" />
-                    <TextBlock Text="Odometer" Style="{StaticResource TextCustomTitleStyle}"/>
-                    <TextBox Name="Odo_txt" InputScope="TelephoneNumber"/>
+                    <telerikPrimitives:RadTextBox Header="Odometer" Name="Odo_txt" InputScope="TelephoneNumber"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <TextBlock Grid.Column="0" Text="Quantity" Style="{StaticResource TextCustomTitleStyle}"/>
-                            <TextBox Grid.Column="0" Name="Quantity_txt" InputScope="TelephoneNumber"/>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Grid.Column="1" Text="Cost per unit" Style="{StaticResource TextCustomTitleStyle}"/>
-                            <TextBox Grid.Column="1" Name="Cost_txt" InputScope="TelephoneNumber"/>
-                        </StackPanel>
+                        <telerikPrimitives:RadTextBox Grid.Column="0" Header="Quantity" Name="Quantity_txt" InputScope="TelephoneNumber"/>
+                        <telerikPrimitives:RadTextBox Grid.Column="1" Header="Cost per Unit" Name="Cost_txt" InputScope="TelephoneNumber"/>
                     </Grid>
-                    <TextBlock Text="Date of Fill" Style="{StaticResource TextCustomTitleStyle}"/>
-                    <telerikInput:RadDatePicker Width="Auto" HorizontalAlignment="Left" Name="FillDate" OkButtonIconUri="/Icons/Check.png" CancelButtonIconUri="/Icons/appbar.cancel.dark.png"/>
+                    <telerikInput:RadDatePicker Header="Date of Fill" Width="Auto" HorizontalAlignment="Left" Name="FillDate" OkButtonIconUri="/Icons/Check.png" CancelButtonIconUri="/Icons/appbar.cancel.dark.png"/>
                     <Button Content="Edit Location" Name="EditLocationBtn" Click="EditLocationBtn_Click"/>
                     <telerikPrimitives:RadToggleSwitch Name="LocationSwitch" Header="Save Location"/>
-                    <TextBlock Text="Notes" Style="{StaticResource TextCustomTitleStyle}"/>
-                    <TextBox Name="Notes_txt" Height="200"/>
+                    <telerikPrimitives:RadTextBox Header="Notes" Name="Notes_txt" Height="200"/>
                 </StackPanel>
             </ScrollViewer>
             <Grid Name="EditLocationPanel" Background="Transparent" Visibility="Collapsed">
@@ -85,12 +76,10 @@
                 <!--TitlePanel contains the name of the application and page title-->
                 <Button Content="Input Coordinates" HorizontalAlignment="Center" VerticalAlignment="Top" Name="InputCoordBtn" Click="InputCoordBtn_Click" Grid.ColumnSpan="2"/>
                 <StackPanel Name="LatPanel" Grid.Row="0" Grid.Column="0">
-                    <TextBlock FontSize="16" Text="Latitude" />
-                    <telerikPrimitives:RadTextBox Name="LatTxt" AcceptsReturn="False" LostFocus="LatTxt_LostFocus" InputScope="TelephoneNumber"/>
+                    <telerikPrimitives:RadTextBox Name="LatTxt" AcceptsReturn="False" Header="Latitude" LostFocus="LatTxt_LostFocus" InputScope="TelephoneNumber"/>
                 </StackPanel>
                 <StackPanel Name="LonPanel" Grid.Row="0" Grid.Column="1">
-                    <TextBlock FontSize="16" Text="Longitude"/>
-                    <telerikPrimitives:RadTextBox Name="LonTxt" AcceptsReturn="False" LostFocus="LonTxt_LostFocus" InputScope="TelephoneNumber"/>
+                    <telerikPrimitives:RadTextBox Name="LonTxt" AcceptsReturn="False" Header="Longitude" LostFocus="LonTxt_LostFocus" InputScope="TelephoneNumber"/>
                 </StackPanel>
 
                 <Grid x:Name="MapPanel" Grid.Row="1" Grid.ColumnSpan="2">
@@ -113,6 +102,9 @@
                     <Button Grid.Column="3" Grid.Row="1" Content="Cancel" Name="CancelBtn" Click="CancelBtn_Click"/>
                 </Grid>
             </Grid>
+        </Grid>
+        <Grid Name="ResultsPanel" Visibility="Collapsed">
+            
         </Grid>
     </Grid>
  

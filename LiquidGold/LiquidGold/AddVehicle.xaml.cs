@@ -41,31 +41,38 @@ namespace LiquidGold
         /// <param name="e"> Event argument</param>
         private void AddBtn_Click(object sender, EventArgs e)
         {
-            ViewModel.Vehicle vehicle = new ViewModel.Vehicle { Name = Name_txt.Text, Make = Make_txt.Text, Model = Model_txt.Text, InitOdometer = Double.Parse(InitOdo_txt.Text) };
-
-            if (Name_txt.Text != String.Empty)
+            try
             {
-                if (_vehicles.Contains(vehicle))
+                ViewModel.Vehicle vehicle = new ViewModel.Vehicle { Name = Name_txt.Text, Make = Make_txt.Text, Model = Model_txt.Text, InitOdometer = Double.Parse(InitOdo_txt.Text) };
+
+                if (Name_txt.Text != String.Empty)
                 {
-                    MessageBox.Show("This vehicle already exists and cannot be duplicated. Pick a different name please.", "ERROR", MessageBoxButton.OK);
-                }
-                else
-                {
-                    if (InitOdo_txt.Text != String.Empty)
+                    if (_vehicles.Contains(vehicle))
                     {
-                        (App.Current as App).Vehicles.VehicleItems.InsertOnSubmit(vehicle);
-                        IsValueAdded = true;
-                        NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+                        MessageBox.Show("This vehicle name already exists and cannot be duplicated. Pick a different name please.", "ERROR", MessageBoxButton.OK);
                     }
                     else
                     {
-                        MessageBox.Show("Please enter an intial odometer reading", "ERROR", MessageBoxButton.OK);
+                        if (InitOdo_txt.Text != String.Empty)
+                        {
+                            (App.Current as App).Vehicles.VehicleItems.InsertOnSubmit(vehicle);
+                            IsValueAdded = true;
+                            NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter an intial odometer reading", "ERROR", MessageBoxButton.OK);
+                        }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("The name of the vehicle cannot be empty", "ERROR", MessageBoxButton.OK);
+                }
             }
-            else
+            catch (FormatException)
             {
-                MessageBox.Show("The name of the vehicle cannot be empty", "ERROR", MessageBoxButton.OK);
+                MessageBox.Show("Double check your entries please. Something is wrong.", "ERROR", MessageBoxButton.OK);
             }
         }
 
@@ -90,6 +97,16 @@ namespace LiquidGold
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("//MainPage.xaml", UriKind.Relative));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InitOdo_txt_LostFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

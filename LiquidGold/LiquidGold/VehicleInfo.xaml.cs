@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
@@ -44,6 +45,7 @@ namespace LiquidGold
         public VehicleInfo()
         {
             InitializeComponent();
+            ValueIndicator.Value = 0;
             this.DataContext = this;
             _delete = false;
         }
@@ -665,6 +667,34 @@ namespace LiquidGold
         }
 
         #endregion Events
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            //AutoResetEvent autoReset = new AutoResetEvent(false);
+            //TimerCallback call = new TimerCallback(IncrementValue);
+            //Timer timer = new Timer(call, null, 0, 500);
+            //double max = AvgMileage();
+
+            //autoReset.WaitOne(100);
+
+            //while (ValueIndicator.Value < max)
+            //{
+            //    if ((ValueIndicator.Value + 1) > max)
+            //    {
+            //        timer.Change(0, 500);
+            //    }
+            //    else
+            //    {
+            //        ValueIndicator.Value = max;
+            //        timer.Dispose();
+            //    }
+            //}
+        }
+
+        public void IncrementValue(Object state)
+        {
+            ValueIndicator.Value++;
+        }
     }
 
     public class Stats
